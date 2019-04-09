@@ -20,11 +20,9 @@ DURATION:               'duration';
 ASSIGNMENT:             '=';
 
 WHITESPACES:            Whitespace+               -> channel(HIDDEN);
-NEWLINES:                NewLine+ | EOF;
+NEWLINES:               NewLine+;
 /*WHITESPACES:   (Whitespace | NewLine)+            -> channel(HIDDEN);*/
-/*
-SHARP:         '#'                                -> mode(DIRECTIVE_MODE);
-*/
+SHARP:                  '#';
 
 IDENTIFIER:             (Lowercase | Uppercase) (Lowercase | Uppercase | Digit)*;          
 
@@ -32,6 +30,8 @@ INTEGER_LITERAL:        [0-9]+;
 REAL_LITERAL:           [0-9]* '.' [0-9]+;
 
 REGULAR_STRING:         '"' (~["\\\r\n\u0085\u2028\u2029] | SimpleEscapeSequence)* '"';
+
+COMMENT:                SHARP ~[\r\n\u0085\u2028\u2029]*;
 
 fragment Lowercase:     [a-z];
 fragment Uppercase:     [A-Z];
@@ -94,24 +94,30 @@ ros_message
     : ros_message_element (NEWLINES ros_message_element)* EOF; 
 
 ros_message_element
-    : field_declaration 
-    | constant_declaration
-    /*| comment*/
-    ;
-
-constant_declaration
-    : (integral_type identifier ASSIGNMENT INTEGER_LITERAL)
-    | (floating_point_type identifier ASSIGNMENT (INTEGER_LITERAL | REAL_LITERAL))
-    | (BOOL identifier ASSIGNMENT INTEGER_LITERAL)
-    | (STRING identifier ASSIGNMENT REGULAR_STRING)
+    : field_declaration comment?
+    | constant_declaration comment?
+    | comment
     ;
 
 field_declaration
     : field_type identifier
     ;
     
+constant_declaration
+    : (integral_type identifier ASSIGNMENT INTEGER_LITERAL)
+    | (floating_point_type identifier ASSIGNMENT (INTEGER_LITERAL | REAL_LITERAL))
+    | (BOOL identifier ASSIGNMENT INTEGER_LITERAL)
+    | (STRING identifier ASSIGNMENT REGULAR_STRING)
+    ;
+ 
+ comment
+    : COMMENT
+    | SHARP
+    ;
+    
 identifier
-    : IDENTIFIER;
+    : IDENTIFIER
+    ;
 
 /* Field types are all built in types or custom message types */
 /* TODO: Custom message types */
