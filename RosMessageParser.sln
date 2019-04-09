@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RosMessageParser", "RosMessageParser\RosMessageParser.csproj", "{3723874E-A50C-47CF-AC05-E368B3D5B163}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3723874E-A50C-47CF-AC05-E368B3D5B163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3723874E-A50C-47CF-AC05-E368B3D5B163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3723874E-A50C-47CF-AC05-E368B3D5B163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3723874E-A50C-47CF-AC05-E368B3D5B163}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
