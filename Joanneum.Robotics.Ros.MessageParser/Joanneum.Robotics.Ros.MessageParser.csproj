@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>Joanneum.Robotics.Ros.MessageParser</AssemblyName>
+        <RootNamespace>Joanneum.Robotics.Ros.MessageParser</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Antlr4.Runtime.Standard" Version="4.7.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="AntlrGeneratedCode" />
+    </ItemGroup>
+
+</Project>
