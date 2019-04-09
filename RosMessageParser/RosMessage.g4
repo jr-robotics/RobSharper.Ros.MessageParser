@@ -2,8 +2,8 @@ grammar RosMessage;
 
 /* Built in data types */
 BOOL:                   'bool';
-INT8:                   'int8';
-UINT8:                  'uint8';
+INT8:                   'int8' | 'byte';
+UINT8:                  'uint8' | 'char';
 INT16:                  'int16';
 UINT16:                 'uint16';
 INT32:                  'int32';
@@ -98,8 +98,8 @@ ros_message_element
     ;
 
 field_declaration
-    : field_type identifier comment?
-    | header_declaration comment?
+    : (type | array_type) identifier comment?
+    | header_type comment?
     ;
     
 constant_declaration
@@ -117,18 +117,31 @@ identifier
     : IDENTIFIER
     ;
 
-header_declaration
+header_type
     : 'Header' 'header'
     ;
     
 /* Field types are all built in types or custom message types */
-field_type
+type
     : numeric_type
     | temportal_type
     | BOOL
     | STRING
     | external_message_type
     | internal_message_type
+    ;
+    
+array_type
+    : variable_array_type
+    | fixed_array_type
+    ;
+    
+variable_array_type
+    : type '[' ']'
+    ;
+    
+fixed_array_type
+    : type '[' INTEGER_LITERAL ']'
     ;
 
 external_message_type
