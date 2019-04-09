@@ -16,21 +16,19 @@ STRING:                 'string';
 TIME:                   'time';
 DURATION:               'duration';
 
-/* Operators */
+
 ASSIGNMENT:             '=';
+SHARP:                  '#';
 
 WHITESPACES:            Whitespace+               -> channel(HIDDEN);
 NEWLINES:               NewLine+;
-/*WHITESPACES:   (Whitespace | NewLine)+            -> channel(HIDDEN);*/
-SHARP:                  '#';
 
-IDENTIFIER:             (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*;          
+IDENTIFIER:             (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*; 
 
 INTEGER_LITERAL:        [0-9]+;
 REAL_LITERAL:           [0-9]* '.' [0-9]+;
 
 REGULAR_STRING:         '"' (~["\\\r\n\u0085\u2028\u2029] | SimpleEscapeSequence)* '"';
-
 COMMENT:                SHARP | SHARP ~[\r\n\u0085\u2028\u2029]*;
 
 fragment Lowercase:     [a-z];
@@ -94,20 +92,21 @@ ros_message
     : ros_message_element (NEWLINES ros_message_element)* EOF; 
 
 ros_message_element
-    : field_declaration comment?
-    | constant_declaration comment?
+    : field_declaration
+    | constant_declaration
     | comment
     ;
 
 field_declaration
-    : field_type identifier
+    : field_type identifier comment?
+    | header_declaration comment?
     ;
     
 constant_declaration
-    : (integral_type identifier ASSIGNMENT INTEGER_LITERAL)
-    | (floating_point_type identifier ASSIGNMENT (INTEGER_LITERAL | REAL_LITERAL))
-    | (BOOL identifier ASSIGNMENT INTEGER_LITERAL)
-    | (STRING identifier ASSIGNMENT REGULAR_STRING)
+    : (integral_type identifier ASSIGNMENT INTEGER_LITERAL) comment?
+    | (floating_point_type identifier ASSIGNMENT (INTEGER_LITERAL | REAL_LITERAL)) comment?
+    | (BOOL identifier ASSIGNMENT INTEGER_LITERAL) comment?
+    | (STRING identifier ASSIGNMENT REGULAR_STRING) comment?
     ;
  
  comment
@@ -118,15 +117,29 @@ identifier
     : IDENTIFIER
     ;
 
+header_declaration
+    : 'Header' 'header'
+    ;
+    
 /* Field types are all built in types or custom message types */
-/* TODO: Custom message types */
 field_type
     : numeric_type
     | temportal_type
     | BOOL
     | STRING
+    | external_message_type
+    | internal_message_type
+    ;
+
+external_message_type
+    : IDENTIFIER '/' IDENTIFIER
+    ;
+
+internal_message_type
+    : IDENTIFIER
     ;
     
+
 numeric_type 
 	: integral_type
 	| floating_point_type
