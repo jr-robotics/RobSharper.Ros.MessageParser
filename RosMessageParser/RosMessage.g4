@@ -24,14 +24,14 @@ NEWLINES:               NewLine+;
 /*WHITESPACES:   (Whitespace | NewLine)+            -> channel(HIDDEN);*/
 SHARP:                  '#';
 
-IDENTIFIER:             (Lowercase | Uppercase) (Lowercase | Uppercase | Digit)*;          
+IDENTIFIER:             (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*;          
 
 INTEGER_LITERAL:        [0-9]+;
 REAL_LITERAL:           [0-9]* '.' [0-9]+;
 
 REGULAR_STRING:         '"' (~["\\\r\n\u0085\u2028\u2029] | SimpleEscapeSequence)* '"';
 
-COMMENT:                SHARP ~[\r\n\u0085\u2028\u2029]*;
+COMMENT:                SHARP | SHARP ~[\r\n\u0085\u2028\u2029]*;
 
 fragment Lowercase:     [a-z];
 fragment Uppercase:     [A-Z];
@@ -112,7 +112,6 @@ constant_declaration
  
  comment
     : COMMENT
-    | SHARP
     ;
     
 identifier
