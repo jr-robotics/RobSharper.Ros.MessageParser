@@ -105,8 +105,8 @@ field_declaration
 constant_declaration
     : (integral_type identifier ASSIGNMENT INTEGER_LITERAL) comment?
     | (floating_point_type identifier ASSIGNMENT (INTEGER_LITERAL | REAL_LITERAL)) comment?
-    | (BOOL identifier ASSIGNMENT INTEGER_LITERAL) comment?
-    | (STRING identifier ASSIGNMENT REGULAR_STRING) comment?
+    | (boolean_type identifier ASSIGNMENT INTEGER_LITERAL) comment?
+    | (string_type identifier ASSIGNMENT REGULAR_STRING) comment?
     ;
  
  comment
@@ -123,11 +123,19 @@ header_type
     
 /* Field types are all built in types or custom message types */
 type
+    : base_type
+    | complex_type
+    ;
+
+base_type
     : numeric_type
     | temportal_type
     | boolean_type
     | string_type
-    | external_message_type
+    ;
+
+complex_type
+    : external_message_type
     | internal_message_type
     ;
     
