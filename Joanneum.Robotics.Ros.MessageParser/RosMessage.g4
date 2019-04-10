@@ -16,15 +16,11 @@ STRING:                 'string';
 TIME:                   'time';
 DURATION:               'duration';
 
-
 ASSIGNMENT:             '=';
 SHARP:                  '#';
 
 MESSAGE_SEPARATOR:      '---';
-
-WHITESPACES:            Whitespace+               -> channel(HIDDEN);
-NEWLINES:               NewLine+;
-NEWLINE:                NewLine;                
+NEWLINE:                NewLine;
 
 IDENTIFIER:             (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*; 
 
@@ -33,6 +29,9 @@ REAL_LITERAL:           [0-9]* '.' [0-9]+;
 
 REGULAR_STRING:         '"' (~["\\\r\n\u0085\u2028\u2029] | SimpleEscapeSequence)* '"';
 COMMENT:                SHARP | SHARP ~[\r\n\u0085\u2028\u2029]*;
+
+ROSBAG_MESSAGE_SEPARATOR: '='+ NewLine          -> channel(HIDDEN);
+WHITESPACES:            Whitespace+             -> channel(HIDDEN);
 
 fragment Lowercase:     [a-z];
 fragment Uppercase:     [A-Z];
@@ -90,6 +89,9 @@ fragment SimpleEscapeSequence
 /*
  PARSER RULES
 */
+
+
+/* ROS Message files */
 ros_file_input
     : ros_message EOF
     | ros_action EOF
@@ -97,7 +99,7 @@ ros_file_input
     ;
 
 ros_message
-    : (NEWLINES | ros_message_element)+
+    : (linebreaks | field_declaration | constant_declaration | comment)+
     ;
 
 ros_action
@@ -108,16 +110,21 @@ ros_service
     : ros_message MESSAGE_SEPARATOR ros_message
     ;
 
+/* ROSBAG Message format */
+rosbag_input
+    : ros_message rosbag_nested_message* EOF
+    ;
 
-ros_message_element
-    : field_declaration
-    | constant_declaration
-    | comment
+rosbag_nested_message
+    : 'MSG:' complex_type NEWLINE ros_message
+    ;
+
+linebreaks
+    : NEWLINE+
     ;
 
 field_declaration
     : (type | array_type) identifier comment?
-    | header_type comment?
     ;
     
 constant_declaration
@@ -133,10 +140,6 @@ constant_declaration
     
 identifier
     : IDENTIFIER
-    ;
-
-header_type
-    : 'Header' 'header'
     ;
     
 /* Field types are all built in types or custom message types */
