@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:/BRG/Projekte/RosMessageParser/RosMessageParser\RosMessage.g4 by ANTLR 4.7.2
+// Generated from D:/BRG/Projekte/RosMessageParser/Joanneum.Robotics.Ros.MessageParser\RosMessage.g4 by ANTLR 4.7.2
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -134,5 +134,17 @@ public interface IRosMessageVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitTemportal_type([NotNull] RosMessageParser.Temportal_typeContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.string_type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitString_type([NotNull] RosMessageParser.String_typeContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.boolean_type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBoolean_type([NotNull] RosMessageParser.Boolean_typeContext context);
 }
 } // namespace Joanneum.Robotics.Ros.MessageParser

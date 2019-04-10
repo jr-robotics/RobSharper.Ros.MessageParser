@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:/BRG/Projekte/RosMessageParser/RosMessageParser\RosMessage.g4 by ANTLR 4.7.2
+// Generated from D:/BRG/Projekte/RosMessageParser/Joanneum.Robotics.Ros.MessageParser\RosMessage.g4 by ANTLR 4.7.2
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -204,5 +204,25 @@ public partial class RosMessageBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitTemportal_type([NotNull] RosMessageParser.Temportal_typeContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.string_type"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitString_type([NotNull] RosMessageParser.String_typeContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.boolean_type"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitBoolean_type([NotNull] RosMessageParser.Boolean_typeContext context) { return VisitChildren(context); }
 }
 } // namespace Joanneum.Robotics.Ros.MessageParser

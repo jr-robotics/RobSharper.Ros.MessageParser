@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:/BRG/Projekte/RosMessageParser/RosMessageParser\RosMessage.g4 by ANTLR 4.7.2
+// Generated from D:/BRG/Projekte/RosMessageParser/Joanneum.Robotics.Ros.MessageParser\RosMessage.g4 by ANTLR 4.7.2
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -239,6 +239,30 @@ public partial class RosMessageBaseListener : IRosMessageListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitTemportal_type([NotNull] RosMessageParser.Temportal_typeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.string_type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterString_type([NotNull] RosMessageParser.String_typeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.string_type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitString_type([NotNull] RosMessageParser.String_typeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.boolean_type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBoolean_type([NotNull] RosMessageParser.Boolean_typeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.boolean_type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBoolean_type([NotNull] RosMessageParser.Boolean_typeContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

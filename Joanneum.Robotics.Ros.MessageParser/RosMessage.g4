@@ -125,8 +125,8 @@ header_type
 type
     : numeric_type
     | temportal_type
-    | BOOL
-    | STRING
+    | boolean_type
+    | string_type
     | external_message_type
     | internal_message_type
     ;
@@ -177,4 +177,12 @@ floating_point_type
 temportal_type
     : TIME
     | DURATION
+    ;
+    
+string_type
+    : STRING
+    ;
+
+boolean_type
+    : BOOL
     ;

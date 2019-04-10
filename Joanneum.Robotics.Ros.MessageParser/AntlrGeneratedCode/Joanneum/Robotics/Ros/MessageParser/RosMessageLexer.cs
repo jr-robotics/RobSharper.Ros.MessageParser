@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:/BRG/Projekte/RosMessageParser/RosMessageParser\RosMessage.g4 by ANTLR 4.7.2
+// Generated from D:/BRG/Projekte/RosMessageParser/Joanneum.Robotics.Ros.MessageParser\RosMessage.g4 by ANTLR 4.7.2
 
 // Unreachable code detected
 #pragma warning disable 0162
