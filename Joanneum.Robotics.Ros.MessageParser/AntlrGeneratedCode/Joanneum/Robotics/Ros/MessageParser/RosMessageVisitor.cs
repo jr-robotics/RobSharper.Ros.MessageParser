@@ -33,17 +33,47 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface IRosMessageVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_file_input"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRos_file_input([NotNull] RosMessageParser.Ros_file_inputContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitRos_message([NotNull] RosMessageParser.Ros_messageContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_message_element"/>.
+	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_action"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitRos_message_element([NotNull] RosMessageParser.Ros_message_elementContext context);
+	Result VisitRos_action([NotNull] RosMessageParser.Ros_actionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_service"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRos_service([NotNull] RosMessageParser.Ros_serviceContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.rosbag_input"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRosbag_input([NotNull] RosMessageParser.Rosbag_inputContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.rosbag_nested_message"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRosbag_nested_message([NotNull] RosMessageParser.Rosbag_nested_messageContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.linebreaks"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitLinebreaks([NotNull] RosMessageParser.LinebreaksContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="RosMessageParser.field_declaration"/>.
 	/// </summary>
@@ -69,17 +99,23 @@ public interface IRosMessageVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitIdentifier([NotNull] RosMessageParser.IdentifierContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="RosMessageParser.header_type"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitHeader_type([NotNull] RosMessageParser.Header_typeContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="RosMessageParser.type"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitType([NotNull] RosMessageParser.TypeContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.base_type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBase_type([NotNull] RosMessageParser.Base_typeContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.complex_type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitComplex_type([NotNull] RosMessageParser.Complex_typeContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="RosMessageParser.array_type"/>.
 	/// </summary>

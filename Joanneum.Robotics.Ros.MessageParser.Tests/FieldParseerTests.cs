@@ -32,7 +32,6 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             
             treeWalker.Walk(listener, context);
             
-            mock.Verify(x => x.EnterRos_message_element(It.IsAny<RosMessageParser.Ros_message_elementContext>()), Times.Once);
             mock.Verify(x => x.EnterIntegral_type(It.Is<RosMessageParser.Integral_typeContext>(c => dataType.Equals(c.GetText()))));
             mock.Verify(x => x.EnterIdentifier(It.Is<RosMessageParser.IdentifierContext>(c => "FooBarField".Equals(c.GetText()))));
         }
@@ -51,7 +50,6 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             
             treeWalker.Walk(listener, context);
             
-            mock.Verify(x => x.EnterRos_message_element(It.IsAny<RosMessageParser.Ros_message_elementContext>()), Times.Once);
             mock.Verify(x => x.EnterString_type(It.Is<RosMessageParser.String_typeContext>(c => "string".Equals(c.GetText()))));
             mock.Verify(x => x.EnterIdentifier(It.Is<RosMessageParser.IdentifierContext>(c => "FooBarField".Equals(c.GetText()))));
         }
@@ -70,7 +68,6 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             
             treeWalker.Walk(listener, context);
             
-            mock.Verify(x => x.EnterRos_message_element(It.IsAny<RosMessageParser.Ros_message_elementContext>()), Times.Once);
             mock.Verify(x => x.EnterBoolean_type(It.Is<RosMessageParser.Boolean_typeContext>(c => "bool".Equals(c.GetText()))));
             mock.Verify(x => x.EnterIdentifier(It.Is<RosMessageParser.IdentifierContext>(c => "FooBarField".Equals(c.GetText()))));
         }
@@ -93,27 +90,8 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             
             treeWalker.Walk(listener, context);
             
-            mock.Verify(x => x.EnterRos_message_element(It.IsAny<RosMessageParser.Ros_message_elementContext>()), Times.Once);
             mock.Verify(x => x.EnterTemportal_type(It.Is<RosMessageParser.Temportal_typeContext>(c => dataType.Equals(c.GetText()))));
             mock.Verify(x => x.EnterIdentifier(It.Is<RosMessageParser.IdentifierContext>(c => "FooBarField".Equals(c.GetText()))));
-        }
-        
-        [Fact]
-        public void CanParseHeaderField()
-        {
-            var message = "Header header";
-            var messageParser = ParserHelper.CreateParserForMessage(message);
-
-            var context = messageParser.ros_message();
-            var mock = ParserHelper.CreateListenerMock();
-            
-            var listener = mock.Object;
-            var treeWalker = new ParseTreeWalker();
-            
-            treeWalker.Walk(listener, context);
-            
-            mock.Verify(x => x.EnterRos_message_element(It.IsAny<RosMessageParser.Ros_message_elementContext>()), Times.Once);
-            mock.Verify(x => x.EnterHeader_type(It.IsAny<RosMessageParser.Header_typeContext>()));
         }
         
         [Fact]
@@ -130,7 +108,6 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             
             treeWalker.Walk(listener, context);
             
-            mock.Verify(x => x.EnterRos_message_element(It.IsAny<RosMessageParser.Ros_message_elementContext>()), Times.Once);
             mock.Verify(x => x.EnterInternal_message_type(It.Is<RosMessageParser.Internal_message_typeContext>(c => "MyCustomType".Equals(c.GetText()))));
             mock.Verify(x => x.EnterIdentifier(It.Is<RosMessageParser.IdentifierContext>(c => "FooBarField".Equals(c.GetText()))));
         }
@@ -149,7 +126,6 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             
             treeWalker.Walk(listener, context);
             
-            mock.Verify(x => x.EnterRos_message_element(It.IsAny<RosMessageParser.Ros_message_elementContext>()), Times.Once);
             mock.Verify(x => x.EnterExternal_message_type(It.Is<RosMessageParser.External_message_typeContext>(c => "my_packae_msgs/MyCustomType".Equals(c.GetText()))));
             mock.Verify(x => x.EnterIdentifier(It.Is<RosMessageParser.IdentifierContext>(c => "FooBarField".Equals(c.GetText()))));
         }

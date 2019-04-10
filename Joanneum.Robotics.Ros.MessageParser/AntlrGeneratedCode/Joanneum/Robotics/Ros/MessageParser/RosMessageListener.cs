@@ -32,6 +32,16 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface IRosMessageListener : IParseTreeListener {
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_file_input"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRos_file_input([NotNull] RosMessageParser.Ros_file_inputContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_file_input"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRos_file_input([NotNull] RosMessageParser.Ros_file_inputContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -42,15 +52,55 @@ public interface IRosMessageListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitRos_message([NotNull] RosMessageParser.Ros_messageContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_message_element"/>.
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_action"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterRos_message_element([NotNull] RosMessageParser.Ros_message_elementContext context);
+	void EnterRos_action([NotNull] RosMessageParser.Ros_actionContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_message_element"/>.
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_action"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitRos_message_element([NotNull] RosMessageParser.Ros_message_elementContext context);
+	void ExitRos_action([NotNull] RosMessageParser.Ros_actionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_service"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRos_service([NotNull] RosMessageParser.Ros_serviceContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_service"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRos_service([NotNull] RosMessageParser.Ros_serviceContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.rosbag_input"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRosbag_input([NotNull] RosMessageParser.Rosbag_inputContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.rosbag_input"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRosbag_input([NotNull] RosMessageParser.Rosbag_inputContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.rosbag_nested_message"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRosbag_nested_message([NotNull] RosMessageParser.Rosbag_nested_messageContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.rosbag_nested_message"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRosbag_nested_message([NotNull] RosMessageParser.Rosbag_nested_messageContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.linebreaks"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLinebreaks([NotNull] RosMessageParser.LinebreaksContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.linebreaks"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLinebreaks([NotNull] RosMessageParser.LinebreaksContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.field_declaration"/>.
 	/// </summary>
@@ -92,16 +142,6 @@ public interface IRosMessageListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitIdentifier([NotNull] RosMessageParser.IdentifierContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.header_type"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterHeader_type([NotNull] RosMessageParser.Header_typeContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.header_type"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitHeader_type([NotNull] RosMessageParser.Header_typeContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.type"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -111,6 +151,26 @@ public interface IRosMessageListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitType([NotNull] RosMessageParser.TypeContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.base_type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBase_type([NotNull] RosMessageParser.Base_typeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.base_type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBase_type([NotNull] RosMessageParser.Base_typeContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.complex_type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterComplex_type([NotNull] RosMessageParser.Complex_typeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.complex_type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitComplex_type([NotNull] RosMessageParser.Complex_typeContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.array_type"/>.
 	/// </summary>
