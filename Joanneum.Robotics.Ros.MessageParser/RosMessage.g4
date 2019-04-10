@@ -20,8 +20,11 @@ DURATION:               'duration';
 ASSIGNMENT:             '=';
 SHARP:                  '#';
 
+MESSAGE_SEPARATOR:      '---';
+
 WHITESPACES:            Whitespace+               -> channel(HIDDEN);
 NEWLINES:               NewLine+;
+NEWLINE:                NewLine;                
 
 IDENTIFIER:             (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*; 
 
@@ -87,9 +90,24 @@ fragment SimpleEscapeSequence
 /*
  PARSER RULES
 */
+ros_file_input
+    : ros_message EOF
+    | ros_action EOF
+    | ros_service EOF
+    ;
 
 ros_message
-    : ros_message_element (NEWLINES ros_message_element)* EOF; 
+    : (NEWLINES | ros_message_element)+
+    ;
+
+ros_action
+    : ros_message MESSAGE_SEPARATOR ros_message MESSAGE_SEPARATOR ros_message
+    ;
+
+ros_service
+    : ros_message MESSAGE_SEPARATOR ros_message
+    ;
+
 
 ros_message_element
     : field_declaration
