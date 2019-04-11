@@ -14,15 +14,6 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             var messageParser = new RosMessageParser(tokenStream);
             return messageParser;
         }
-        
-        public static Mock<RosMessageBaseVisitor<object>> CreateVisitorMock()
-        {
-            var mock = new Mock<RosMessageBaseVisitor<object>>()
-            {
-                CallBase = true
-            };
-            return mock;
-        }
 
         public static Mock<RosMessageBaseListener> CreateListenerMock()
         {

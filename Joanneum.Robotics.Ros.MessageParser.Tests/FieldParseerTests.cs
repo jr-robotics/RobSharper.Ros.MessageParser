@@ -108,7 +108,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             
             treeWalker.Walk(listener, context);
             
-            mock.Verify(x => x.EnterInternal_message_type(It.Is<RosMessageParser.Internal_message_typeContext>(c => "MyCustomType".Equals(c.GetText()))));
+            mock.Verify(x => x.EnterRos_type(It.Is<RosMessageParser.Ros_typeContext>(c => "MyCustomType".Equals(c.GetText()))));
             mock.Verify(x => x.EnterIdentifier(It.Is<RosMessageParser.IdentifierContext>(c => "FooBarField".Equals(c.GetText()))));
         }
         
@@ -126,7 +126,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             
             treeWalker.Walk(listener, context);
             
-            mock.Verify(x => x.EnterExternal_message_type(It.Is<RosMessageParser.External_message_typeContext>(c => "my_packae_msgs/MyCustomType".Equals(c.GetText()))));
+            mock.Verify(x => x.EnterRos_type(It.Is<RosMessageParser.Ros_typeContext>(c => "my_packae_msgs/MyCustomType".Equals(c.GetText()))));
             mock.Verify(x => x.EnterIdentifier(It.Is<RosMessageParser.IdentifierContext>(c => "FooBarField".Equals(c.GetText()))));
         }
     }

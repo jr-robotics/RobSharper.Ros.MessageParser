@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Joanneum.Robotics.Ros.MessageParser
 {
-    public class RosMessageType
+    public class RosTypeDescriptor
     {
         public string TypeName { get; }
         public string PackageName { get; }
@@ -13,7 +13,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             get { return PackageName != null; }
         }
 
-        public RosMessageType(string typeName, string packageName = null)
+        public RosTypeDescriptor(string typeName, string packageName = null)
         {
             if (typeName == null) throw new ArgumentNullException(nameof(typeName));
             
@@ -25,7 +25,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         }
         
         
-        protected bool Equals(RosMessageType other)
+        protected bool Equals(RosTypeDescriptor other)
         {
             return string.Equals(TypeName, other.TypeName) && string.Equals(PackageName, other.PackageName);
         }
@@ -35,7 +35,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((RosMessageType) obj);
+            return Equals((RosTypeDescriptor) obj);
         }
 
         public override int GetHashCode()
@@ -58,11 +58,11 @@ namespace Joanneum.Robotics.Ros.MessageParser
             }
         }
 
-        public static RosMessageType Parse(string messageType)
+        public static RosTypeDescriptor Parse(string messageType)
         {
             if (messageType == null) throw new ArgumentNullException(nameof(messageType));
 
-            if (RosMessagePrimitiveType.IsPrimitiveType(messageType))
+            if (PrimitiveTypeDescriptor.IsPrimitiveType(messageType))
             {
                 throw new InvalidOperationException("Message type is a primitive ros type");
             }
@@ -70,14 +70,14 @@ namespace Joanneum.Robotics.Ros.MessageParser
             // Header is a "special" built in type
             if (messageType == "Header")
             {
-                return new RosMessageType("std_msgs", "Header");
+                return new RosTypeDescriptor("std_msgs", "Header");
             }
 
             var parts = messageType.Split('/')
                 .Reverse()
                 .ToArray();
             
-            return new RosMessageType(parts[0], parts[1]);
+            return new RosTypeDescriptor(parts[0], parts[1]);
         }
     }
 }

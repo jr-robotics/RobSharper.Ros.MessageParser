@@ -192,17 +192,17 @@ public partial class RosMessageBaseListener : IRosMessageListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBase_type([NotNull] RosMessageParser.Base_typeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.complex_type"/>.
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterComplex_type([NotNull] RosMessageParser.Complex_typeContext context) { }
+	public virtual void EnterRos_type([NotNull] RosMessageParser.Ros_typeContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.complex_type"/>.
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitComplex_type([NotNull] RosMessageParser.Complex_typeContext context) { }
+	public virtual void ExitRos_type([NotNull] RosMessageParser.Ros_typeContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.array_type"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -239,30 +239,6 @@ public partial class RosMessageBaseListener : IRosMessageListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitFixed_array_type([NotNull] RosMessageParser.Fixed_array_typeContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.external_message_type"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterExternal_message_type([NotNull] RosMessageParser.External_message_typeContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.external_message_type"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitExternal_message_type([NotNull] RosMessageParser.External_message_typeContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.internal_message_type"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterInternal_message_type([NotNull] RosMessageParser.Internal_message_typeContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.internal_message_type"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitInternal_message_type([NotNull] RosMessageParser.Internal_message_typeContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.numeric_type"/>.
 	/// <para>The default implementation does nothing.</para>

@@ -32,7 +32,7 @@ IDENTIFIER:                 (Lowercase | Uppercase) (Lowercase | Uppercase | Dig
 INTEGER_LITERAL:            [0-9]+;
 REAL_LITERAL:               [0-9]* '.' [0-9]+;
 
-STRING_CONST_ASSIGNMENT:    ASSIGNMENT ~[\r\n\u0085\u2028\u2029]*;
+STRING_CONST_ASSIGNMENT:    ASSIGNMENT '#' ~[\r\n\u0085\u2028\u2029]*;
 COMMENT:                    SHARP | SHARP ~[\r\n\u0085\u2028\u2029]*;
 
 ROSBAG_MESSAGE_SEPARATOR:   '='+ NewLine                        -> channel(HIDDEN);
@@ -107,7 +107,7 @@ rosbag_input
     ;
 
 rosbag_nested_message
-    : 'MSG:' complex_type NEWLINE ros_message
+    : 'MSG:' ros_type NEWLINE ros_message
     ;
 
 linebreaks
@@ -141,7 +141,7 @@ identifier
 /* Field types are all built in types or custom message types */
 type
     : base_type
-    | complex_type
+    | ros_type
     ;
 
 base_type
@@ -151,9 +151,9 @@ base_type
     | string_type
     ;
 
-complex_type
-    : external_message_type
-    | internal_message_type
+ros_type
+    : IDENTIFIER
+    | IDENTIFIER '/' IDENTIFIER
     ;
     
 array_type
@@ -168,16 +168,8 @@ variable_array_type
 fixed_array_type
     : type '[' INTEGER_LITERAL ']'
     ;
-
-external_message_type
-    : IDENTIFIER '/' IDENTIFIER
-    ;
-
-internal_message_type
-    : IDENTIFIER
-    ;
    
-numeric_type 
+numeric_type
 	: integral_type
 	| floating_point_type
 	;
