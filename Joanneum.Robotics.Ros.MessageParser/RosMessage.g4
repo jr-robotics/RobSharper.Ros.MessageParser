@@ -1,46 +1,46 @@
 grammar RosMessage;
 
 /* Built in data types */
-BOOL:                   'bool';
-INT8:                   'int8' | 'byte';
-UINT8:                  'uint8' | 'char';
-INT16:                  'int16';
-UINT16:                 'uint16';
-INT32:                  'int32';
-UINT32:                 'uint32';
-INT64:                  'int64';
-UINT64:                 'uint64';
-FLOAT32:                'float32';
-FLOAT64:                'float64';
-STRING:                 'string';
-TIME:                   'time';
-DURATION:               'duration';
+BOOL:                       'bool';
+INT8:                       'int8' | 'byte';
+UINT8:                      'uint8' | 'char';
+INT16:                      'int16';
+UINT16:                     'uint16';
+INT32:                      'int32';
+UINT32:                     'uint32';
+INT64:                      'int64';
+UINT64:                     'uint64';
+FLOAT32:                    'float32';
+FLOAT64:                    'float64';
+STRING:                     'string';
+TIME:                       'time';
+DURATION:                   'duration';
 
-ASSIGNMENT:             '=';
-PLUS:                   '+';
-MINUS:                  '-';
-SHARP:                  '#';
+ASSIGNMENT:                 '=';
+PLUS:                       '+';
+MINUS:                      '-';
+SHARP:                      '#';
 
-TRUE:                   'True';
-FALSE:                  'False';
+TRUE:                       'True';
+FALSE:                      'False';
 
-MESSAGE_SEPARATOR:      '---';
-NEWLINE:                NewLine;
+MESSAGE_SEPARATOR:          '---';
+NEWLINE:                    NewLine;
 
-IDENTIFIER:             (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*; 
+IDENTIFIER:                 (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*; 
 
-INTEGER_LITERAL:        [0-9]+;
-REAL_LITERAL:           [0-9]* '.' [0-9]+;
+INTEGER_LITERAL:            [0-9]+;
+REAL_LITERAL:               [0-9]* '.' [0-9]+;
 
-REGULAR_STRING:         '"' (~["\\\r\n\u0085\u2028\u2029] | SimpleEscapeSequence)* '"';
-COMMENT:                SHARP | SHARP ~[\r\n\u0085\u2028\u2029]*;
+STRING_CONST_ASSIGNMENT:    ASSIGNMENT ~[\r\n\u0085\u2028\u2029]*;
+COMMENT:                    SHARP | SHARP ~[\r\n\u0085\u2028\u2029]*;
 
-ROSBAG_MESSAGE_SEPARATOR: '='+ NewLine          -> channel(HIDDEN);
-WHITESPACES:            Whitespace+             -> channel(HIDDEN);
+ROSBAG_MESSAGE_SEPARATOR:   '='+ NewLine                        -> channel(HIDDEN);
+WHITESPACES:                Whitespace+                         -> channel(HIDDEN);
 
-fragment Lowercase:     [a-z];
-fragment Uppercase:     [A-Z];
-fragment Digit:         [0-9];
+fragment Lowercase:         [a-z];
+fragment Uppercase:         [A-Z];
+fragment Digit:             [0-9];
 
 fragment NewLine
 	: '\r\n' | '\r' | '\n'
@@ -74,20 +74,6 @@ fragment UnicodeClassZS
 	| '\u202F' // NARROW NO_BREAK SPACE
 	| '\u3000' // IDEOGRAPHIC SPACE
 	| '\u205F' // MEDIUM MATHEMATICAL SPACE
-	;
-
-fragment SimpleEscapeSequence
-	: '\\\''
-	| '\\"'
-	| '\\\\'
-	| '\\0'
-	| '\\a'
-	| '\\b'
-	| '\\f'
-	| '\\n'
-	| '\\r'
-	| '\\t'
-	| '\\v'
 	;
 
 
@@ -136,7 +122,7 @@ constant_declaration
     : integral_type identifier ASSIGNMENT integral_value comment?
     | floating_point_type identifier ASSIGNMENT (integral_value | floating_point_value) comment?
     | boolean_type identifier ASSIGNMENT (bool_value | integral_value) comment?
-    | string_type identifier ASSIGNMENT REGULAR_STRING comment?
+    | string_type identifier STRING_CONST_ASSIGNMENT
     ;
  
  comment
