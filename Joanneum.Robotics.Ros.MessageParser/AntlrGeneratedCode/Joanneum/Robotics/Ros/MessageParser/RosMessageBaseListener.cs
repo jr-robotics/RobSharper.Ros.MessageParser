@@ -371,6 +371,18 @@ public partial class RosMessageBaseListener : IRosMessageListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitFloating_point_value([NotNull] RosMessageParser.Floating_point_valueContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.bool_value"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBool_value([NotNull] RosMessageParser.Bool_valueContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.bool_value"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBool_value([NotNull] RosMessageParser.Bool_valueContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

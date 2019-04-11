@@ -311,5 +311,15 @@ public interface IRosMessageListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitFloating_point_value([NotNull] RosMessageParser.Floating_point_valueContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.bool_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBool_value([NotNull] RosMessageParser.Bool_valueContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.bool_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBool_value([NotNull] RosMessageParser.Bool_valueContext context);
 }
 } // namespace Joanneum.Robotics.Ros.MessageParser

@@ -21,6 +21,9 @@ PLUS:                   '+';
 MINUS:                  '-';
 SHARP:                  '#';
 
+TRUE:                   'True';
+FALSE:                  'False';
+
 MESSAGE_SEPARATOR:      '---';
 NEWLINE:                NewLine;
 
@@ -130,10 +133,10 @@ field_declaration
     ;
     
 constant_declaration
-    : (integral_type identifier ASSIGNMENT sign? integral_value) comment?
-    | (floating_point_type identifier ASSIGNMENT sign? (integral_value | floating_point_value)) comment?
-    | (boolean_type identifier ASSIGNMENT INTEGER_LITERAL) comment?
-    | (string_type identifier ASSIGNMENT REGULAR_STRING) comment?
+    : integral_type identifier ASSIGNMENT integral_value comment?
+    | floating_point_type identifier ASSIGNMENT (integral_value | floating_point_value) comment?
+    | boolean_type identifier ASSIGNMENT (bool_value | integral_value) comment?
+    | string_type identifier ASSIGNMENT REGULAR_STRING comment?
     ;
  
  comment
@@ -226,15 +229,21 @@ boolean_type
 /* ------------------------------------------------------------------ */   
 /* VALUES                                                             */
 /* ------------------------------------------------------------------ */
+
 sign
     : PLUS
     | MINUS
     ;
 
 integral_value
-    : INTEGER_LITERAL
+    : sign?  INTEGER_LITERAL
     ;
     
 floating_point_value
-    : REAL_LITERAL
+    : sign? REAL_LITERAL
+    ;
+
+bool_value
+    : TRUE
+    | FALSE
     ;

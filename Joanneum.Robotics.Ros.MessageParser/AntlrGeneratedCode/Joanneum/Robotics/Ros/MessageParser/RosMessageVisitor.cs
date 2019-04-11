@@ -200,5 +200,11 @@ public interface IRosMessageVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitFloating_point_value([NotNull] RosMessageParser.Floating_point_valueContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.bool_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBool_value([NotNull] RosMessageParser.Bool_valueContext context);
 }
 } // namespace Joanneum.Robotics.Ros.MessageParser
