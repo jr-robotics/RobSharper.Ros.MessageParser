@@ -17,6 +17,8 @@ TIME:                   'time';
 DURATION:               'duration';
 
 ASSIGNMENT:             '=';
+PLUS:                   '+';
+MINUS:                  '-';
 SHARP:                  '#';
 
 MESSAGE_SEPARATOR:      '---';
@@ -128,8 +130,8 @@ field_declaration
     ;
     
 constant_declaration
-    : (integral_type identifier ASSIGNMENT INTEGER_LITERAL) comment?
-    | (floating_point_type identifier ASSIGNMENT (INTEGER_LITERAL | REAL_LITERAL)) comment?
+    : (integral_type identifier ASSIGNMENT sign? integral_value) comment?
+    | (floating_point_type identifier ASSIGNMENT sign? (integral_value | floating_point_value)) comment?
     | (boolean_type identifier ASSIGNMENT INTEGER_LITERAL) comment?
     | (string_type identifier ASSIGNMENT REGULAR_STRING) comment?
     ;
@@ -141,7 +143,12 @@ constant_declaration
 identifier
     : IDENTIFIER
     ;
-    
+
+
+/* ------------------------------------------------------------------ */   
+/* DATA TYPES                                                         */
+/* ------------------------------------------------------------------ */
+ 
 /* Field types are all built in types or custom message types */
 type
     : base_type
@@ -180,8 +187,7 @@ external_message_type
 internal_message_type
     : IDENTIFIER
     ;
-    
-
+   
 numeric_type 
 	: integral_type
 	| floating_point_type
@@ -214,4 +220,21 @@ string_type
 
 boolean_type
     : BOOL
+    ;
+
+
+/* ------------------------------------------------------------------ */   
+/* VALUES                                                             */
+/* ------------------------------------------------------------------ */
+sign
+    : PLUS
+    | MINUS
+    ;
+
+integral_value
+    : INTEGER_LITERAL
+    ;
+    
+floating_point_value
+    : REAL_LITERAL
     ;

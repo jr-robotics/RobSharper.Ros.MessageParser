@@ -335,6 +335,42 @@ public partial class RosMessageBaseListener : IRosMessageListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBoolean_type([NotNull] RosMessageParser.Boolean_typeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.sign"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSign([NotNull] RosMessageParser.SignContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.sign"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSign([NotNull] RosMessageParser.SignContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.integral_value"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIntegral_value([NotNull] RosMessageParser.Integral_valueContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.integral_value"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIntegral_value([NotNull] RosMessageParser.Integral_valueContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.floating_point_value"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFloating_point_value([NotNull] RosMessageParser.Floating_point_valueContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.floating_point_value"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFloating_point_value([NotNull] RosMessageParser.Floating_point_valueContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

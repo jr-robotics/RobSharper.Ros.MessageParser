@@ -182,5 +182,23 @@ public interface IRosMessageVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitBoolean_type([NotNull] RosMessageParser.Boolean_typeContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.sign"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSign([NotNull] RosMessageParser.SignContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.integral_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIntegral_value([NotNull] RosMessageParser.Integral_valueContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.floating_point_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFloating_point_value([NotNull] RosMessageParser.Floating_point_valueContext context);
 }
 } // namespace Joanneum.Robotics.Ros.MessageParser

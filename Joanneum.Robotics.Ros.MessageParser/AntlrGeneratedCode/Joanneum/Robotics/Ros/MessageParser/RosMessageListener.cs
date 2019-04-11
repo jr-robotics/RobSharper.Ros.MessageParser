@@ -281,5 +281,35 @@ public interface IRosMessageListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitBoolean_type([NotNull] RosMessageParser.Boolean_typeContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.sign"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSign([NotNull] RosMessageParser.SignContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.sign"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSign([NotNull] RosMessageParser.SignContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.integral_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIntegral_value([NotNull] RosMessageParser.Integral_valueContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.integral_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIntegral_value([NotNull] RosMessageParser.Integral_valueContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.floating_point_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFloating_point_value([NotNull] RosMessageParser.Floating_point_valueContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.floating_point_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFloating_point_value([NotNull] RosMessageParser.Floating_point_valueContext context);
 }
 } // namespace Joanneum.Robotics.Ros.MessageParser
