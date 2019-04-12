@@ -69,12 +69,6 @@ public interface IRosMessageVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitRosbag_nested_message([NotNull] RosMessageParser.Rosbag_nested_messageContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="RosMessageParser.linebreaks"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitLinebreaks([NotNull] RosMessageParser.LinebreaksContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="RosMessageParser.field_declaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

@@ -92,16 +92,6 @@ public interface IRosMessageListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitRosbag_nested_message([NotNull] RosMessageParser.Rosbag_nested_messageContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.linebreaks"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterLinebreaks([NotNull] RosMessageParser.LinebreaksContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.linebreaks"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitLinebreaks([NotNull] RosMessageParser.LinebreaksContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.field_declaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

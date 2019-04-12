@@ -108,18 +108,6 @@ public partial class RosMessageBaseListener : IRosMessageListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitRosbag_nested_message([NotNull] RosMessageParser.Rosbag_nested_messageContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.linebreaks"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterLinebreaks([NotNull] RosMessageParser.LinebreaksContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.linebreaks"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitLinebreaks([NotNull] RosMessageParser.LinebreaksContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.field_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

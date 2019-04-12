@@ -19,28 +19,31 @@ DURATION:                   'duration';
 ASSIGNMENT:                 '=';
 PLUS:                       '+';
 MINUS:                      '-';
-SHARP:                      '#';
 
 TRUE:                       'True';
 FALSE:                      'False';
 
 MESSAGE_SEPARATOR:          '---';
-NEWLINE:                    NewLine;
 
 IDENTIFIER:                 (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*; 
 
 INTEGER_LITERAL:            [0-9]+;
 REAL_LITERAL:               [0-9]* '.' [0-9]+;
 
-STRING_CONST_ASSIGNMENT:    ASSIGNMENT '#' ~[\r\n\u0085\u2028\u2029]*;
-COMMENT:                    SHARP | SHARP ~[\r\n\u0085\u2028\u2029]*;
+STRING_CONST_ASSIGNMENT:    '==' InputCharacter*;
+COMMENT:                    '#' InputCharacter*;
 
-ROSBAG_MESSAGE_SEPARATOR:   '='+ NewLine                        -> channel(HIDDEN);
-WHITESPACES:                Whitespace+                         -> channel(HIDDEN);
+
+ROSBAG_MESSAGE_SEPARATOR:   '='+ NewLine 'MSG:'                     -> channel(HIDDEN);
+NEWLINES:                   NewLine+                                -> channel(HIDDEN);
+WHITESPACES:                Whitespace+                             -> channel(HIDDEN);
+
+NEWLINE:                    NewLine;
 
 fragment Lowercase:         [a-z];
 fragment Uppercase:         [A-Z];
 fragment Digit:             [0-9];
+fragment InputCharacter:        ~[\r\n\u0085\u2028\u2029];
 
 fragment NewLine
 	: '\r\n' | '\r' | '\n'
@@ -81,7 +84,6 @@ fragment UnicodeClassZS
  PARSER RULES
 */
 
-
 /* ROS Message files */
 ros_file_input
     : ros_message EOF
@@ -90,7 +92,7 @@ ros_file_input
     ;
 
 ros_message
-    : (linebreaks | field_declaration | constant_declaration | comment)+
+    : (field_declaration | constant_declaration | comment)*
     ;
 
 ros_action
@@ -107,28 +109,24 @@ rosbag_input
     ;
 
 rosbag_nested_message
-    : 'MSG:' ros_type NEWLINE ros_message
-    ;
-
-linebreaks
-    : NEWLINE+
+    : ros_type ros_message
     ;
 
 field_declaration
-    : (type | array_type) identifier comment?
+    : (type | array_type) identifier
     ;
     
 constant_declaration
-    : integral_type identifier ASSIGNMENT integral_value comment?
-    | floating_point_type identifier ASSIGNMENT (integral_value | floating_point_value) comment?
-    | boolean_type identifier ASSIGNMENT (bool_value | integral_value) comment?
+    : integral_type identifier ASSIGNMENT integral_value
+    | floating_point_type identifier ASSIGNMENT (integral_value | floating_point_value)
+    | boolean_type identifier ASSIGNMENT (bool_value | integral_value)
     | string_type identifier STRING_CONST_ASSIGNMENT
     ;
  
- comment
+comment
     : COMMENT
     ;
-    
+
 identifier
     : IDENTIFIER
     ;
@@ -155,20 +153,20 @@ ros_type
     : IDENTIFIER
     | IDENTIFIER '/' IDENTIFIER
     ;
-    
+
 array_type
     : variable_array_type
     | fixed_array_type
     ;
-    
+
 variable_array_type
     : type '[' ']'
     ;
-    
+
 fixed_array_type
     : type '[' INTEGER_LITERAL ']'
     ;
-   
+
 numeric_type
 	: integral_type
 	| floating_point_type
@@ -194,7 +192,7 @@ temportal_type
     : TIME
     | DURATION
     ;
-    
+
 string_type
     : STRING
     ;
@@ -202,7 +200,6 @@ string_type
 boolean_type
     : BOOL
     ;
-
 
 /* ------------------------------------------------------------------ */   
 /* VALUES                                                             */
@@ -216,7 +213,7 @@ sign
 integral_value
     : sign?  INTEGER_LITERAL
     ;
-    
+
 floating_point_value
     : sign? REAL_LITERAL
     ;
