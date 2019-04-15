@@ -130,7 +130,6 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             var messageParser = ParserHelper.CreateParserForMessage(message);
 
             var context = messageParser.ros_message();
-            object comment = null;
             
             var mock = new Mock<RosMessageVisitor>()
             {

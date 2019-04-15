@@ -46,7 +46,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return baseType;
         }
 
-        public virtual PrimitiveTypeDescriptor OnVisitBaseType(PrimitiveTypeDescriptor typeDescriptor)
+        protected internal virtual PrimitiveTypeDescriptor OnVisitBaseType(PrimitiveTypeDescriptor typeDescriptor)
         {
             return typeDescriptor;
         }
@@ -77,7 +77,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return messageType;
         }
 
-        public virtual RosTypeDescriptor OnVisitRosType(RosTypeDescriptor typeDescriptor)
+        protected internal virtual RosTypeDescriptor OnVisitRosType(RosTypeDescriptor typeDescriptor)
         {
             return typeDescriptor;
         }
@@ -107,7 +107,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return comment;
         }
 
-        public virtual string OnVisitComment(string comment)
+        protected internal virtual string OnVisitComment(string comment)
         {
             return comment;
         }
@@ -119,7 +119,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return identifier;
         }
 
-        public virtual string OnVisitIdentifier(string identifier)
+        protected internal virtual string OnVisitIdentifier(string identifier)
         {
             return identifier;
         }
