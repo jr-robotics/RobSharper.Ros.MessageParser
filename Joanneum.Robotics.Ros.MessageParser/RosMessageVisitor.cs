@@ -2,7 +2,7 @@ using Antlr4.Runtime;
 
 namespace Joanneum.Robotics.Ros.MessageParser
 {
-    public class RosMessageVisitor : RosMessageBaseVisitor<object>
+    public class RosMessageVisitor : RosMessageParserBaseVisitor<object>
     {
 
         private static object GetPrimitiveTye(ParserRuleContext context)

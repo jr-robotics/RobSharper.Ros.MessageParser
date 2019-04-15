@@ -15,9 +15,9 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             return messageParser;
         }
 
-        public static Mock<RosMessageBaseListener> CreateListenerMock()
+        public static Mock<RosMessageParserBaseListener> CreateListenerMock()
         {
-            var mock = new Mock<RosMessageBaseListener>()
+            var mock = new Mock<RosMessageParserBaseListener>()
             {
                 CallBase = true
             };
