@@ -2,7 +2,7 @@ using Antlr4.Runtime;
 
 namespace Joanneum.Robotics.Ros.MessageParser
 {
-    public abstract class RosMessageVisitor : RosMessageBaseVisitor<object>
+    public class RosMessageVisitor : RosMessageBaseVisitor<object>
     {
 
         private static object GetPrimitiveTye(ParserRuleContext context)
@@ -38,6 +38,19 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return GetPrimitiveTye(context);
         }
 
+        public override object VisitBase_type(RosMessageParser.Base_typeContext context)
+        {
+            var baseType = (PrimitiveTypeDescriptor) base.VisitBase_type(context);
+            baseType = OnVisitBaseType(baseType);
+            
+            return baseType;
+        }
+
+        public virtual PrimitiveTypeDescriptor OnVisitBaseType(PrimitiveTypeDescriptor typeDescriptor)
+        {
+            return typeDescriptor;
+        }
+
         public override object VisitRos_type(RosMessageParser.Ros_typeContext context)
         {
             string packageName = null;
@@ -59,8 +72,16 @@ namespace Joanneum.Robotics.Ros.MessageParser
             }
             
             var messageType =  new RosTypeDescriptor(typeName, packageName);
+            messageType = OnVisitRosType(messageType);
+            
             return messageType;
         }
+
+        public virtual RosTypeDescriptor OnVisitRosType(RosTypeDescriptor typeDescriptor)
+        {
+            return typeDescriptor;
+        }
+
 
         public override object VisitVariable_array_type(RosMessageParser.Variable_array_typeContext context)
         {
@@ -81,26 +102,34 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
         public override object VisitComment(RosMessageParser.CommentContext context)
         {
-            return context.GetText().Substring(1);
+            var comment = context.GetText().Substring(1);
+            comment = OnVisitComment(comment);
+            return comment;
+        }
+
+        public virtual string OnVisitComment(string comment)
+        {
+            return comment;
         }
 
         public override object VisitIdentifier(RosMessageParser.IdentifierContext context)
         {
-            return context.GetText();
+            var identifier = context.GetText();
+            identifier = OnVisitIdentifier(identifier);
+            return identifier;
+        }
+
+        public virtual string OnVisitIdentifier(string identifier)
+        {
+            return identifier;
         }
 
         public override object VisitField_declaration(RosMessageParser.Field_declarationContext context)
         {
             var type = Visit(context.GetChild(0));
             var identifier = (string) Visit(context.GetChild(1));
-            string comment = null;
 
-            if (context.ChildCount > 2)
-            {
-                comment = (string) Visit(context.GetChild(2));
-            }
-
-            var fieldDescriptor = new FieldDescriptor(type, identifier, comment);
+            var fieldDescriptor = new FieldDescriptor(type, identifier);
             return fieldDescriptor;
         }
 
@@ -110,15 +139,8 @@ namespace Joanneum.Robotics.Ros.MessageParser
             var identifier = (string) Visit(context.GetChild(1));
             // child 2 = '='
             var value = Visit(context.GetChild(3));
-            
-            string comment = null;
 
-            if (context.ChildCount > 4)
-            {
-                comment = (string) Visit(context.GetChild(4));
-            }
-
-            var constDescriptor = ConstantDescriptor.Create(type, identifier, value, comment);
+            var constDescriptor = ConstantDescriptor.Create(type, identifier, value);
             return constDescriptor;
         }
 

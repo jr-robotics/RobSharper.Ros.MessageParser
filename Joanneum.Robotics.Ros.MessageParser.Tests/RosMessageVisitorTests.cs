@@ -22,154 +22,103 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         [InlineData("bool")]
         [InlineData("char")]
         [InlineData("byte")]
-        public void TypeNode_VisitChildren_retuns_RosPrimitiveType_for_built_in_types(string dataType)
+        public void VisitBaseType_return_RosPrimitiveType(string dataType)
         {
             var message = $"{dataType} fieldName";
+            var expectedPrimitiveType = PrimitiveTypeDescriptor.Parse(dataType);
+            
             var messageParser = ParserHelper.CreateParserForMessage(message);
-
             var context = messageParser.ros_message();
-            object result = null;
             
             var mock = new Mock<RosMessageVisitor>()
             {
                 CallBase = true
             };
-
-            mock.Setup(x => x.VisitType(It.IsAny<RosMessageParser.TypeContext>()))
-                .Callback<RosMessageParser.TypeContext>((ctx) => { result = mock.Object.VisitChildren(ctx); })
-                .Returns(result);
-            
             
             var visitor = mock.Object;
             visitor.Visit(context);
-
-            Assert.NotNull(result);
-            Assert.IsType<PrimitiveTypeDescriptor>(result);
+            
+            mock.Verify(x => x.OnVisitBaseType(expectedPrimitiveType));
         }
 
         [Fact]
-        public void TypeNode_VisitChildren_retuns_RosMessageType_for_external_ros_type()
+        public void VisitRosType_retuns_RosTypeDescriptor_for_external_external()
         {
             var message = $"std_msgs/Bool fieldName";
+            var expectedTypeDescriptor = new RosTypeDescriptor("Bool", "std_msgs");
+            
             var messageParser = ParserHelper.CreateParserForMessage(message);
-
             var context = messageParser.ros_message();
-            object result = null;
             
             var mock = new Mock<RosMessageVisitor>()
             {
                 CallBase = true
             };
 
-            mock.Setup(x => x.VisitType(It.IsAny<RosMessageParser.TypeContext>()))
-                .Callback<RosMessageParser.TypeContext>((ctx) => { result = mock.Object.VisitChildren(ctx); })
-                .Returns(result);
-            
-            
             var visitor = mock.Object;
             visitor.Visit(context);
 
-            Assert.NotNull(result);
-            Assert.IsType<RosTypeDescriptor>(result);
-
-            var type = (RosTypeDescriptor) result;
-            
-            Assert.Equal("std_msgs", type.PackageName);
-            Assert.Equal("Bool", type.TypeName);
-            Assert.True(type.HasPackage);
+            mock.Verify(x => x.OnVisitRosType(expectedTypeDescriptor));
         }
 
         [Fact]
-        public void TypeNode_VisitChildren_retuns_RosMessageType_for_package_ros_type()
+        public void VisitRosType_retuns_RosTypeDescriptor_for_internal_type()
         {
             var message = $"MyType fieldName";
+            var expectedTypeDescriptor = new RosTypeDescriptor("MyType");
+            
             var messageParser = ParserHelper.CreateParserForMessage(message);
-
             var context = messageParser.ros_message();
-            object result = null;
             
             var mock = new Mock<RosMessageVisitor>()
             {
                 CallBase = true
             };
 
-            mock.Setup(x => x.VisitType(It.IsAny<RosMessageParser.TypeContext>()))
-                .Callback<RosMessageParser.TypeContext>((ctx) => { result = mock.Object.VisitChildren(ctx); })
-                .Returns(result);
-            
-            
             var visitor = mock.Object;
             visitor.Visit(context);
 
-            Assert.NotNull(result);
-            Assert.IsType<RosTypeDescriptor>(result);
-
-            var type = (RosTypeDescriptor) result;
-            
-            Assert.Null(type.PackageName);
-            Assert.Equal("MyType", type.TypeName);
-            Assert.False(type.HasPackage);
+            mock.Verify(x => x.OnVisitRosType(expectedTypeDescriptor));
         }
 
         [Fact]
-        public void TypeNode_VisitChildren_retuns_RosMessageType_for_header_ros_type()
+        public void VisitRosType_retuns_RosTypeDescriptor_for_header_type()
         {
             var message = $"Header fieldName";
+            var expectedTypeDescriptor = new RosTypeDescriptor("Header", "std_msgs");
+            
             var messageParser = ParserHelper.CreateParserForMessage(message);
-
             var context = messageParser.ros_message();
-            object result = null;
             
             var mock = new Mock<RosMessageVisitor>()
             {
                 CallBase = true
             };
 
-            mock.Setup(x => x.VisitType(It.IsAny<RosMessageParser.TypeContext>()))
-                .Callback<RosMessageParser.TypeContext>((ctx) => { result = mock.Object.VisitChildren(ctx); })
-                .Returns(result);
-            
-            
             var visitor = mock.Object;
             visitor.Visit(context);
 
-            Assert.NotNull(result);
-            Assert.IsType<RosTypeDescriptor>(result);
-
-            var type = (RosTypeDescriptor) result;
-            
-            Assert.Equal("std_msgs", type.PackageName);
-            Assert.Equal("Header", type.TypeName);
-            Assert.True(type.HasPackage);
+            mock.Verify(x => x.OnVisitRosType(expectedTypeDescriptor));
         }
         
         [Fact]
-        public void Identifier_in_field_declaration_returns_identifier_name()
+        public void VisitIdentifier_returns_identifier_name()
         {
-            var message = $"MyType fieldName";
+            var expectedIdentifier = "fieldName";
+            var message = $"MyType {expectedIdentifier}";
             
             var messageParser = ParserHelper.CreateParserForMessage(message);
-
             var context = messageParser.ros_message();
-            object fieldName = null;
             
             var mock = new Mock<RosMessageVisitor>()
             {
                 CallBase = true
             };
-
-            mock.Setup(x => x.VisitField_declaration(It.IsAny<RosMessageParser.Field_declarationContext>()))
-                .Callback<RosMessageParser.Field_declarationContext>(ctx =>
-                {
-                    fieldName = mock.Object.Visit(ctx.GetChild(1));
-                });
             
             var visitor = mock.Object;
             visitor.Visit(context);
 
-            Assert.NotNull(fieldName);
-            Assert.IsType<string>(fieldName);
-            Assert.Equal("fieldName", (string) fieldName);
+            mock.Verify(x => x.OnVisitIdentifier(expectedIdentifier));
         }
         
         [Fact]
@@ -187,19 +136,11 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             {
                 CallBase = true
             };
-
-            mock.Setup(x => x.VisitField_declaration(It.IsAny<RosMessageParser.Field_declarationContext>()))
-                .Callback<RosMessageParser.Field_declarationContext>(ctx =>
-                {
-                    comment = mock.Object.Visit(ctx.GetChild(2));
-                });
             
             var visitor = mock.Object;
             visitor.Visit(context);
 
-            Assert.NotNull(comment);
-            Assert.IsType<string>(comment);
-            Assert.Equal(expectedComment, (string) comment);
+            mock.Verify(x => x.OnVisitComment(expectedComment));
         }
     }
 }

@@ -9,9 +9,8 @@ namespace Joanneum.Robotics.Ros.MessageParser
         public Type Type => TypeDescriptor.Type;
         public string Identifier { get; }
         public object Value { get; }
-        public string Comment { get; }
 
-        protected ConstantDescriptor(PrimitiveTypeDescriptor typeDescriptor, string identifier, object value, string comment)
+        protected ConstantDescriptor(PrimitiveTypeDescriptor typeDescriptor, string identifier, object value)
         {
             if (typeDescriptor == null) throw new ArgumentNullException(nameof(typeDescriptor));
             if (identifier == null) throw new ArgumentNullException(nameof(identifier));
@@ -20,10 +19,9 @@ namespace Joanneum.Robotics.Ros.MessageParser
             TypeDescriptor = typeDescriptor;
             Identifier = identifier;
             Value = value;
-            Comment = comment;
         }
 
-        public static ConstantDescriptor Create(PrimitiveTypeDescriptor type, string identifier, object value, string comment)
+        public static ConstantDescriptor Create(PrimitiveTypeDescriptor type, string identifier, object value)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
             if (value == null) throw new ArgumentNullException(nameof(value));
@@ -38,7 +36,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
             value = converter.ConvertFrom(value);
 
-            return new ConstantDescriptor(type, identifier, value, comment);
+            return new ConstantDescriptor(type, identifier, value);
         }
     }
 }

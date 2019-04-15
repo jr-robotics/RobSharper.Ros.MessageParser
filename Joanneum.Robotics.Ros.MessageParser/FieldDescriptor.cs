@@ -26,16 +26,14 @@ namespace Joanneum.Robotics.Ros.MessageParser
         public RosTypeDescriptor RosUnderlyingType => UnderlyingType as RosTypeDescriptor;
 
         public string Identifier { get; }
-        public string Comment { get; }
 
-        public FieldDescriptor(object type, string identifier, string comment)
+        public FieldDescriptor(object type, string identifier)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
             if (identifier == null) throw new ArgumentNullException(nameof(identifier));
 
             Type = type;
             Identifier = identifier;
-            Comment = comment;
 
             if (type is ArrayDescriptor arrayType)
             {
