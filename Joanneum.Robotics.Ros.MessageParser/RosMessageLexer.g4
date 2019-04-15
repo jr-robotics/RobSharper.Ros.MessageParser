@@ -1,19 +1,20 @@
 lexer grammar RosMessageLexer;
 
-
 /* Built in data types */
-BOOL:                       'bool'                              ; // ; //-> mode(DECLARATION_MODE);
-INT8:                       'int8' | 'byte'                   ; //-> mode(DECLARATION_MODE);
-UINT8:                      'uint8' | 'char'                  ; //-> mode(DECLARATION_MODE);
-INT16:                      'int16'                             ; //-> mode(DECLARATION_MODE);
-UINT16:                     'uint16'                            ; //-> mode(DECLARATION_MODE);
-INT32:                      'int32'                             ; //-> mode(DECLARATION_MODE);
-UINT32:                     'uint32'                            ; //-> mode(DECLARATION_MODE);
-INT64:                      'int64'                             ; //-> mode(DECLARATION_MODE);
-UINT64:                     'uint64'                            ; //-> mode(DECLARATION_MODE);
-FLOAT32:                    'float32'                           ; //-> mode(DECLARATION_MODE);
-FLOAT64:                    'float64'                           ; //-> mode(DECLARATION_MODE);
-STRING:                     'string'                            ; //-> mode(STRING_DECLARATION_MODE);
+BOOL:                       'bool'                              ;//-> mode(DECLARATION_MODE);
+INT8:                       'int8'                              ;//-> mode(DECLARATION_MODE);
+UINT8:                      'uint8'                             ;//-> mode(DECLARATION_MODE);
+BYTE:                       'byte';
+CHAR:                       'char';
+INT16:                      'int16'                             ;//-> mode(DECLARATION_MODE);
+UINT16:                     'uint16'                            ;//-> mode(DECLARATION_MODE);
+INT32:                      'int32'                             ;//-> mode(DECLARATION_MODE);
+UINT32:                     'uint32'                            ;//-> mode(DECLARATION_MODE);
+INT64:                      'int64'                             ;//-> mode(DECLARATION_MODE);
+UINT64:                     'uint64'                            ;//-> mode(DECLARATION_MODE);
+FLOAT32:                    'float32'                           ;//-> mode(DECLARATION_MODE);
+FLOAT64:                    'float64'                           ;//-> mode(DECLARATION_MODE);
+STRING:                     'string'                            ;//-> mode(STRING_DECLARATION_MODE);
 TIME:                       'time';
 DURATION:                   'duration';
 
@@ -23,10 +24,11 @@ CLOSE_BRACKET:              ']';
 ASSIGNMENT:                 '=';
 PLUS:                       '+';
 MINUS:                      '-';
+HASH:                       '#';
+
+OPEN: '$' -> pushMode(TEST) ;
 
 MESSAGE_SEPARATOR:          '---';
-
-IDENTIFIER:                 (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*; 
 
 INTEGER_LITERAL:            [0-9]+;
 REAL_LITERAL:               [0-9]* '.' [0-9]+;
@@ -34,10 +36,12 @@ REAL_LITERAL:               [0-9]* '.' [0-9]+;
 TRUE:                       'True';
 FALSE:                      'False';
 
+IDENTIFIER:                 (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*; 
+
 COMMENT:                    '#' InputCharacter*;
-STRING_CONST_ASSIGNMENT:    '==' InputCharacter+;
 
 ROSBAG_MESSAGE_SEPARATOR:   '='+ NewLine 'MSG:'                     -> channel(HIDDEN);
+
 NEWLINES:                   NewLine+                                -> channel(HIDDEN); //, mode(DEFAULT_MODE);
 WHITESPACES:                Whitespace+                             -> channel(HIDDEN);
 
@@ -46,7 +50,7 @@ NEWLINE:                    NewLine;
 fragment Lowercase:         [a-z];
 fragment Uppercase:         [A-Z];
 fragment Digit:             [0-9];
-fragment InputCharacter:        ~[\r\n\u0085\u2028\u2029];
+fragment InputCharacter:    ~[\r\n\u0085\u2028\u2029];
 
 fragment NewLine
 	: '\r\n' | '\r' | '\n'
@@ -82,13 +86,16 @@ fragment UnicodeClassZS
 	| '\u205F' // MEDIUM MATHEMATICAL SPACE
 	;
 
-/*
-mode DECLARATION_MODE;
-FOOO_RULE: '$';
+
+//mode DECLARATION_MODE;
 
 
-mode STRING_DECLARATION_MODE;
 
-FOOO2_RULE: '%';
+//mode STRING_DECLARATION_MODE;
 
-*/
+
+mode TEST;
+CLOSE: NewLine -> popMode;
+
+TEST_ID: TestLetters+;
+fragment TestLetters: [a-zA-Z];

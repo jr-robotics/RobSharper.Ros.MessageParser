@@ -43,6 +43,7 @@ constant_declaration
     | floating_point_type identifier ASSIGNMENT (integral_value | floating_point_value)
     | boolean_type identifier ASSIGNMENT (bool_value | integral_value)
     //| string_type identifier ASSIGNMENT STRING_CONST_ASSIGNMENT
+    | string_type identifier ASSIGNMENT TEST_ID CLOSE
     ;
  
 comment
@@ -103,6 +104,8 @@ integral_type
 	| UINT32
 	| INT64
 	| UINT64
+	| BYTE
+	| CHAR
 	;
 
 floating_point_type 
