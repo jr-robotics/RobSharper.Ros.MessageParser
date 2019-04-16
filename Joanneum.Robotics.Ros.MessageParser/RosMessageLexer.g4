@@ -23,7 +23,7 @@ CLOSE_BRACKET:              ']';
 ASSIGNMENT:                 '=';
 PLUS:                       '+';
 MINUS:                      '-';
-HASH:                       '#';
+HASH:                       '#'                                     -> mode(COMMENT_MODE);
 
 MESSAGE_SEPARATOR:          '---';
 
@@ -34,8 +34,6 @@ TRUE:                       'True';
 FALSE:                      'False';
 
 IDENTIFIER:                 (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*; 
-
-COMMENT:                    '#' InputCharacter*;
 
 ROSBAG_MESSAGE_SEPARATOR:   '='+ NewLine 'MSG:'                     -> channel(HIDDEN);
 
@@ -61,6 +59,12 @@ mode STRING_ASSIGNMENT_MODE;
 STRING_VALUE:               InputCharacter+;
 STRIN_ASSIGNMENT_NEWLINE:   NewLine                                 -> channel(HIDDEN), mode(DEFAULT_MODE);
 
+
+
+mode COMMENT_MODE;
+
+COMMENT:                    InputCharacter+;
+COMMENT_NEWLINE:            NewLine                                 -> channel(HIDDEN), mode(DEFAULT_MODE);
 
 
 

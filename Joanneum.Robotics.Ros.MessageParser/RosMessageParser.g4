@@ -46,7 +46,8 @@ constant_declaration
     ;
  
 comment
-    : COMMENT
+    : HASH COMMENT
+    | HASH
     ;
 
 identifier

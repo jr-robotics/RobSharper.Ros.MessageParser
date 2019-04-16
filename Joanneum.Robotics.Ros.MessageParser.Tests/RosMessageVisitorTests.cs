@@ -122,7 +122,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         }
         
         [Fact]
-        public void Comment_in_field_declaration_strips_sharp()
+        public void Comment_returns_comment_without_sharp()
         {
             const string expectedComment = "This is my Comment";
             var message = $"MyType fieldName        #{expectedComment}";
