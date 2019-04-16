@@ -69,6 +69,8 @@ identifier
     | DURATION
     | STRING
     | BOOL
+    | TRUE
+    | FALSE
     ;
 
 
