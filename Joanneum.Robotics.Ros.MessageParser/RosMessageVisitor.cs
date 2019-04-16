@@ -102,7 +102,17 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
         public override object VisitComment(RosMessageParser.CommentContext context)
         {
-            var comment = context.GetText().Substring(1);
+            string comment;
+
+            if (context.ChildCount == 1)
+            {
+                comment = string.Empty;
+            }
+            else
+            {
+                comment = context.GetChild(1).GetText().Trim();
+            }
+            
             comment = OnVisitComment(comment);
             return comment;
         }
