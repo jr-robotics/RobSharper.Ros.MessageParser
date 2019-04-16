@@ -102,11 +102,12 @@ array_type
     ;
 
 variable_array_type
-    : type '[' ']'
+    : type (OPEN_BRACKET | STRING_OPEN_BRACKET) (CLOSE_BRACKET | STRING_CLOSE_BRACKET)
     ;
 
 fixed_array_type
-    : type '[' INTEGER_LITERAL ']'
+    : type OPEN_BRACKET INTEGER_LITERAL CLOSE_BRACKET
+    | type STRING_OPEN_BRACKET STRING_INTEGER_LITERAL STRING_CLOSE_BRACKET
     ;
 
 numeric_type

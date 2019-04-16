@@ -18,8 +18,8 @@ TIME:                       'time';
 DURATION:                   'duration';
 
 SLASH:                      '/';
-OPEN_BRACKET:               '[';
-CLOSE_BRACKET:              ']';
+OPEN_BRACKET:               OpenBracket;
+CLOSE_BRACKET:              CloseBracket;
 ASSIGNMENT:                 '=';
 PLUS:                       '+';
 MINUS:                      '-';
@@ -47,6 +47,9 @@ NEWLINE:                    NewLine;
 mode STRING_DECLARATION_MODE;
 
 STRING_IDENTIFIER:          IDENTIFIER;
+STRING_OPEN_BRACKET:        OpenBracket;
+STRING_CLOSE_BRACKET:       CloseBracket;
+STRING_INTEGER_LITERAL:     [0-9]+;
 STRING_ASSIGNMENT:          ASSIGNMENT                              -> mode(STRING_ASSIGNMENT_MODE);
 
 STRING_WHITESPACES:         Whitespace+                             -> channel(HIDDEN);
@@ -72,6 +75,9 @@ fragment Lowercase:         [a-z];
 fragment Uppercase:         [A-Z];
 fragment Digit:             [0-9];
 fragment InputCharacter:    ~[\r\n\u0085\u2028\u2029];
+
+fragment OpenBracket:       '[';
+fragment CloseBracket:      ']';
 
 fragment NewLine
 	: '\r\n' | '\r' | '\n'
