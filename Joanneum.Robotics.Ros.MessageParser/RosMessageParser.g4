@@ -42,8 +42,7 @@ constant_declaration
     : integral_type identifier ASSIGNMENT integral_value
     | floating_point_type identifier ASSIGNMENT (integral_value | floating_point_value)
     | boolean_type identifier ASSIGNMENT (bool_value | integral_value)
-    //| string_type identifier ASSIGNMENT STRING_CONST_ASSIGNMENT
-    | string_type identifier ASSIGNMENT TEST_ID CLOSE
+    | string_type identifier STRING_ASSIGNMENT STRING_VALUE
     ;
  
 comment
@@ -52,6 +51,7 @@ comment
 
 identifier
     : IDENTIFIER
+    | STRING_IDENTIFIER
     ;
 
 

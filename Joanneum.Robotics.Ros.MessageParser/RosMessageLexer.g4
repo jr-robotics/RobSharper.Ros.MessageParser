@@ -1,20 +1,19 @@
 lexer grammar RosMessageLexer;
 
-/* Built in data types */
-BOOL:                       'bool'                              ;//-> mode(DECLARATION_MODE);
-INT8:                       'int8'                              ;//-> mode(DECLARATION_MODE);
-UINT8:                      'uint8'                             ;//-> mode(DECLARATION_MODE);
+BOOL:                       'bool';
+INT8:                       'int8';
+UINT8:                      'uint8';
 BYTE:                       'byte';
 CHAR:                       'char';
-INT16:                      'int16'                             ;//-> mode(DECLARATION_MODE);
-UINT16:                     'uint16'                            ;//-> mode(DECLARATION_MODE);
-INT32:                      'int32'                             ;//-> mode(DECLARATION_MODE);
-UINT32:                     'uint32'                            ;//-> mode(DECLARATION_MODE);
-INT64:                      'int64'                             ;//-> mode(DECLARATION_MODE);
-UINT64:                     'uint64'                            ;//-> mode(DECLARATION_MODE);
-FLOAT32:                    'float32'                           ;//-> mode(DECLARATION_MODE);
-FLOAT64:                    'float64'                           ;//-> mode(DECLARATION_MODE);
-STRING:                     'string'                            ;//-> mode(STRING_DECLARATION_MODE);
+INT16:                      'int16';
+UINT16:                     'uint16';
+INT32:                      'int32';
+UINT32:                     'uint32';
+INT64:                      'int64';
+UINT64:                     'uint64';
+FLOAT32:                    'float32';
+FLOAT64:                    'float64';
+STRING:                     'string'                                -> mode(STRING_DECLARATION_MODE);
 TIME:                       'time';
 DURATION:                   'duration';
 
@@ -25,8 +24,6 @@ ASSIGNMENT:                 '=';
 PLUS:                       '+';
 MINUS:                      '-';
 HASH:                       '#';
-
-OPEN: '$' -> pushMode(TEST) ;
 
 MESSAGE_SEPARATOR:          '---';
 
@@ -42,10 +39,30 @@ COMMENT:                    '#' InputCharacter*;
 
 ROSBAG_MESSAGE_SEPARATOR:   '='+ NewLine 'MSG:'                     -> channel(HIDDEN);
 
-NEWLINES:                   NewLine+                                -> channel(HIDDEN); //, mode(DEFAULT_MODE);
 WHITESPACES:                Whitespace+                             -> channel(HIDDEN);
+NEWLINES:                   NewLine+                                -> channel(HIDDEN);
 
 NEWLINE:                    NewLine;
+
+
+
+mode STRING_DECLARATION_MODE;
+
+STRING_IDENTIFIER:          IDENTIFIER;
+STRING_ASSIGNMENT:          ASSIGNMENT                              -> mode(STRING_ASSIGNMENT_MODE);
+
+STRING_WHITESPACES:         Whitespace+                             -> channel(HIDDEN);
+STRING_NEWLINE:             NewLine                                 -> channel(HIDDEN), mode(DEFAULT_MODE);
+
+
+
+mode STRING_ASSIGNMENT_MODE;
+
+STRING_VALUE:               InputCharacter+;
+STRIN_ASSIGNMENT_NEWLINE:   NewLine                                 -> channel(HIDDEN), mode(DEFAULT_MODE);
+
+
+
 
 fragment Lowercase:         [a-z];
 fragment Uppercase:         [A-Z];
@@ -85,17 +102,3 @@ fragment UnicodeClassZS
 	| '\u3000' // IDEOGRAPHIC SPACE
 	| '\u205F' // MEDIUM MATHEMATICAL SPACE
 	;
-
-
-//mode DECLARATION_MODE;
-
-
-
-//mode STRING_DECLARATION_MODE;
-
-
-mode TEST;
-CLOSE: NewLine -> popMode;
-
-TEST_ID: TestLetters+;
-fragment TestLetters: [a-zA-Z];
