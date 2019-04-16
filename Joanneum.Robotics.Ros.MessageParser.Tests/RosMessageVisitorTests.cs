@@ -172,7 +172,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         }
         
         [Fact]
-        public void Empty_comment_returns_empty_string_()
+        public void Empty_comment_returns_empty_string()
         {
             string expectedComment = string.Empty;
             var message = $"MyType fieldName        #";
