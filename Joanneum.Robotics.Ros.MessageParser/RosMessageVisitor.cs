@@ -1,3 +1,4 @@
+using System.Globalization;
 using Antlr4.Runtime;
 
 namespace Joanneum.Robotics.Ros.MessageParser
@@ -190,7 +191,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         public override object VisitIntegral_value(RosMessageParser.Integral_valueContext context)
         {
             var strValue = context.GetText();
-            var value = int.Parse(strValue);
+            var value = int.Parse(strValue, CultureInfo.InvariantCulture);
 
             return value;
         }
@@ -198,7 +199,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         public override object VisitFloating_point_value(RosMessageParser.Floating_point_valueContext context)
         {
             var strValue = context.GetText();
-            var value = double.Parse(strValue);
+            var value = double.Parse(strValue, CultureInfo.InvariantCulture);
 
             return value;
         }
