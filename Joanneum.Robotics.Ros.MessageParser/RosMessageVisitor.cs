@@ -100,6 +100,19 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return arrayDescriptor;
         }
 
+        public override object VisitArray_type(RosMessageParser.Array_typeContext context)
+        {
+            var descriptor = (ArrayDescriptor) base.VisitArray_type(context);
+            descriptor = OnVisitArrayType(descriptor);
+
+            return descriptor;
+        }
+
+        protected internal virtual ArrayDescriptor OnVisitArrayType(ArrayDescriptor arrayDescriptor)
+        {
+            return arrayDescriptor;
+        }
+
         public override object VisitComment(RosMessageParser.CommentContext context)
         {
             string comment;
@@ -140,6 +153,13 @@ namespace Joanneum.Robotics.Ros.MessageParser
             var identifier = (string) Visit(context.GetChild(1));
 
             var fieldDescriptor = new FieldDescriptor(type, identifier);
+            fieldDescriptor = OnVisitFieldDeclaration(fieldDescriptor);
+            
+            return fieldDescriptor;
+        }
+
+        private FieldDescriptor OnVisitFieldDeclaration(FieldDescriptor fieldDescriptor)
+        {
             return fieldDescriptor;
         }
 
@@ -151,6 +171,13 @@ namespace Joanneum.Robotics.Ros.MessageParser
             var value = Visit(context.GetChild(3));
 
             var constDescriptor = ConstantDescriptor.Create(type, identifier, value);
+
+            constDescriptor = OnVisitConstantDeclaration(constDescriptor);
+            return constDescriptor;
+        }
+
+        private ConstantDescriptor OnVisitConstantDeclaration(ConstantDescriptor constDescriptor)
+        {
             return constDescriptor;
         }
 
@@ -174,6 +201,78 @@ namespace Joanneum.Robotics.Ros.MessageParser
             var value = double.Parse(strValue);
 
             return value;
+        }
+
+        public override object VisitString_value(RosMessageParser.String_valueContext context)
+        {
+            var strValue = context.GetText().Trim();
+            return strValue;
+        }
+
+        public override object VisitRos_message(RosMessageParser.Ros_messageContext context)
+        {
+            var messageDescriptor = new MessageDescriptor();
+            
+            for (int i = 0; i < context.ChildCount; ++i)
+            {
+                var result = Visit(context.GetChild(i));
+
+                if (result is FieldDescriptor field)
+                {
+                    messageDescriptor.AddField(field);
+                }
+
+                if (result is ConstantDescriptor constant)
+                {
+                    messageDescriptor.AddConstant(constant);
+                }
+
+                if (result is string comment)
+                {
+                    messageDescriptor.AddComment(comment);
+                }
+            }
+
+            messageDescriptor = OnVisitRosMessage(messageDescriptor);
+            return messageDescriptor;
+        }
+
+        protected internal virtual MessageDescriptor OnVisitRosMessage(MessageDescriptor messageDescriptor)
+        {
+            return messageDescriptor;
+        }
+
+        public override object VisitRos_service(RosMessageParser.Ros_serviceContext context)
+        {
+            var request = (MessageDescriptor) Visit(context.GetChild(0));
+            var response = (MessageDescriptor) Visit(context.GetChild(2));
+
+            var serviceDescriptor = new ServiceDescriptor(request, response);
+            serviceDescriptor = OnVisitRosService(serviceDescriptor);
+            
+            return serviceDescriptor;
+        }
+
+        private ServiceDescriptor OnVisitRosService(ServiceDescriptor serviceDescriptor)
+        {
+            return serviceDescriptor;
+        }
+
+        public override object VisitRos_action(RosMessageParser.Ros_actionContext context)
+        {
+            var goal = (MessageDescriptor) Visit(context.GetChild(0));
+            var feedback = (MessageDescriptor) Visit(context.GetChild(2));
+            var result = (MessageDescriptor) Visit(context.GetChild(4));
+
+            var actionDescriptor = new ActionDescriptor(goal, feedback, result);
+            actionDescriptor = OnVisitRosAction(actionDescriptor);
+
+            return actionDescriptor;
+        }
+
+        private ActionDescriptor OnVisitRosAction(ActionDescriptor actionDescriptor)
+        {
+            return actionDescriptor;
         }
     }
 }

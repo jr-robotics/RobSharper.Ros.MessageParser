@@ -42,7 +42,7 @@ constant_declaration
     : integral_type identifier ASSIGNMENT integral_value
     | floating_point_type identifier ASSIGNMENT (integral_value | floating_point_value)
     | boolean_type identifier ASSIGNMENT (bool_value | integral_value)
-    | string_type identifier STRING_ASSIGNMENT STRING_VALUE
+    | string_type identifier STRING_ASSIGNMENT string_value
     ;
  
 comment
@@ -166,4 +166,8 @@ floating_point_value
 bool_value
     : TRUE
     | FALSE
+    ;
+
+string_value
+    : STRING_VALUE
     ;

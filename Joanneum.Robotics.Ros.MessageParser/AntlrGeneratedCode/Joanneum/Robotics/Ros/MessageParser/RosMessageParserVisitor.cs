@@ -188,5 +188,11 @@ public interface IRosMessageParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitBool_value([NotNull] RosMessageParser.Bool_valueContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.string_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitString_value([NotNull] RosMessageParser.String_valueContext context);
 }
 } // namespace Joanneum.Robotics.Ros.MessageParser
