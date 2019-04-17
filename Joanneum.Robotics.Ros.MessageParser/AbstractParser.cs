@@ -2,11 +2,11 @@ using Antlr4.Runtime;
 
 namespace Joanneum.Robotics.Ros.MessageParser
 {
-    public abstract class DescriptorParser<TDescriptor>
+    public abstract class AbstractParser<TDescriptor>
     {
         protected RosMessageParser Parser { get; }
 
-        public DescriptorParser(ICharStream input)
+        public AbstractParser(ICharStream input)
         {
             var messageLexer = new RosMessageLexer(input);
             var tokenStream = new CommonTokenStream(messageLexer);
@@ -14,6 +14,6 @@ namespace Joanneum.Robotics.Ros.MessageParser
             Parser = new RosMessageParser(tokenStream);
         }
 
-        public abstract TDescriptor ParseDescriptor();
+        public abstract TDescriptor Parse();
     }
 }

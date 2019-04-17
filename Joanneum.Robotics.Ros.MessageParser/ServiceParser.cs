@@ -3,13 +3,13 @@ using Antlr4.Runtime;
 
 namespace Joanneum.Robotics.Ros.MessageParser
 {
-    public class ServiceParser : DescriptorParser<ServiceDescriptor>
+    public class ServiceParser : AbstractParser<ServiceDescriptor>
     {
         public ServiceParser(ICharStream input) : base(input)
         {
         }
 
-        public override ServiceDescriptor ParseDescriptor()
+        public override ServiceDescriptor Parse()
         {
             var visitor = new RosMessageVisitor();
             var context = Parser.ros_service();
@@ -19,12 +19,12 @@ namespace Joanneum.Robotics.Ros.MessageParser
         
         public static ServiceDescriptor Parse(string input)
         {
-            return new ServiceParser(new AntlrInputStream(input)).ParseDescriptor();
+            return new ServiceParser(new AntlrInputStream(input)).Parse();
         }
 
         public static ServiceDescriptor Parse(Stream input)
         {
-            return new ServiceParser(new AntlrInputStream(input)).ParseDescriptor();
+            return new ServiceParser(new AntlrInputStream(input)).Parse();
         }
     }
 }
