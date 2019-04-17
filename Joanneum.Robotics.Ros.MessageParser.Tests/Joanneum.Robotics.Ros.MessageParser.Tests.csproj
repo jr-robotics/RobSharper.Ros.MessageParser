@@ -17,4 +17,9 @@
       <ProjectReference Include="..\Joanneum.Robotics.Ros.MessageParser\Joanneum.Robotics.Ros.MessageParser.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="TestMessages\**\*">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
 </Project>
