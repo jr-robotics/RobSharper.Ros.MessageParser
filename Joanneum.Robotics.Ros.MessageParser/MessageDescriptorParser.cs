@@ -14,7 +14,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             var visitor = new RosMessageVisitor();
             var context = Parser.ros_message();
 
-            return (MessageDescriptor) visitor.VisitRos_message(context);
+            return (MessageDescriptor) visitor.Visit(context);
         }
         
         public static MessageDescriptor Parse(string input)
