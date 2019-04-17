@@ -20,10 +20,10 @@ DURATION:                   'duration';
 SLASH:                      '/';
 OPEN_BRACKET:               OpenBracket;
 CLOSE_BRACKET:              CloseBracket;
-ASSIGNMENT:                 '=';
+ASSIGNMENT:                 Assignment;
 PLUS:                       '+';
 MINUS:                      '-';
-HASH:                       '#'                                     -> mode(COMMENT_MODE);
+HASH:                       Hash                                     -> mode(COMMENT_MODE);
 
 MESSAGE_SEPARATOR:          '---';
 
@@ -50,7 +50,8 @@ STRING_IDENTIFIER:          IDENTIFIER;
 STRING_OPEN_BRACKET:        OpenBracket;
 STRING_CLOSE_BRACKET:       CloseBracket;
 STRING_INTEGER_LITERAL:     [0-9]+;
-STRING_ASSIGNMENT:          ASSIGNMENT                              -> mode(STRING_ASSIGNMENT_MODE);
+STRING_ASSIGNMENT:          Assignment                              -> mode(STRING_ASSIGNMENT_MODE);
+STRING_HASH:                Hash                                    -> mode(COMMENT_MODE);
 
 STRING_WHITESPACES:         Whitespace+                             -> channel(HIDDEN);
 STRING_NEWLINE:             NewLine                                 -> channel(HIDDEN), mode(DEFAULT_MODE);
@@ -76,8 +77,10 @@ fragment Uppercase:         [A-Z];
 fragment Digit:             [0-9];
 fragment InputCharacter:    ~[\r\n\u0085\u2028\u2029];
 
+fragment Assignment:        '=';
 fragment OpenBracket:       '[';
 fragment CloseBracket:      ']';
+fragment Hash:              '#';
 
 fragment NewLine
 	: '\r\n' | '\r' | '\n'
