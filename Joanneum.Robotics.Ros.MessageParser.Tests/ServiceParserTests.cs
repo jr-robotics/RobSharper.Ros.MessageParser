@@ -3,14 +3,14 @@ using Xunit;
 
 namespace Joanneum.Robotics.Ros.MessageParser.Tests
 {
-    public class ServiceDescriptorTests
+    public class ServiceParserTests
     {
         [Fact]
         public void Can_parse_empty_service()
         {
             var message = "---";
 
-            var actual = ServiceDescriptorParser.Parse(message);
+            var actual = ServiceParser.Parse(message);
 
             Assert.NotNull(actual);
             Assert.NotNull(actual.Request);
@@ -24,7 +24,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         [TestMessages("*.srv")]
         public void Can_load_srv_file(TestMessage file)
         {
-            var actual = ServiceDescriptorParser.Parse(file.Content.Value);
+            var actual = ServiceParser.Parse(file.Content.Value);
             
             Assert.NotNull(actual);
         }
