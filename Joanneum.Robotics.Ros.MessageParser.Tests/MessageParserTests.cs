@@ -4,14 +4,14 @@ using Xunit;
 
 namespace Joanneum.Robotics.Ros.MessageParser.Tests
 {
-    public class MessageDescriptorParserTests
+    public class MessageParserTests
     {
         [Fact]
         public void Can_parse_simple_message()
         {
             var message = "int8 fooo";
 
-            var actual = MessageDescriptorParser.Parse(message);
+            var actual = MessageParser.Parse(message);
 
             Assert.NotNull(actual);
             Assert.Empty(actual.Comments);
@@ -30,7 +30,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         {
             var message = string.Empty;
 
-            var actual = MessageDescriptorParser.Parse(message);
+            var actual = MessageParser.Parse(message);
 
             Assert.NotNull(actual);
             Assert.True(actual.IsEmpty);
@@ -44,7 +44,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         [TestMessages("*.msg")]
         public void Can_load_msg_file(TestMessage file)
         {
-            var actual = MessageDescriptorParser.Parse(file.Content.Value);
+            var actual = MessageParser.Parse(file.Content.Value);
             
             Assert.NotNull(actual);
         }

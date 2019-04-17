@@ -3,9 +3,9 @@ using Antlr4.Runtime;
 
 namespace Joanneum.Robotics.Ros.MessageParser
 {
-    public class MessageDescriptorParser : DescriptorParser<MessageDescriptor>
+    public class MessageParser : DescriptorParser<MessageDescriptor>
     {
-        public MessageDescriptorParser(ICharStream input) : base(input)
+        public MessageParser(ICharStream input) : base(input)
         {
         }
 
@@ -19,12 +19,12 @@ namespace Joanneum.Robotics.Ros.MessageParser
         
         public static MessageDescriptor Parse(string input)
         {
-            return new MessageDescriptorParser(new AntlrInputStream(input)).ParseDescriptor();
+            return new MessageParser(new AntlrInputStream(input)).ParseDescriptor();
         }
 
         public static MessageDescriptor Parse(Stream input)
         {
-            return new MessageDescriptorParser(new AntlrInputStream(input)).ParseDescriptor();
+            return new MessageParser(new AntlrInputStream(input)).ParseDescriptor();
         }
     }
 }
