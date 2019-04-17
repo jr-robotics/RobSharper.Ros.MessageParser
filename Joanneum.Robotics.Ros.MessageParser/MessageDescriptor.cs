@@ -7,14 +7,14 @@ namespace Joanneum.Robotics.Ros.MessageParser
     {
         private readonly ICollection<object> _items = new List<object>();
         private readonly ICollection<FieldDescriptor> _fields = new List<FieldDescriptor>();
-        private readonly ICollection<ConstantDescriptor> _consts = new List<ConstantDescriptor>();
+        private readonly ICollection<ConstantDescriptor> _constants = new List<ConstantDescriptor>();
         private readonly ICollection<string> _comments = new List<string>();
 
         public IEnumerable<object> Items => _items;
         
         public IEnumerable<FieldDescriptor> Fields => _fields;
 
-        public IEnumerable<ConstantDescriptor> Consts => _consts;
+        public IEnumerable<ConstantDescriptor> Constants => _constants;
 
         public IEnumerable<string> Comments => _comments;
 
@@ -30,7 +30,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         public void AddConstant(ConstantDescriptor descriptor)
         {
             _items.Add(descriptor);
-            _consts.Add(descriptor);
+            _constants.Add(descriptor);
         }
 
         public void AddComment(string comment)
