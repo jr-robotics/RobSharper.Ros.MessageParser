@@ -275,7 +275,42 @@ namespace Joanneum.Robotics.Ros.MessageParser
         {
             return actionDescriptor;
         }
-        
-        
+
+        public override object VisitRosbag_input(RosMessageParser.Rosbag_inputContext context)
+        {
+            var message = (MessageDescriptor) Visit(context.GetChild(0));
+            var rosbag = new RosbagMessageDescriptor(message);
+
+            for (int i = 1; i < context.ChildCount; i++)
+            {
+                var nestedMessage = (NestedTypeDescriptor) Visit(context.GetChild(1));
+                rosbag.AddNestedMessage(nestedMessage);
+            }
+
+            rosbag = OnVisitRosbagInput(rosbag);
+            return rosbag;
+        }
+
+        protected internal virtual RosbagMessageDescriptor OnVisitRosbagInput(RosbagMessageDescriptor rosbag)
+        {
+            return rosbag;
+        }
+
+        public override object VisitRosbag_nested_message(RosMessageParser.Rosbag_nested_messageContext context)
+        {
+            var key = (RosTypeDescriptor) Visit(context.GetChild(0));
+            var value = (MessageDescriptor) Visit(context.GetChild(1));
+
+            var descriptor = new NestedTypeDescriptor(key, value);
+
+            descriptor = OnVisitRosbagNestedType(descriptor);
+            
+            return descriptor;
+        }
+
+        protected internal NestedTypeDescriptor OnVisitRosbagNestedType(NestedTypeDescriptor descriptor)
+        {
+            return descriptor;
+        }
     }
 }
