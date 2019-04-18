@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using Antlr4.Runtime;
 
@@ -12,6 +13,21 @@ namespace Joanneum.Robotics.Ros.MessageParser
             var t = PrimitiveTypeDescriptor.Parse(rosType);
 
             return t;
+        }
+
+        protected override object AggregateResult(object aggregate, object nextResult)
+        {
+            if (aggregate != null && nextResult != null)
+            {
+                throw new InvalidOperationException("Two nodes should not be merged this way!");
+            }
+
+            if (nextResult == null)
+            {
+                return aggregate;
+            }
+
+            return nextResult;
         }
 
         public override object VisitIntegral_type(RosMessageParser.Integral_typeContext context)
@@ -243,7 +259,12 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return messageDescriptor;
         }
 
-        public override object VisitRos_service(RosMessageParser.Ros_serviceContext context)
+//        public override object VisitRos_message_input(RosMessageParser.Ros_message_inputContext context)
+//        {
+//            return Visit(context.GetChild(0));
+//        }
+
+        public override object VisitRos_service_input(RosMessageParser.Ros_service_inputContext context)
         {
             var request = (MessageDescriptor) Visit(context.GetChild(0));
             var response = (MessageDescriptor) Visit(context.GetChild(2));
@@ -259,7 +280,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return serviceDescriptor;
         }
 
-        public override object VisitRos_action(RosMessageParser.Ros_actionContext context)
+        public override object VisitRos_action_input(RosMessageParser.Ros_action_inputContext context)
         {
             var goal = (MessageDescriptor) Visit(context.GetChild(0));
             var feedback = (MessageDescriptor) Visit(context.GetChild(2));
@@ -279,7 +300,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         public override object VisitRosbag_input(RosMessageParser.Rosbag_inputContext context)
         {
             var message = (MessageDescriptor) Visit(context.GetChild(0));
-            var rosbag = new RosbagMessageDescriptor(message);
+            var rosbag = new RosbagMessageDefinitionDescriptor(message);
             
             for (var i = 1; i < context.ChildCount - 1; i++)
             {
@@ -293,7 +314,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return rosbag;
         }
 
-        protected internal virtual RosbagMessageDescriptor OnVisitRosbagInput(RosbagMessageDescriptor rosbag)
+        protected internal virtual RosbagMessageDefinitionDescriptor OnVisitRosbagInput(RosbagMessageDefinitionDescriptor rosbag)
         {
             return rosbag;
         }

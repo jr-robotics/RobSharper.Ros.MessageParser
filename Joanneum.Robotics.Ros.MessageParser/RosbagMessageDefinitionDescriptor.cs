@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace Joanneum.Robotics.Ros.MessageParser
 {
-    public class RosbagMessageDescriptor
+    public class RosbagMessageDefinitionDescriptor
     {
         private readonly IDictionary<RosTypeDescriptor, MessageDescriptor> _nestedMessages = new Dictionary<RosTypeDescriptor, MessageDescriptor>();
         public MessageDescriptor Message { get; }
@@ -14,7 +14,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             get { return new ReadOnlyDictionary<RosTypeDescriptor, MessageDescriptor>(_nestedMessages); }
         }
 
-        public RosbagMessageDescriptor(MessageDescriptor message)
+        public RosbagMessageDefinitionDescriptor(MessageDescriptor message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             

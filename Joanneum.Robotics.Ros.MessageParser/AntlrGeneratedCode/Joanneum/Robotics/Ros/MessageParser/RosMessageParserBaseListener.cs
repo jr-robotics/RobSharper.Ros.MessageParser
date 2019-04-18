@@ -48,41 +48,41 @@ public partial class RosMessageParserBaseListener : IRosMessageParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitRos_file_input([NotNull] RosMessageParser.Ros_file_inputContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_message_input"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRos_message([NotNull] RosMessageParser.Ros_messageContext context) { }
+	public virtual void EnterRos_message_input([NotNull] RosMessageParser.Ros_message_inputContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_message_input"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRos_message([NotNull] RosMessageParser.Ros_messageContext context) { }
+	public virtual void ExitRos_message_input([NotNull] RosMessageParser.Ros_message_inputContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_action"/>.
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_action_input"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRos_action([NotNull] RosMessageParser.Ros_actionContext context) { }
+	public virtual void EnterRos_action_input([NotNull] RosMessageParser.Ros_action_inputContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_action"/>.
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_action_input"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRos_action([NotNull] RosMessageParser.Ros_actionContext context) { }
+	public virtual void ExitRos_action_input([NotNull] RosMessageParser.Ros_action_inputContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_service"/>.
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_service_input"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRos_service([NotNull] RosMessageParser.Ros_serviceContext context) { }
+	public virtual void EnterRos_service_input([NotNull] RosMessageParser.Ros_service_inputContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_service"/>.
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_service_input"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRos_service([NotNull] RosMessageParser.Ros_serviceContext context) { }
+	public virtual void ExitRos_service_input([NotNull] RosMessageParser.Ros_service_inputContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.rosbag_input"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -107,6 +107,18 @@ public partial class RosMessageParserBaseListener : IRosMessageParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitRosbag_nested_message([NotNull] RosMessageParser.Rosbag_nested_messageContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRos_message([NotNull] RosMessageParser.Ros_messageContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRos_message([NotNull] RosMessageParser.Ros_messageContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.field_declaration"/>.
 	/// <para>The default implementation does nothing.</para>

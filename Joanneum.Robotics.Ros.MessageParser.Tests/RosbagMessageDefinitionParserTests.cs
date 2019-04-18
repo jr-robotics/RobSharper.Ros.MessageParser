@@ -2,14 +2,14 @@ using Xunit;
 
 namespace Joanneum.Robotics.Ros.MessageParser.Tests
 {
-    public class RosbagMessageParserTests
+    public class RosbagMessageDefinitionParserTests
     {
         [Fact]
         public void Can_parse_rosbag_message_without_nested_types()
         {
             var input = @"int8 x     # This is a really simple message";
 
-            var actual = RosbagMessageParser.Parse(input);
+            var actual = RosbagMessageDefinitionParser.Parse(input);
 
             Assert.NotNull(actual);
             Assert.NotNull(actual.Message);
@@ -21,7 +21,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         {
             var input = string.Empty;
 
-            var actual = RosbagMessageParser.Parse(input);
+            var actual = RosbagMessageDefinitionParser.Parse(input);
 
             Assert.NotNull(actual);
             Assert.NotNull(actual.Message);
@@ -51,7 +51,7 @@ uint32 seq
 time stamp
 string frame_id";
             
-            var actual = RosbagMessageParser.Parse(input);
+            var actual = RosbagMessageDefinitionParser.Parse(input);
 
             Assert.NotNull(actual);
             Assert.NotNull(actual.Message);
@@ -157,7 +157,7 @@ float64 y
 float64 z
 float64 w";
             
-            var actual = RosbagMessageParser.Parse(input);
+            var actual = RosbagMessageDefinitionParser.Parse(input);
 
             Assert.NotNull(actual);
             Assert.NotNull(actual.Message);

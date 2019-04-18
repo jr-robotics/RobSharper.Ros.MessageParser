@@ -42,35 +42,35 @@ public interface IRosMessageParserListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitRos_file_input([NotNull] RosMessageParser.Ros_file_inputContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_message_input"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterRos_message([NotNull] RosMessageParser.Ros_messageContext context);
+	void EnterRos_message_input([NotNull] RosMessageParser.Ros_message_inputContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_message_input"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitRos_message([NotNull] RosMessageParser.Ros_messageContext context);
+	void ExitRos_message_input([NotNull] RosMessageParser.Ros_message_inputContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_action"/>.
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_action_input"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterRos_action([NotNull] RosMessageParser.Ros_actionContext context);
+	void EnterRos_action_input([NotNull] RosMessageParser.Ros_action_inputContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_action"/>.
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_action_input"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitRos_action([NotNull] RosMessageParser.Ros_actionContext context);
+	void ExitRos_action_input([NotNull] RosMessageParser.Ros_action_inputContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_service"/>.
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_service_input"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterRos_service([NotNull] RosMessageParser.Ros_serviceContext context);
+	void EnterRos_service_input([NotNull] RosMessageParser.Ros_service_inputContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_service"/>.
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_service_input"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitRos_service([NotNull] RosMessageParser.Ros_serviceContext context);
+	void ExitRos_service_input([NotNull] RosMessageParser.Ros_service_inputContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.rosbag_input"/>.
 	/// </summary>
@@ -91,6 +91,16 @@ public interface IRosMessageParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitRosbag_nested_message([NotNull] RosMessageParser.Rosbag_nested_messageContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRos_message([NotNull] RosMessageParser.Ros_messageContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRos_message([NotNull] RosMessageParser.Ros_messageContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.field_declaration"/>.
 	/// </summary>

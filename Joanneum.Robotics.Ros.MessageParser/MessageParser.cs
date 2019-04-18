@@ -12,7 +12,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         public override MessageDescriptor Parse()
         {
             var visitor = new RosMessageVisitor();
-            var context = Parser.ros_message();
+            var context = Parser.ros_message_input();
 
             return (MessageDescriptor) visitor.Visit(context);
         }

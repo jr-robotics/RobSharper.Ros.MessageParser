@@ -45,7 +45,7 @@ public partial class RosMessageParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitRos_file_input([NotNull] RosMessageParser.Ros_file_inputContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
+	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_message_input"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -53,9 +53,9 @@ public partial class RosMessageParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitRos_message([NotNull] RosMessageParser.Ros_messageContext context) { return VisitChildren(context); }
+	public virtual Result VisitRos_message_input([NotNull] RosMessageParser.Ros_message_inputContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_action"/>.
+	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_action_input"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -63,9 +63,9 @@ public partial class RosMessageParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitRos_action([NotNull] RosMessageParser.Ros_actionContext context) { return VisitChildren(context); }
+	public virtual Result VisitRos_action_input([NotNull] RosMessageParser.Ros_action_inputContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_service"/>.
+	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_service_input"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -73,7 +73,7 @@ public partial class RosMessageParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitRos_service([NotNull] RosMessageParser.Ros_serviceContext context) { return VisitChildren(context); }
+	public virtual Result VisitRos_service_input([NotNull] RosMessageParser.Ros_service_inputContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="RosMessageParser.rosbag_input"/>.
 	/// <para>
@@ -94,6 +94,16 @@ public partial class RosMessageParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitRosbag_nested_message([NotNull] RosMessageParser.Rosbag_nested_messageContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_message"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitRos_message([NotNull] RosMessageParser.Ros_messageContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="RosMessageParser.field_declaration"/>.
 	/// <para>

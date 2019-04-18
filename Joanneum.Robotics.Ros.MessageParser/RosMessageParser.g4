@@ -8,21 +8,21 @@ options { tokenVocab=RosMessageLexer; }
 
 /* ROS Message files */
 ros_file_input
-    : ros_message EOF
-    | ros_action EOF
-    | ros_service EOF
+    : ros_message_input
+    | ros_action_input
+    | ros_service_input
     ;
 
-ros_message
-    : (field_declaration | constant_declaration | comment)*
+ros_message_input
+    :   ros_message EOF
     ;
 
-ros_action
-    : ros_message MESSAGE_SEPARATOR ros_message MESSAGE_SEPARATOR ros_message
+ros_action_input
+    : ros_message MESSAGE_SEPARATOR ros_message MESSAGE_SEPARATOR ros_message EOF
     ;
 
-ros_service
-    : ros_message MESSAGE_SEPARATOR ros_message
+ros_service_input
+    : ros_message MESSAGE_SEPARATOR ros_message EOF
     ;
 
 /* ROSBAG Message format */
@@ -34,6 +34,10 @@ rosbag_nested_message
     : ROSBAG_MESSAGE_SEPARATOR ros_type ros_message
     ;
 
+ros_message
+    : (field_declaration | constant_declaration | comment)*
+    ;
+    
 field_declaration
     : (type | array_type) identifier
     ;
