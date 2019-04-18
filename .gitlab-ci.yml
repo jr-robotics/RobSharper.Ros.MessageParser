@@ -11,8 +11,12 @@ build:
   stage: build
   script:
     - "dotnet build"
+  tags:
+    - docker-executor
 
 test:
   stage: test
   script:
     - "dotnet test"
+  tags:
+    - docker-executor
