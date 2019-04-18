@@ -281,11 +281,15 @@ namespace Joanneum.Robotics.Ros.MessageParser
             var message = (MessageDescriptor) Visit(context.GetChild(0));
             var rosbag = new RosbagMessageDescriptor(message);
 
-            for (int i = 1; i < context.ChildCount; i++)
+            // Child(1) = ROSBAG_NESTEDMESSAGE_SEPARATOR
+            
+            for (var i = 2; i < context.ChildCount - 1; i++)
             {
-                var nestedMessage = (NestedTypeDescriptor) Visit(context.GetChild(1));
+                var nestedMessage = (NestedTypeDescriptor) Visit(context.GetChild(i));
                 rosbag.AddNestedMessage(nestedMessage);
             }
+            
+            // CHILD(n) = <EOF>
 
             rosbag = OnVisitRosbagInput(rosbag);
             return rosbag;

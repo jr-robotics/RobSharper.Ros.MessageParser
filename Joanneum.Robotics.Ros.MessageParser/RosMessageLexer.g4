@@ -35,7 +35,7 @@ FALSE:                      'False';
 
 IDENTIFIER:                 (Lowercase | Uppercase) (Lowercase | Uppercase | Digit | '_')*; 
 
-ROSBAG_MESSAGE_SEPARATOR:   '='+ NewLine 'MSG:'                     -> channel(HIDDEN);
+ROSBAG_MESSAGE_SEPARATOR:   '='+ NEWLINE 'MSG:';
 
 WHITESPACES:                Whitespace+                             -> channel(HIDDEN);
 NEWLINES:                   NewLine+                                -> channel(HIDDEN);
