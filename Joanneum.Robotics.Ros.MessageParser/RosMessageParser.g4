@@ -27,11 +27,11 @@ ros_service
 
 /* ROSBAG Message format */
 rosbag_input
-    : ros_message ROSBAG_MESSAGE_SEPARATOR rosbag_nested_message* EOF
+    : ros_message rosbag_nested_message* EOF
     ;
 
 rosbag_nested_message
-    : ros_type ros_message
+    : ROSBAG_MESSAGE_SEPARATOR ros_type ros_message
     ;
 
 field_declaration

@@ -280,10 +280,8 @@ namespace Joanneum.Robotics.Ros.MessageParser
         {
             var message = (MessageDescriptor) Visit(context.GetChild(0));
             var rosbag = new RosbagMessageDescriptor(message);
-
-            // Child(1) = ROSBAG_NESTEDMESSAGE_SEPARATOR
             
-            for (var i = 2; i < context.ChildCount - 1; i++)
+            for (var i = 1; i < context.ChildCount - 1; i++)
             {
                 var nestedMessage = (NestedTypeDescriptor) Visit(context.GetChild(i));
                 rosbag.AddNestedMessage(nestedMessage);
@@ -302,8 +300,9 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
         public override object VisitRosbag_nested_message(RosMessageParser.Rosbag_nested_messageContext context)
         {
-            var key = (RosTypeDescriptor) Visit(context.GetChild(0));
-            var value = (MessageDescriptor) Visit(context.GetChild(1));
+            // Child(0) = message separator
+            var key = (RosTypeDescriptor) Visit(context.GetChild(1));
+            var value = (MessageDescriptor) Visit(context.GetChild(2));
 
             var descriptor = new NestedTypeDescriptor(key, value);
 
