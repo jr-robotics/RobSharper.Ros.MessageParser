@@ -159,7 +159,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return fieldDescriptor;
         }
 
-        private FieldDescriptor OnVisitFieldDeclaration(FieldDescriptor fieldDescriptor)
+        protected internal virtual  FieldDescriptor OnVisitFieldDeclaration(FieldDescriptor fieldDescriptor)
         {
             return fieldDescriptor;
         }
@@ -177,7 +177,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return constDescriptor;
         }
 
-        private ConstantDescriptor OnVisitConstantDeclaration(ConstantDescriptor constDescriptor)
+        protected internal virtual  ConstantDescriptor OnVisitConstantDeclaration(ConstantDescriptor constDescriptor)
         {
             return constDescriptor;
         }
@@ -254,7 +254,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return serviceDescriptor;
         }
 
-        private ServiceDescriptor OnVisitRosService(ServiceDescriptor serviceDescriptor)
+        protected internal virtual  ServiceDescriptor OnVisitRosService(ServiceDescriptor serviceDescriptor)
         {
             return serviceDescriptor;
         }
@@ -271,9 +271,11 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return actionDescriptor;
         }
 
-        private ActionDescriptor OnVisitRosAction(ActionDescriptor actionDescriptor)
+        protected internal virtual ActionDescriptor OnVisitRosAction(ActionDescriptor actionDescriptor)
         {
             return actionDescriptor;
         }
+        
+        
     }
 }
