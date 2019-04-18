@@ -25,7 +25,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         {
             if (nestedMessage == null) throw new ArgumentNullException(nameof(nestedMessage));
             
-            _nestedMessages.Add(nestedMessage.Type, nestedMessage.Descriptor);
+            _nestedMessages.Add(nestedMessage.Type, nestedMessage.MessageDefinition);
         }
     }
 }

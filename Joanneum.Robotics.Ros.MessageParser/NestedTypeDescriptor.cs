@@ -5,15 +5,15 @@ namespace Joanneum.Robotics.Ros.MessageParser
     public class NestedTypeDescriptor
     {
         public RosTypeDescriptor Type { get; }
-        public MessageDescriptor Descriptor { get; }
+        public MessageDescriptor MessageDefinition { get; }
 
-        public NestedTypeDescriptor(RosTypeDescriptor type, MessageDescriptor descriptor)
+        public NestedTypeDescriptor(RosTypeDescriptor type, MessageDescriptor messageDefinition)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
-            if (descriptor == null) throw new ArgumentNullException(nameof(descriptor));
+            if (messageDefinition == null) throw new ArgumentNullException(nameof(messageDefinition));
             
             Type = type;
-            Descriptor = descriptor;
+            MessageDefinition = messageDefinition;
         }
     }
 }
