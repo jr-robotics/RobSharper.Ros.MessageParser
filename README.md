@@ -25,11 +25,11 @@ ROS Message Parser for .Net is available as NuGet Package.
 > Use the built in parsers if you want to get a structured representation of a ROS message.
 
 **Parsing a message file**
-```C#
+```csharp
 var descriptor = MessageParser.Parse(File.ReadAllText(filePath));
 ```
 
-```C#
+```csharp
 MessageDescriptor descriptor;
             
 using (var file = File.OpenRead(filePath))
@@ -39,11 +39,11 @@ using (var file = File.OpenRead(filePath))
 ```
 
 **Parsing a service file**
-```C#
+```csharp
 var descriptor = ServiceParser.Parse(File.ReadAllText(filePath));
 ```
 
-```C#
+```csharp
 ServiceDescriptor descriptor;
             
 using (var file = File.OpenRead(filePath))
@@ -53,11 +53,11 @@ using (var file = File.OpenRead(filePath))
 ```
 
 **Parsing an action file**
-```C#
+```csharp
 var descriptor = ActionParser.Parse(File.ReadAllText(filePath));
 ```
 
-```C#
+```csharp
 ActionDescriptor descriptor;
             
 using (var file = File.OpenRead(filePath))
