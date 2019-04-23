@@ -7,6 +7,8 @@ namespace Joanneum.Robotics.Ros.MessageParser
 {
     public class RosMessageVisitor : RosMessageParserBaseVisitor<object>
     {
+        private IRosMessageVisitorListener _listener;
+        
 
         private static object GetPrimitiveTye(ParserRuleContext context)
         {
@@ -14,6 +16,16 @@ namespace Joanneum.Robotics.Ros.MessageParser
             var t = PrimitiveTypeInfo.Parse(rosType);
 
             return t;
+        }
+
+        public RosMessageVisitor(IRosMessageVisitorListener listener = null)
+        {
+            if (listener == null)
+            {
+                listener = EmptyRosMessageVisitorListener.Instance;
+            }
+            
+            _listener = listener;
         }
 
         protected override object AggregateResult(object aggregate, object nextResult)
@@ -59,14 +71,9 @@ namespace Joanneum.Robotics.Ros.MessageParser
         public override object VisitBase_type(RosMessageParser.Base_typeContext context)
         {
             var baseType = (PrimitiveTypeInfo) base.VisitBase_type(context);
-            baseType = OnVisitBaseType(baseType);
+            _listener.OnVisitPrimitiveType(baseType);
             
             return baseType;
-        }
-
-        protected internal virtual PrimitiveTypeInfo OnVisitBaseType(PrimitiveTypeInfo typeInfoDescriptor)
-        {
-            return typeInfoDescriptor;
         }
 
         public override object VisitRos_type(RosMessageParser.Ros_typeContext context)
@@ -90,14 +97,9 @@ namespace Joanneum.Robotics.Ros.MessageParser
             }
             
             var messageType =  new RosTypeInfo(typeName, packageName);
-            messageType = OnVisitRosType(messageType);
+            _listener.OnVisitRosType(messageType);
             
             return messageType;
-        }
-
-        protected internal virtual RosTypeInfo OnVisitRosType(RosTypeInfo typeInfo)
-        {
-            return typeInfo;
         }
 
 
@@ -121,14 +123,9 @@ namespace Joanneum.Robotics.Ros.MessageParser
         public override object VisitArray_type(RosMessageParser.Array_typeContext context)
         {
             var descriptor = (ArrayTypeInfo) base.VisitArray_type(context);
-            descriptor = OnVisitArrayType(descriptor);
+            _listener.OnVisitArrayType(descriptor);
 
             return descriptor;
-        }
-
-        protected internal virtual ArrayTypeInfo OnVisitArrayType(ArrayTypeInfo arrayTypeInfo)
-        {
-            return arrayTypeInfo;
         }
 
         public override object VisitComment(RosMessageParser.CommentContext context)
@@ -144,24 +141,14 @@ namespace Joanneum.Robotics.Ros.MessageParser
                 comment = context.GetChild(1).GetText().Trim();
             }
             
-            comment = OnVisitComment(comment);
-            return comment;
-        }
-
-        protected internal virtual string OnVisitComment(string comment)
-        {
+            _listener.OnVisitComment(comment);
             return comment;
         }
 
         public override object VisitIdentifier(RosMessageParser.IdentifierContext context)
         {
             var identifier = context.GetText();
-            identifier = OnVisitIdentifier(identifier);
-            return identifier;
-        }
-
-        protected internal virtual string OnVisitIdentifier(string identifier)
-        {
+            _listener.OnVisitIdentifier(identifier);
             return identifier;
         }
 
@@ -171,16 +158,11 @@ namespace Joanneum.Robotics.Ros.MessageParser
             var identifier = (string) Visit(context.GetChild(1));
 
             var fieldDescriptor = new FieldDescriptor(type, identifier);
-            fieldDescriptor = OnVisitFieldDeclaration(fieldDescriptor);
+            _listener.OnVisitFieldDeclaration(fieldDescriptor);
             
             return fieldDescriptor;
         }
-
-        protected internal virtual  FieldDescriptor OnVisitFieldDeclaration(FieldDescriptor fieldDescriptor)
-        {
-            return fieldDescriptor;
-        }
-
+        
         public override object VisitConstant_declaration(RosMessageParser.Constant_declarationContext context)
         {
             var type = (PrimitiveTypeInfo) Visit(context.GetChild(0));
@@ -190,12 +172,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
             var constDescriptor = ConstantDescriptor.Create(type, identifier, value);
 
-            constDescriptor = OnVisitConstantDeclaration(constDescriptor);
-            return constDescriptor;
-        }
-
-        protected internal virtual  ConstantDescriptor OnVisitConstantDeclaration(ConstantDescriptor constDescriptor)
-        {
+            _listener.OnVisitConstantDeclaration(constDescriptor);
             return constDescriptor;
         }
 
@@ -251,19 +228,9 @@ namespace Joanneum.Robotics.Ros.MessageParser
                 }
             }
 
-            messageDescriptor = OnVisitRosMessage(messageDescriptor);
+            _listener.OnVisitRosMessage(messageDescriptor);
             return messageDescriptor;
         }
-
-        protected internal virtual MessageDescriptor OnVisitRosMessage(MessageDescriptor messageDescriptor)
-        {
-            return messageDescriptor;
-        }
-
-//        public override object VisitRos_message_input(RosMessageParser.Ros_message_inputContext context)
-//        {
-//            return Visit(context.GetChild(0));
-//        }
 
         public override object VisitRos_service_input(RosMessageParser.Ros_service_inputContext context)
         {
@@ -271,13 +238,8 @@ namespace Joanneum.Robotics.Ros.MessageParser
             var response = (MessageDescriptor) Visit(context.GetChild(2));
 
             var serviceDescriptor = new ServiceDescriptor(request, response);
-            serviceDescriptor = OnVisitRosService(serviceDescriptor);
+            _listener.OnVisitRosService(serviceDescriptor);
             
-            return serviceDescriptor;
-        }
-
-        protected internal virtual  ServiceDescriptor OnVisitRosService(ServiceDescriptor serviceDescriptor)
-        {
             return serviceDescriptor;
         }
 
@@ -288,13 +250,8 @@ namespace Joanneum.Robotics.Ros.MessageParser
             var result = (MessageDescriptor) Visit(context.GetChild(4));
 
             var actionDescriptor = new ActionDescriptor(goal, feedback, result);
-            actionDescriptor = OnVisitRosAction(actionDescriptor);
+            _listener.OnVisitRosAction(actionDescriptor);
 
-            return actionDescriptor;
-        }
-
-        protected internal virtual ActionDescriptor OnVisitRosAction(ActionDescriptor actionDescriptor)
-        {
             return actionDescriptor;
         }
 
@@ -311,12 +268,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             
             // CHILD(n) = <EOF>
 
-            rosbag = OnVisitRosbagInput(rosbag);
-            return rosbag;
-        }
-
-        protected internal virtual RosbagMessageDefinitionDescriptor OnVisitRosbagInput(RosbagMessageDefinitionDescriptor rosbag)
-        {
+            _listener.OnVisitRosbagInput(rosbag);
             return rosbag;
         }
 
@@ -328,13 +280,8 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
             var descriptor = new NestedTypeDescriptor(key, value);
 
-            descriptor = OnVisitRosbagNestedType(descriptor);
+            _listener.OnVisitRosbagNestedType(descriptor);
             
-            return descriptor;
-        }
-
-        protected internal NestedTypeDescriptor OnVisitRosbagNestedType(NestedTypeDescriptor descriptor)
-        {
             return descriptor;
         }
     }

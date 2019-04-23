@@ -30,15 +30,12 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
             
-            var mock = new Mock<RosMessageVisitor>()
-            {
-                CallBase = true
-            };
+            var mock = new Mock<IRosMessageVisitorListener>();
+            var visitor = new RosMessageVisitor(mock.Object);
             
-            var visitor = mock.Object;
             visitor.Visit(context);
             
-            mock.Verify(x => x.OnVisitBaseType(expectedPrimitiveType));
+            mock.Verify(x => x.OnVisitPrimitiveType(expectedPrimitiveType));
         }
 
         [Fact]
@@ -50,12 +47,9 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
             
-            var mock = new Mock<RosMessageVisitor>()
-            {
-                CallBase = true
-            };
-
-            var visitor = mock.Object;
+            var mock = new Mock<IRosMessageVisitorListener>();
+            var visitor = new RosMessageVisitor(mock.Object);
+            
             visitor.Visit(context);
 
             mock.Verify(x => x.OnVisitRosType(expectedTypeDescriptor));
@@ -70,12 +64,10 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
             
-            var mock = new Mock<RosMessageVisitor>()
-            {
-                CallBase = true
-            };
+            
+            var mock = new Mock<IRosMessageVisitorListener>();
+            var visitor = new RosMessageVisitor(mock.Object);
 
-            var visitor = mock.Object;
             visitor.Visit(context);
 
             mock.Verify(x => x.OnVisitRosType(expectedTypeDescriptor));
@@ -90,12 +82,9 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
             
-            var mock = new Mock<RosMessageVisitor>()
-            {
-                CallBase = true
-            };
+            var mock = new Mock<IRosMessageVisitorListener>();
+            var visitor = new RosMessageVisitor(mock.Object);
 
-            var visitor = mock.Object;
             visitor.Visit(context);
 
             mock.Verify(x => x.OnVisitRosType(expectedTypeDescriptor));
@@ -110,12 +99,9 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
             
-            var mock = new Mock<RosMessageVisitor>()
-            {
-                CallBase = true
-            };
-            
-            var visitor = mock.Object;
+            var mock = new Mock<IRosMessageVisitorListener>();
+            var visitor = new RosMessageVisitor(mock.Object);
+
             visitor.Visit(context);
 
             mock.Verify(x => x.OnVisitIdentifier(expectedIdentifier));
@@ -132,15 +118,12 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
 
             var context = messageParser.ros_message();
             
-            var mock = new Mock<RosMessageVisitor>()
-            {
-                CallBase = true
-            };
+            var mock = new Mock<IRosMessageVisitorListener>();
 
             mock.Setup(x => x.OnVisitComment(It.IsAny<string>()))
                 .Callback<string>(comment => actualComment = comment);
             
-            var visitor = mock.Object;
+            var visitor = new RosMessageVisitor(mock.Object);
             visitor.Visit(context);
 
             Assert.Equal(expectedComment, actualComment);
@@ -157,15 +140,12 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
 
             var context = messageParser.ros_message();
             
-            var mock = new Mock<RosMessageVisitor>()
-            {
-                CallBase = true
-            };
+            var mock = new Mock<IRosMessageVisitorListener>();
 
             mock.Setup(x => x.OnVisitComment(It.IsAny<string>()))
                 .Callback<string>(comment => actualComment = comment);
             
-            var visitor = mock.Object;
+            var visitor = new RosMessageVisitor(mock.Object);
             visitor.Visit(context);
 
             Assert.Equal(expectedComment, actualComment);
@@ -182,15 +162,13 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
 
             var context = messageParser.ros_message();
             
-            var mock = new Mock<RosMessageVisitor>()
-            {
-                CallBase = true
-            };
+            
+            var mock = new Mock<IRosMessageVisitorListener>();
 
             mock.Setup(x => x.OnVisitComment(It.IsAny<string>()))
                 .Callback<string>(comment => actualComment = comment);
             
-            var visitor = mock.Object;
+            var visitor = new RosMessageVisitor(mock.Object);
             visitor.Visit(context);
 
             Assert.Equal(expectedComment, actualComment);
