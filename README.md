@@ -19,9 +19,10 @@ ROS Message Parser for .Net is available as NuGet Package.
 
 ## Usage
 
-**TODO** Add example project
 
 ### Built in Parsers
+
+> Use the built in parsers if you want to get a structured representation of a ROS message.
 
 **Parsing a message file**
 ```C#
@@ -64,6 +65,21 @@ using (var file = File.OpenRead(filePath))
     descriptor = ActionParser.Parse(file);
 }
 ```
+
+What you get from the parsers is a either a ```MessageDescriptor```, ```ServiceDescriptor``` or a ```ActionDescriptor```
+representing the structure of the ROS message file.
+
+Have a look on the UML diagram below for a detailed description.
+
+![Message Parsers UML diagram](assets/ros-message-parser-descriptors.png)
+
+
+### Build your own Visitor
+
+> Use this if you want to directly operate on the generated parse tree.
+
+**TODO** 
+
 
 
 
