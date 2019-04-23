@@ -25,7 +25,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         public void VisitBaseType_return_RosPrimitiveType(string dataType)
         {
             var message = $"{dataType} fieldName";
-            var expectedPrimitiveType = PrimitiveTypeDescriptor.Parse(dataType);
+            var expectedPrimitiveType = PrimitiveTypeInfo.Parse(dataType);
             
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
@@ -45,7 +45,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         public void VisitRosType_retuns_RosTypeDescriptor_for_external_external()
         {
             var message = $"std_msgs/Bool fieldName";
-            var expectedTypeDescriptor = new RosTypeDescriptor("Bool", "std_msgs");
+            var expectedTypeDescriptor = new RosTypeInfo("Bool", "std_msgs");
             
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
@@ -65,7 +65,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         public void VisitRosType_retuns_RosTypeDescriptor_for_internal_type()
         {
             var message = $"MyType fieldName";
-            var expectedTypeDescriptor = new RosTypeDescriptor("MyType");
+            var expectedTypeDescriptor = new RosTypeInfo("MyType");
             
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
@@ -85,7 +85,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         public void VisitRosType_retuns_RosTypeDescriptor_for_header_type()
         {
             var message = $"Header fieldName";
-            var expectedTypeDescriptor = new RosTypeDescriptor("Header", "std_msgs");
+            var expectedTypeDescriptor = new RosTypeInfo("Header", "std_msgs");
             
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();

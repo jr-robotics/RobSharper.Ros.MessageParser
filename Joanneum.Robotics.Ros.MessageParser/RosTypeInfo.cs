@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Joanneum.Robotics.Ros.MessageParser
 {
-    public class RosTypeDescriptor
+    public class RosTypeInfo : IRosTypeInfo
     {
         public string TypeName { get; }
         public string PackageName { get; }
@@ -13,7 +13,10 @@ namespace Joanneum.Robotics.Ros.MessageParser
             get { return PackageName != null; }
         }
 
-        public RosTypeDescriptor(string typeName, string packageName = null)
+        public bool IsArray => false;
+        public bool IsPrimitive => false;
+
+        public RosTypeInfo(string typeName, string packageName = null)
         {
             if (typeName == null) throw new ArgumentNullException(nameof(typeName));
             
@@ -24,8 +27,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             PackageName = packageName;
         }
         
-        
-        protected bool Equals(RosTypeDescriptor other)
+        protected bool Equals(RosTypeInfo other)
         {
             return string.Equals(TypeName, other.TypeName) && string.Equals(PackageName, other.PackageName);
         }
@@ -35,7 +37,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((RosTypeDescriptor) obj);
+            return Equals((RosTypeInfo) obj);
         }
 
         public override int GetHashCode()
@@ -58,11 +60,11 @@ namespace Joanneum.Robotics.Ros.MessageParser
             }
         }
 
-        public static RosTypeDescriptor Parse(string messageType)
+        public static RosTypeInfo Parse(string messageType)
         {
             if (messageType == null) throw new ArgumentNullException(nameof(messageType));
 
-            if (PrimitiveTypeDescriptor.IsPrimitiveType(messageType))
+            if (PrimitiveTypeInfo.IsPrimitiveType(messageType))
             {
                 throw new InvalidOperationException("Message type is a primitive ros type");
             }
@@ -70,14 +72,14 @@ namespace Joanneum.Robotics.Ros.MessageParser
             // Header is a "special" built in type
             if (messageType == "Header")
             {
-                return new RosTypeDescriptor("std_msgs", "Header");
+                return new RosTypeInfo("std_msgs", "Header");
             }
 
             var parts = messageType.Split('/')
                 .Reverse()
                 .ToArray();
             
-            return new RosTypeDescriptor(parts[0], parts[1]);
+            return new RosTypeInfo(parts[0], parts[1]);
         }
     }
 }

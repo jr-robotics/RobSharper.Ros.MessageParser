@@ -11,7 +11,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         private static object GetPrimitiveTye(ParserRuleContext context)
         {
             var rosType = context.GetText();
-            var t = PrimitiveTypeDescriptor.Parse(rosType);
+            var t = PrimitiveTypeInfo.Parse(rosType);
 
             return t;
         }
@@ -58,15 +58,15 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
         public override object VisitBase_type(RosMessageParser.Base_typeContext context)
         {
-            var baseType = (PrimitiveTypeDescriptor) base.VisitBase_type(context);
+            var baseType = (PrimitiveTypeInfo) base.VisitBase_type(context);
             baseType = OnVisitBaseType(baseType);
             
             return baseType;
         }
 
-        protected internal virtual PrimitiveTypeDescriptor OnVisitBaseType(PrimitiveTypeDescriptor typeDescriptor)
+        protected internal virtual PrimitiveTypeInfo OnVisitBaseType(PrimitiveTypeInfo typeInfoDescriptor)
         {
-            return typeDescriptor;
+            return typeInfoDescriptor;
         }
 
         public override object VisitRos_type(RosMessageParser.Ros_typeContext context)
@@ -89,22 +89,22 @@ namespace Joanneum.Robotics.Ros.MessageParser
                 typeName = context.GetChild(2).GetText();
             }
             
-            var messageType =  new RosTypeDescriptor(typeName, packageName);
+            var messageType =  new RosTypeInfo(typeName, packageName);
             messageType = OnVisitRosType(messageType);
             
             return messageType;
         }
 
-        protected internal virtual RosTypeDescriptor OnVisitRosType(RosTypeDescriptor typeDescriptor)
+        protected internal virtual RosTypeInfo OnVisitRosType(RosTypeInfo typeInfo)
         {
-            return typeDescriptor;
+            return typeInfo;
         }
 
 
         public override object VisitVariable_array_type(RosMessageParser.Variable_array_typeContext context)
         {
             var type = Visit(context.GetChild(0));
-            var arrayDescriptor = ArrayDescriptor.Create(type);
+            var arrayDescriptor = ArrayTypeInfo.Create(type);
 
             return arrayDescriptor;
         }
@@ -113,22 +113,22 @@ namespace Joanneum.Robotics.Ros.MessageParser
         {
             var type = Visit(context.GetChild(0));
             var size = int.Parse(context.GetChild(2).GetText());
-            var arrayDescriptor = ArrayDescriptor.Create(type, size);
+            var arrayDescriptor = ArrayTypeInfo.Create(type, size);
 
             return arrayDescriptor;
         }
 
         public override object VisitArray_type(RosMessageParser.Array_typeContext context)
         {
-            var descriptor = (ArrayDescriptor) base.VisitArray_type(context);
+            var descriptor = (ArrayTypeInfo) base.VisitArray_type(context);
             descriptor = OnVisitArrayType(descriptor);
 
             return descriptor;
         }
 
-        protected internal virtual ArrayDescriptor OnVisitArrayType(ArrayDescriptor arrayDescriptor)
+        protected internal virtual ArrayTypeInfo OnVisitArrayType(ArrayTypeInfo arrayTypeInfo)
         {
-            return arrayDescriptor;
+            return arrayTypeInfo;
         }
 
         public override object VisitComment(RosMessageParser.CommentContext context)
@@ -167,7 +167,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
         public override object VisitField_declaration(RosMessageParser.Field_declarationContext context)
         {
-            var type = Visit(context.GetChild(0));
+            var type = (IRosTypeInfo) Visit(context.GetChild(0));
             var identifier = (string) Visit(context.GetChild(1));
 
             var fieldDescriptor = new FieldDescriptor(type, identifier);
@@ -183,7 +183,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
         public override object VisitConstant_declaration(RosMessageParser.Constant_declarationContext context)
         {
-            var type = (PrimitiveTypeDescriptor) Visit(context.GetChild(0));
+            var type = (PrimitiveTypeInfo) Visit(context.GetChild(0));
             var identifier = (string) Visit(context.GetChild(1));
             // child 2 = '='
             var value = Visit(context.GetChild(3));
@@ -323,7 +323,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         public override object VisitRosbag_nested_message(RosMessageParser.Rosbag_nested_messageContext context)
         {
             // Child(0) = message separator
-            var key = (RosTypeDescriptor) Visit(context.GetChild(1));
+            var key = (RosTypeInfo) Visit(context.GetChild(1));
             var value = (MessageDescriptor) Visit(context.GetChild(2));
 
             var descriptor = new NestedTypeDescriptor(key, value);

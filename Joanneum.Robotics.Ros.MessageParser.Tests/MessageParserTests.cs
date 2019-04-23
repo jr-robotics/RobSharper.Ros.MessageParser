@@ -21,7 +21,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
 
             var field = actual.Fields.First();
             
-            Assert.Equal(PrimitiveTypeDescriptor.Int8, field.Type);
+            Assert.Equal(PrimitiveTypeInfo.Int8, field.TypeInfo);
             Assert.Equal("fooo", field.Identifier);
         }
 

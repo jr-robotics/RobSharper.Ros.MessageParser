@@ -6,12 +6,12 @@ namespace Joanneum.Robotics.Ros.MessageParser
 {
     public class RosbagMessageDefinitionDescriptor
     {
-        private readonly IDictionary<RosTypeDescriptor, MessageDescriptor> _nestedMessages = new Dictionary<RosTypeDescriptor, MessageDescriptor>();
+        private readonly IDictionary<RosTypeInfo, MessageDescriptor> _nestedMessages = new Dictionary<RosTypeInfo, MessageDescriptor>();
         public MessageDescriptor Message { get; }
 
-        public IReadOnlyDictionary<RosTypeDescriptor, MessageDescriptor> NestedMessages
+        public IReadOnlyDictionary<RosTypeInfo, MessageDescriptor> NestedMessages
         {
-            get { return new ReadOnlyDictionary<RosTypeDescriptor, MessageDescriptor>(_nestedMessages); }
+            get { return new ReadOnlyDictionary<RosTypeInfo, MessageDescriptor>(_nestedMessages); }
         }
 
         public RosbagMessageDefinitionDescriptor(MessageDescriptor message)
@@ -25,7 +25,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         {
             if (nestedMessage == null) throw new ArgumentNullException(nameof(nestedMessage));
             
-            _nestedMessages.Add(nestedMessage.Type, nestedMessage.MessageDefinition);
+            _nestedMessages.Add(nestedMessage.TypeInfo, nestedMessage.MessageDefinition);
         }
     }
 }

@@ -4,48 +4,43 @@ namespace Joanneum.Robotics.Ros.MessageParser
 {
     public class FieldDescriptor
     {
-        public object Type { get; }
-        public object UnderlyingType { get; }
-        
-        public bool IsArray { get; }
-
-        public int? ArraySize
-        {
-            get
-            {
-                if (!IsArray)
-                    throw new InvalidOperationException();
-
-                return ((ArrayDescriptor) Type).Size;
-            }
-        }
-
-        public bool IsPrimitiveType => PrimitiveUnderlyingType != null;
-
-        public PrimitiveTypeDescriptor PrimitiveUnderlyingType => UnderlyingType as PrimitiveTypeDescriptor;
-        public RosTypeDescriptor RosUnderlyingType => UnderlyingType as RosTypeDescriptor;
+        public IRosTypeInfo TypeInfo { get; }
 
         public string Identifier { get; }
 
-        public FieldDescriptor(object type, string identifier)
+        public FieldDescriptor(IRosTypeInfo typeInfo, string identifier)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (typeInfo == null) throw new ArgumentNullException(nameof(typeInfo));
             if (identifier == null) throw new ArgumentNullException(nameof(identifier));
 
-            Type = type;
+            TypeInfo = typeInfo;
             Identifier = identifier;
+        }
 
-            if (type is ArrayDescriptor arrayType)
+        public override string ToString()
+        {
+            return $"{TypeInfo} {Identifier}";
+        }
+
+        protected bool Equals(FieldDescriptor other)
+        {
+            return Equals(TypeInfo, other.TypeInfo) && string.Equals(Identifier, other.Identifier);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((FieldDescriptor) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
             {
-                IsArray = true;
-                UnderlyingType = arrayType.Type;
-            }
-            else
-            {
-                UnderlyingType = type;
+                return ((TypeInfo != null ? TypeInfo.GetHashCode() : 0) * 397) ^ (Identifier != null ? Identifier.GetHashCode() : 0);
             }
         }
-        
-        
     }
 }

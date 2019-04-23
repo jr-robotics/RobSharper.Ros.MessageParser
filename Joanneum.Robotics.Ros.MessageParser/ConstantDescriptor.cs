@@ -4,41 +4,41 @@ namespace Joanneum.Robotics.Ros.MessageParser
 {
     public class ConstantDescriptor
     {
-        public PrimitiveTypeDescriptor TypeDescriptor { get; }
+        public PrimitiveTypeInfo TypeInfoDescriptor { get; }
 
-        public Type Type => TypeDescriptor.Type;
+        public Type Type => TypeInfoDescriptor.Type;
         public string Identifier { get; }
         public object Value { get; }
 
-        protected ConstantDescriptor(PrimitiveTypeDescriptor typeDescriptor, string identifier, object value)
+        protected ConstantDescriptor(PrimitiveTypeInfo typeInfoDescriptor, string identifier, object value)
         {
-            if (typeDescriptor == null) throw new ArgumentNullException(nameof(typeDescriptor));
+            if (typeInfoDescriptor == null) throw new ArgumentNullException(nameof(typeInfoDescriptor));
             if (identifier == null) throw new ArgumentNullException(nameof(identifier));
             if (value == null) throw new ArgumentNullException(nameof(value));
             
-            TypeDescriptor = typeDescriptor;
+            TypeInfoDescriptor = typeInfoDescriptor;
             Identifier = identifier;
             Value = value;
         }
 
-        public static ConstantDescriptor Create(PrimitiveTypeDescriptor type, string identifier, object value)
+        public static ConstantDescriptor Create(PrimitiveTypeInfo typeInfo, string identifier, object value)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (typeInfo == null) throw new ArgumentNullException(nameof(typeInfo));
             if (value == null) throw new ArgumentNullException(nameof(value));
 
             // Fix value type
             var converter = System.ComponentModel.TypeDescriptor.GetConverter(value.GetType());
             
-            if (converter.CanConvertTo(type.Type))
+            if (converter.CanConvertTo(typeInfo.Type))
             {
-                value = converter.ConvertTo(value, type.Type);
+                value = converter.ConvertTo(value, typeInfo.Type);
             }
             else
             {
-                throw new InvalidOperationException($"Cannot convert from {value.GetType()} to {type.Type}");
+                throw new InvalidOperationException($"Cannot convert from {value.GetType()} to {typeInfo.Type}");
             }
 
-            return new ConstantDescriptor(type, identifier, value);
+            return new ConstantDescriptor(typeInfo, identifier, value);
         }
     }
 }
