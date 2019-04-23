@@ -89,7 +89,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return $"{_underlyingType}[{size}]";
         }
 
-        public static ArrayTypeInfo Create(object type, int? size = null)
+        public static ArrayTypeInfo Create(IRosTypeInfo type, int? size = null)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
             

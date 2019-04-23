@@ -103,7 +103,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
         public override object VisitVariable_array_type(RosMessageParser.Variable_array_typeContext context)
         {
-            var type = Visit(context.GetChild(0));
+            var type = (IRosTypeInfo) Visit(context.GetChild(0));
             var arrayDescriptor = ArrayTypeInfo.Create(type);
 
             return arrayDescriptor;
@@ -111,7 +111,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
         public override object VisitFixed_array_type(RosMessageParser.Fixed_array_typeContext context)
         {
-            var type = Visit(context.GetChild(0));
+            var type = (IRosTypeInfo) Visit(context.GetChild(0));
             var size = int.Parse(context.GetChild(2).GetText());
             var arrayDescriptor = ArrayTypeInfo.Create(type, size);
 

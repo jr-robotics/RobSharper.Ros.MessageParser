@@ -4,19 +4,17 @@ namespace Joanneum.Robotics.Ros.MessageParser
 {
     public class ConstantDescriptor
     {
-        public PrimitiveTypeInfo TypeInfoDescriptor { get; }
-
-        public Type Type => TypeInfoDescriptor.Type;
+        public PrimitiveTypeInfo TypeInfo { get; }
         public string Identifier { get; }
         public object Value { get; }
 
-        protected ConstantDescriptor(PrimitiveTypeInfo typeInfoDescriptor, string identifier, object value)
+        protected ConstantDescriptor(PrimitiveTypeInfo typeInfo, string identifier, object value)
         {
-            if (typeInfoDescriptor == null) throw new ArgumentNullException(nameof(typeInfoDescriptor));
+            if (typeInfo == null) throw new ArgumentNullException(nameof(typeInfo));
             if (identifier == null) throw new ArgumentNullException(nameof(identifier));
             if (value == null) throw new ArgumentNullException(nameof(value));
             
-            TypeInfoDescriptor = typeInfoDescriptor;
+            TypeInfo = typeInfo;
             Identifier = identifier;
             Value = value;
         }
