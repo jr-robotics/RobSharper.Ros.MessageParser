@@ -64,7 +64,6 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
             
-            
             var mock = new Mock<IRosMessageVisitorListener>();
             var visitor = new RosMessageVisitor(mock.Object);
 
@@ -113,20 +112,15 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             const string expectedComment = "This is my Comment";
             var message = $"MyType fieldName        #{expectedComment}";
             
-            string actualComment = null;
             var messageParser = ParserHelper.CreateParserForMessage(message);
-
             var context = messageParser.ros_message();
             
             var mock = new Mock<IRosMessageVisitorListener>();
-
-            mock.Setup(x => x.OnVisitComment(It.IsAny<string>()))
-                .Callback<string>(comment => actualComment = comment);
-            
             var visitor = new RosMessageVisitor(mock.Object);
+            
             visitor.Visit(context);
 
-            Assert.Equal(expectedComment, actualComment);
+            mock.Verify(x => x.OnVisitComment(expectedComment));
         }
         
         [Fact]
@@ -135,20 +129,15 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             const string expectedComment = "This is my Comment";
             var message = $"MyType fieldName        #  \t{expectedComment}  \t";
             
-            string actualComment = null;
             var messageParser = ParserHelper.CreateParserForMessage(message);
-
             var context = messageParser.ros_message();
             
             var mock = new Mock<IRosMessageVisitorListener>();
-
-            mock.Setup(x => x.OnVisitComment(It.IsAny<string>()))
-                .Callback<string>(comment => actualComment = comment);
-            
             var visitor = new RosMessageVisitor(mock.Object);
+            
             visitor.Visit(context);
 
-            Assert.Equal(expectedComment, actualComment);
+            mock.Verify(x => x.OnVisitComment(expectedComment));
         }
         
         [Fact]
@@ -157,21 +146,15 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             string expectedComment = string.Empty;
             var message = $"MyType fieldName        #";
             
-            string actualComment = null;
             var messageParser = ParserHelper.CreateParserForMessage(message);
-
             var context = messageParser.ros_message();
             
-            
             var mock = new Mock<IRosMessageVisitorListener>();
-
-            mock.Setup(x => x.OnVisitComment(It.IsAny<string>()))
-                .Callback<string>(comment => actualComment = comment);
-            
             var visitor = new RosMessageVisitor(mock.Object);
+            
             visitor.Visit(context);
 
-            Assert.Equal(expectedComment, actualComment);
+            mock.Verify(x => x.OnVisitComment(expectedComment));
         }
     }
 }
