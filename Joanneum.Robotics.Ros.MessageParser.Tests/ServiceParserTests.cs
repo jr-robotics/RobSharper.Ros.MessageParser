@@ -10,7 +10,8 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         {
             var message = "---";
 
-            var actual = ServiceParser.Parse(message);
+            var parser = new ServiceParser(message);
+            var actual = parser.Parse();
 
             Assert.NotNull(actual);
             Assert.NotNull(actual.Request);
@@ -24,7 +25,8 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         [TestMessages("*.srv")]
         public void Can_load_srv_file(TestMessage file)
         {
-            var actual = ServiceParser.Parse(file.Content.Value);
+            var parser = new ServiceParser(file.Content.Value);
+            var actual = parser.Parse();
             
             Assert.NotNull(actual);
         }

@@ -16,5 +16,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         }
 
         public abstract TDescriptor Parse();
+
+        public abstract TDescriptor Parse(IRosMessageVisitorListener listener);
     }
 }

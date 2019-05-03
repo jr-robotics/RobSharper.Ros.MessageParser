@@ -26,7 +26,7 @@ ROS Message Parser for .Net is available as NuGet Package.
 
 **Parsing a message file**
 ```csharp
-var descriptor = MessageParser.Parse(File.ReadAllText(filePath));
+var descriptor = new MessageParser(File.ReadAllText(filePath)).Parse();
 ```
 or
 ```csharp
@@ -34,13 +34,14 @@ MessageDescriptor descriptor;
             
 using (var file = File.OpenRead(filePath))
 {
-    descriptor = MessageParser.Parse(file);
+    var parser = new MessageParser(file)
+    descriptor = parser.Parse();
 }
 ```
 
 **Parsing a service file**
 ```csharp
-var descriptor = ServiceParser.Parse(File.ReadAllText(filePath));
+var descriptor = new ServiceParser(File.ReadAllText(filePath)).Parse();
 ```
 or
 ```csharp
@@ -48,13 +49,14 @@ ServiceDescriptor descriptor;
             
 using (var file = File.OpenRead(filePath))
 {
-    descriptor = ServiceParser.Parse(file);
+    var parser = new ServiceParser(file);
+    descriptor = parser.Parse();
 }
 ```
 
 **Parsing an action file**
 ```csharp
-var descriptor = ActionParser.Parse(File.ReadAllText(filePath));
+var descriptor = new ActionParser(File.ReadAllText(filePath)).Parse();
 ```
 or
 ```csharp
@@ -62,46 +64,49 @@ ActionDescriptor descriptor;
             
 using (var file = File.OpenRead(filePath))
 {
-    descriptor = ActionParser.Parse(file);
+    var parser = new ActionParser(file);
+    descriptor = parser.Parse();
 }
 ```
 
 
 What you get from the parsers is a either a `MessageDescriptor`, `ServiceDescriptor` or a `ActionDescriptor`
-representing the structure of the ROS message file.
+representing the structure of the ROS message file. You can then operate on these message structures.
 
 Have a look on the UML diagram below for a detailed description.
 
 ![Message Parsers UML diagram](assets/ros-message-parser-descriptors.png)
 
 
-### Build your own Visitor
-
-> Use this if you want to directly operate on the generated parse tree.
-
-You can either intercept the generation of the descriptor instances for the section above or create your stand alone visitor.
-
 #### Intercepting descriptor creation
 
-Create a class extending `Joanneum.Robotics.Ros.MessageParser.RosMessageVisitor`.
+You can intercept the descriptor creation by creating a class which implements `Joanneum.Robotics.Ros.MessageParser.IRosMessageVisitorListener`.
+This allows you to implement the following methods used in the object tree creation:
 
-This allow you to override one of the following methods used in the object tree creation:
+* `void OnVisitRosMessage(MessageDescriptor messageDescriptor)`
+* `void OnVisitRosService(ServiceDescriptor serviceDescriptor)`
+* `void OnVisitRosAction(ActionDescriptor actionDescriptor)`
+* `void OnVisitFieldDeclaration(FieldDescriptor fieldDescriptor)`
+* `void OnVisitConstantDeclaration(ConstantDescriptor constDescriptor)`
+* `void OnVisitComment(string comment)`
+* `void OnVisitIdentifier(string identifier)`
+* `void OnVisitRosType(RosTypeInfo typeInfo)`
+* `void OnVisitPrimitiveType(PrimitiveTypeInfo typeInfoDescriptor)`
+* `void OnVisitArrayType(ArrayTypeInfo arrayTypeInfo)`
+* `void OnVisitRosbagInput(RosbagMessageDefinitionDescriptor rosbag)`
+* `void OnVisitRosbagNestedType(NestedTypeDescriptor descriptor);`
 
-* `protected internal virtual MessageDescriptor OnVisitRosMessage(MessageDescriptor messageDescriptor)`
-* `protected internal virtual ServiceDescriptor OnVisitRosService(ServiceDescriptor serviceDescriptor)`
-* `protected internal virtual ActionDescriptor OnVisitRosAction(ActionDescriptor actionDescriptor)`
-* `protected internal virtual FieldDescriptor OnVisitFieldDeclaration(FieldDescriptor fieldDescriptor)`
-* `protected internal virtual ConstantDescriptor OnVisitConstantDeclaration(ConstantDescriptor constDescriptor)`
-* `protected internal virtual string OnVisitComment(string comment)`
-* `protected internal virtual string OnVisitIdentifier(string identifier)`
-* `protected internal virtual RosTypeInfo OnVisitRosType(RosTypeInfo typeInfo)`
-* `protected internal virtual PrimitiveTypeInfo OnVisitPrimitiveType(PrimitiveTypeInfo typeInfoDescriptor)`
-* `protected internal virtual ArrayTypeInfo OnVisitArrayType(ArrayTypeInfo arrayTypeInfo)`
+You can then pass this listener to the `Parse(IRosMessageVisitorListener listener)` method of the Parser.
 
 
-**TODO** 
+### Create your own low level parse tree Visitor or Listener
 
+> Used for low level parse tree processing.
 
+Build your own [ANTLR](https://www.antlr.org/) visitor or listener to process the parse tree. 
+Extend `Joanneum.Robotics.Ros.MessageParser.Antlr.RosMessageParserBaseListener` or `Joanneum.Robotics.Ros.MessageParser.Antlr.RosMessageParserBaseVisitor` respectively.
+
+Having ANTLR IDE Support displaying the parse tree will make this expedition much more comfortable. See https://www.antlr.org/tools.html for a list of supported IDE plugins 
 
 
 ## Development

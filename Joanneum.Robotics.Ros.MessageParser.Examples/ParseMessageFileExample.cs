@@ -8,7 +8,8 @@ namespace Joanneum.Robotics.Ros.MessageParser.Examples
     {
         public void ParseFileFContent(string filePath)
         {
-            var descriptor = MessageParser.Parse(File.ReadAllText(filePath));
+            var parser = new MessageParser(File.ReadAllText(filePath));
+            var descriptor = parser.Parse();
         }
         
         public void ParseFileStream(string filePath)
@@ -17,7 +18,8 @@ namespace Joanneum.Robotics.Ros.MessageParser.Examples
             
             using (var file = File.OpenRead(filePath))
             {
-                descriptor = MessageParser.Parse(file);
+                var parser = new MessageParser(file);
+                descriptor = parser.Parse();
             }
         }
     }

@@ -7,7 +7,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
 {
     public class RosMessageVisitor : RosMessageParserBaseVisitor<object>
     {
-        private IRosMessageVisitorListener _listener;
+        private readonly IRosMessageVisitorListener _listener;
         
 
         private static object GetPrimitiveTye(ParserRuleContext context)
@@ -22,7 +22,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         {
             if (listener == null)
             {
-                listener = EmptyRosMessageVisitorListener.Instance;
+                listener = DefaultRosMessageVisitorListener.Default;
             }
             
             _listener = listener;

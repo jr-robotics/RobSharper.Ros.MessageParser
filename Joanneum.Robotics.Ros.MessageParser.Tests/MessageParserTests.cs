@@ -11,7 +11,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         {
             var message = "int8 fooo";
 
-            var actual = MessageParser.Parse(message);
+            var actual = new MessageParser(message).Parse();;
 
             Assert.NotNull(actual);
             Assert.Empty(actual.Comments);
@@ -30,7 +30,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         {
             var message = string.Empty;
 
-            var actual = MessageParser.Parse(message);
+            var actual = new MessageParser(message).Parse();
 
             Assert.NotNull(actual);
             Assert.True(actual.IsEmpty);
@@ -44,7 +44,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         [TestMessages("*.msg")]
         public void Can_load_msg_file(TestMessage file)
         {
-            var actual = MessageParser.Parse(file.Content.Value);
+            var actual = new MessageParser(file.Content.Value).Parse();
             
             Assert.NotNull(actual);
         }

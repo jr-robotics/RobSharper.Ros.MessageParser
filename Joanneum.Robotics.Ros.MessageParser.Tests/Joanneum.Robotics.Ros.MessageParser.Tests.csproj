@@ -14,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Joanneum.Robotics.Ros.MessageParser.Examples\Joanneum.Robotics.Ros.MessageParser.Examples.csproj" />
       <ProjectReference Include="..\Joanneum.Robotics.Ros.MessageParser\Joanneum.Robotics.Ros.MessageParser.csproj" />
     </ItemGroup>
 

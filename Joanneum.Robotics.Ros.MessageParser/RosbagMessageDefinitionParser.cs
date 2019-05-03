@@ -1,30 +1,37 @@
 using System.IO;
 using Antlr4.Runtime;
+using Joanneum.Robotics.Ros.MessageParser.Antlr;
 
 namespace Joanneum.Robotics.Ros.MessageParser
 {
     public class RosbagMessageDefinitionParser : AbstractParser<RosbagMessageDefinitionDescriptor>
     {
+        private RosMessageParser.Rosbag_inputContext _context;
+
+        public RosMessageParser.Rosbag_inputContext Context => _context ?? (_context = Parser.rosbag_input());
+
         public RosbagMessageDefinitionParser(ICharStream input) : base(input)
+        {
+        }
+
+        public RosbagMessageDefinitionParser(string input) : this(new AntlrInputStream(input))
+        {
+        }
+
+        public RosbagMessageDefinitionParser(Stream input) : this(new AntlrInputStream(input))
         {
         }
 
         public override RosbagMessageDefinitionDescriptor Parse()
         {
-            var visitor = new RosMessageVisitor();
-            var context = Parser.rosbag_input();
-
-            return (RosbagMessageDefinitionDescriptor) visitor.Visit(context);
-        }
-        
-        public static RosbagMessageDefinitionDescriptor Parse(string input)
-        {
-            return new RosbagMessageDefinitionParser(new AntlrInputStream(input)).Parse();
+            return Parse(null);
         }
 
-        public static RosbagMessageDefinitionDescriptor Parse(Stream input)
+        public override RosbagMessageDefinitionDescriptor Parse(IRosMessageVisitorListener listener)
         {
-            return new RosbagMessageDefinitionParser(new AntlrInputStream(input)).Parse();
+            var visitor = new RosMessageVisitor(listener);
+
+            return (RosbagMessageDefinitionDescriptor) visitor.Visit(Context);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Joanneum.Robotics.Ros.MessageParser.Tests.Helpers;
 using Xunit;
 
@@ -10,7 +11,8 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         {
             var message = "---\n---";
 
-            var actual = ActionParser.Parse(message);
+            var parser = new ActionParser(message);
+            var actual = parser.Parse();
 
             Assert.NotNull(actual);
             Assert.NotNull(actual.Goal);
@@ -24,9 +26,10 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
 
         [Theory]
         [TestMessages("*.action")]
-        public void Can_load_srv_file(TestMessage file)
+        public void Can_load_action_file(TestMessage file)
         {
-            var actual = ServiceParser.Parse(file.Content.Value);
+            var parser = new ActionParser(file.Content.Value);
+            var actual = parser.Parse();
             
             Assert.NotNull(actual);
         }
