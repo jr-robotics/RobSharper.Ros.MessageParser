@@ -24,16 +24,19 @@ namespace Joanneum.Robotics.Ros.MessageParser
             if (typeInfo == null) throw new ArgumentNullException(nameof(typeInfo));
             if (value == null) throw new ArgumentNullException(nameof(value));
 
-            // Fix value type
-            var converter = System.ComponentModel.TypeDescriptor.GetConverter(value.GetType());
-            
-            if (converter.CanConvertTo(typeInfo.Type))
+            if (typeInfo.Type != value.GetType())
             {
-                value = converter.ConvertTo(value, typeInfo.Type);
-            }
-            else
-            {
-                throw new InvalidOperationException($"Cannot convert from {value.GetType()} to {typeInfo.Type}");
+                // Fix value type
+                var converter = System.ComponentModel.TypeDescriptor.GetConverter(value.GetType());
+
+                if (converter.CanConvertTo(typeInfo.Type))
+                {
+                    value = converter.ConvertTo(value, typeInfo.Type);
+                }
+                else
+                {
+                    throw new InvalidOperationException($"Cannot convert from {value.GetType()} to {typeInfo.Type}");
+                }
             }
 
             return new ConstantDescriptor(typeInfo, identifier, value);

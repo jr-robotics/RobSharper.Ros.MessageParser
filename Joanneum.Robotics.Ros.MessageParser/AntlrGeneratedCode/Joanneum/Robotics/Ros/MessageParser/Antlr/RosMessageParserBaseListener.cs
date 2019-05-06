@@ -180,18 +180,6 @@ public partial class RosMessageParserBaseListener : IRosMessageParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitType([NotNull] RosMessageParser.TypeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.base_type"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBase_type([NotNull] RosMessageParser.Base_typeContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.base_type"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBase_type([NotNull] RosMessageParser.Base_typeContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -239,18 +227,6 @@ public partial class RosMessageParserBaseListener : IRosMessageParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitFixed_array_type([NotNull] RosMessageParser.Fixed_array_typeContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.numeric_type"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterNumeric_type([NotNull] RosMessageParser.Numeric_typeContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.numeric_type"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitNumeric_type([NotNull] RosMessageParser.Numeric_typeContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.integral_type"/>.
 	/// <para>The default implementation does nothing.</para>

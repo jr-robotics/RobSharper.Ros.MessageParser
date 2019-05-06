@@ -105,12 +105,6 @@ public interface IRosMessageParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitType([NotNull] RosMessageParser.TypeContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="RosMessageParser.base_type"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitBase_type([NotNull] RosMessageParser.Base_typeContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="RosMessageParser.ros_type"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -134,12 +128,6 @@ public interface IRosMessageParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitFixed_array_type([NotNull] RosMessageParser.Fixed_array_typeContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="RosMessageParser.numeric_type"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitNumeric_type([NotNull] RosMessageParser.Numeric_typeContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="RosMessageParser.integral_type"/>.
 	/// </summary>

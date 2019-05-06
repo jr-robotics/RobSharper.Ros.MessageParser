@@ -84,15 +84,12 @@ identifier
  
 /* Field types are all built in types or custom message types */
 type
-    : base_type
-    | ros_type
-    ;
-
-base_type
-    : numeric_type
+    : integral_type
+    | floating_point_type
     | temportal_type
     | boolean_type
     | string_type
+    | ros_type
     ;
 
 ros_type
@@ -113,11 +110,6 @@ fixed_array_type
     : type OPEN_BRACKET INTEGER_LITERAL CLOSE_BRACKET
     | type STRING_OPEN_BRACKET STRING_INTEGER_LITERAL STRING_CLOSE_BRACKET
     ;
-
-numeric_type
-	: integral_type
-	| floating_point_type
-	;
 
 integral_type 
 	: INT8

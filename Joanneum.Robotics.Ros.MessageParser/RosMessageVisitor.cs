@@ -10,11 +10,12 @@ namespace Joanneum.Robotics.Ros.MessageParser
         private readonly IRosMessageVisitorListener _listener;
         
 
-        private static object GetPrimitiveTye(ParserRuleContext context)
+        private PrimitiveTypeInfo GetPrimitiveTye(ParserRuleContext context)
         {
             var rosType = context.GetText();
             var t = PrimitiveTypeInfo.Parse(rosType);
 
+            _listener.OnVisitPrimitiveType(t);
             return t;
         }
 
@@ -66,14 +67,6 @@ namespace Joanneum.Robotics.Ros.MessageParser
         public override object VisitBoolean_type(RosMessageParser.Boolean_typeContext context)
         {
             return GetPrimitiveTye(context);
-        }
-
-        public override object VisitBase_type(RosMessageParser.Base_typeContext context)
-        {
-            var baseType = (PrimitiveTypeInfo) base.VisitBase_type(context);
-            _listener.OnVisitPrimitiveType(baseType);
-            
-            return baseType;
         }
 
         public override object VisitRos_type(RosMessageParser.Ros_typeContext context)

@@ -152,16 +152,6 @@ public interface IRosMessageParserListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitType([NotNull] RosMessageParser.TypeContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.base_type"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterBase_type([NotNull] RosMessageParser.Base_typeContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.base_type"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitBase_type([NotNull] RosMessageParser.Base_typeContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.ros_type"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -201,16 +191,6 @@ public interface IRosMessageParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitFixed_array_type([NotNull] RosMessageParser.Fixed_array_typeContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="RosMessageParser.numeric_type"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterNumeric_type([NotNull] RosMessageParser.Numeric_typeContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="RosMessageParser.numeric_type"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitNumeric_type([NotNull] RosMessageParser.Numeric_typeContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="RosMessageParser.integral_type"/>.
 	/// </summary>
