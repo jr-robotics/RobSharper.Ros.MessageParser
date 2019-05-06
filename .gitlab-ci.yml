@@ -1,6 +1,7 @@
 image: microsoft/dotnet:latest
 
 stages:
+  - pre
   - publish
   - build
   - test
@@ -23,7 +24,7 @@ test:
     - docker-executor
 
 test-output:
-  stage: publish
+  stage: pre
   script: 
     - echo $CI_JOB_STAGE
     - echo $CI_PIPELINE_IID
@@ -35,6 +36,9 @@ nuget-pack:
   stage: publish
   script:
     - cd Joanneum.Robotics.Ros.MessageParser
+    - echo $CI_PIPELINE_IID
+    - echo %CI_PIPELINE_IID%
+    - echo $env:CI_PIPELINE_IID
     - dotnet pack -c Release -o bin/nuget --version-suffix $CI_PIPELINE_IID
   artifacts:
     paths:
