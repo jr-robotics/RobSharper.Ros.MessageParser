@@ -23,7 +23,7 @@ test:
     - docker-executor
 
 nuget-pack:
-  stage: publish
+  stage: build
   script:
     - cd Joanneum.Robotics.Ros.MessageParser
     - dotnet pack -c Release -o bin/nuget --version-suffix $CI_PIPELINE_IID
