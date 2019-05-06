@@ -28,6 +28,8 @@ test-output:
     - echo $CI_JOB_STAGE
     - echo $CI_PIPELINE_IID
     - echo $CI_PIPELINE_ID
+  tags:
+    - docker-executor
 
 nuget-pack:
   stage: publish
