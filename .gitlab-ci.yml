@@ -1,9 +1,9 @@
 image: microsoft/dotnet:latest
 
 stages:
+  - publish
   - build
   - test
-  - publish
 
 before_script:
   - "dotnet restore"
@@ -23,7 +23,7 @@ test:
     - docker-executor
 
 nuget-pack:
-  stage: build
+  stage: publish
   script:
     - cd Joanneum.Robotics.Ros.MessageParser
     - dotnet pack -c Release -o bin/nuget --version-suffix $CI_PIPELINE_IID
