@@ -22,6 +22,13 @@ test:
   tags:
     - docker-executor
 
+test-output:
+  stage: publish
+  script: 
+    - echo $CI_JOB_STAGE
+    - echo $CI_PIPELINE_IID
+    - echo $CI_PIPELINE_ID
+
 nuget-pack:
   stage: publish
   script:
