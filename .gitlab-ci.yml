@@ -29,6 +29,6 @@ nuget-pack:
     - dotnet pack -c Release -o bin/nuget
   artifacts:
     paths:
-      - bin/nuget/
+      - Joanneum.Robotics.Ros.MessageParser/bin/nuget/
   tags:
     - docker-executor
