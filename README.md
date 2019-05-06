@@ -99,16 +99,33 @@ This allows you to implement the following methods used in the object tree creat
 You can then pass this listener to the `Parse(IRosMessageVisitorListener listener)` method of the Parser.
 
 
-### Create your own low level parse tree Visitor or Listener
+### Create your own parse tree Visitor or Listener
 
 > Used for low level parse tree processing.
 
-Build your own [ANTLR](https://www.antlr.org/) visitor or listener to process the parse tree. 
+Build your own [ANTLR](https://www.antlr.org/) visitor or listener to process the abstract syntax tree. 
 Extend `Joanneum.Robotics.Ros.MessageParser.Antlr.RosMessageParserBaseListener` or `Joanneum.Robotics.Ros.MessageParser.Antlr.RosMessageParserBaseVisitor` respectively.
 
-Having ANTLR IDE Support displaying the parse tree will make this expedition much more comfortable. See https://www.antlr.org/tools.html for a list of supported IDE plugins 
+Having ANTLR IDE Support displaying the parse tree will make this expedition much more comfortable. See https://www.antlr.org/tools.html for a list of supported IDE plugins
+
+**Example**
+Assume the following ros message file:
+
+```
+#This is a comment
+int32 CONST_DECLARATION = 99
+int8 myIntValue
+```
+
+The Parser creates the following abstract syntax tree based on the input message:
+
+![Message Parsers UML diagram](assets/simple-message-tree.png) 
+
+The base visitor and listener classes implement methods for all tree node types which you can override. 
+The [grammar](Joanneum.Robotics.Ros.MessageParser/RosMessageParser.g4) defines these tree node types.
 
 
-## Development
+## Contributing
 
-ROS Message Parser for .Net is based on [ANTLRv4](https://www.antlr.org/).
+ROS Message Parser for .Net is based on [ANTLRv4](https://www.antlr.org/). 
+If you are not familiar with ANTLR there is a good tutorial from Gabriele Tomasetti (https://tomassetti.me/antlr-mega-tutorial/)
