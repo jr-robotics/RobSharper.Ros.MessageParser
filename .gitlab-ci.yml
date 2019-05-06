@@ -3,6 +3,7 @@ image: microsoft/dotnet:latest
 stages:
   - build
   - test
+  - publish
 
 before_script:
   - "dotnet restore"
@@ -18,5 +19,16 @@ test:
   stage: test
   script:
     - "dotnet test /p:CollectCoverage=true /p:Exclude=\"[xunit*]*\""
+  tags:
+    - docker-executor
+
+nuget-pack:
+  stage: publish
+  script:
+    - "cd Joanneum.Robotics.Ros.MessageParser"
+    - "dotnet pack -c Release -o bin/nuget --version-suffix $CI_PIPELINE_IID"
+  artifacts:
+    paths:
+      - "bin/nuget"
   tags:
     - docker-executor
