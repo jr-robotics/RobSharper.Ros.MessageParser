@@ -25,10 +25,10 @@ test:
 nuget-pack:
   stage: publish
   script:
-    - "cd Joanneum.Robotics.Ros.MessageParser"
-    - "dotnet pack -c Release -o bin/nuget --version-suffix $CI_PIPELINE_IID"
+    - cd Joanneum.Robotics.Ros.MessageParser
+    - dotnet pack -c Release -o bin/nuget --version-suffix $CI_PIPELINE_IID
   artifacts:
     paths:
-      - "bin/nuget"
+      - bin/nuget/*
   tags:
     - docker-executor
