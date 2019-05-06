@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <Folder Include="AntlrGeneratedCode" />
+      <Folder Include="AntlrGeneratedCode\Joanneum\Robotics\Ros\MessageParser\Antlr" />
     </ItemGroup>
 
 </Project>
