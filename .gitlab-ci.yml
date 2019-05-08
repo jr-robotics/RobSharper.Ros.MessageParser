@@ -1,18 +1,15 @@
 image: microsoft/dotnet:latest
 
 stages:
-  - publish
   - build
   - test
-
-before_script:
-  - export X_CI_VERSION=$(git describe)
-##  - dotnet restore
+  - publish
+  - deploy
 
 build:
   stage: build
   script:
-    - "dotnet build"
+    - 'dotnet build'
   tags:
     - docker-executor
 
@@ -23,14 +20,58 @@ test:
   tags:
     - docker-executor
 
+
+# Create a versioned NuGet package
 nuget-pack:
   stage: publish
   script:
-    - echo $X_CI_VERSION
-    - cd Joanneum.Robotics.Ros.MessageParser
-    - dotnet pack -c Release -o bin/nuget
+    - 'export X_CI_VERSION=$(git describe | cut -c 2-)'
+    - 'echo Publishing version $X_CI_VERSION'
+    - 'cd Joanneum.Robotics.Ros.MessageParser'
+    - 'dotnet pack -c Release -o ../nuget/ /p:Version=$X_CI_VERSION'
   artifacts:
     paths:
-      - Joanneum.Robotics.Ros.MessageParser/bin/nuget/
+      - 'nuget'
+      - 'Joanneum.Robotics.Ros.MessageParser/bin/Release/'
   tags:
     - docker-executor
+
+# Deploy to JR BaGet server
+# This is done for all version tags (v*) and all pushes to the master branch automatically
+baget:
+    stage: deploy
+    dependencies:
+      - nuget-pack
+    variables:
+      GIT_STRATEGY: none
+    environment:
+      name: JR BaGet
+      url: http://robv005:33333/
+    only:
+      - master
+      - /^v.*$/
+    script:
+      - 'cd nuget'
+      - 'dotnet nuget push *.nupkg -s $JR_BAGET_URL -k $JR_BAGET_API_KEY'
+    tags:
+      - docker-executor
+
+# Deploy to NuGet.org
+# This task has to be triggered manually
+nuget.org:
+  stage: deploy
+  dependencies:
+    - nuget-pack
+  variables:
+    GIT_STRATEGY: none
+  environment:
+    name: NuGet.org
+    url: https://www.nuget.org/
+  only:
+    - master
+    - /^v.*$/
+  script:
+    - 'echo Todo: deploy to nuget!'
+  tags:
+    - docker-executor
+  when: manual
