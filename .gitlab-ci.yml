@@ -22,8 +22,13 @@ test:
 
 
 # Create a versioned NuGet package
+# This task is only executed for the branches develop and master as well as version tags
 nuget-pack:
   stage: publish
+  only:
+    - develop
+    - master
+    - /^v.*$/
   script:
     - 'export X_CI_VERSION=$(git describe | cut -c 2-)'
     - 'echo Publishing version $X_CI_VERSION'
