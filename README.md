@@ -30,6 +30,10 @@ dotnet add package Joanneum.Robotics.Ros.MessageParser
     * Xamarin.Android 8.0 or later
     * Universal Windows Platform 10.0.16299 or later
 
+### Dependencies
+
+* [ANTLR 4 .NET Standard Runtime](https://www.nuget.org/packages/Antlr4.Runtime.Standard/)
+
 ## Usage
 
 
