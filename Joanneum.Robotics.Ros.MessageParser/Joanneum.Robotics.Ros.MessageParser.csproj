@@ -7,7 +7,7 @@
         <Title>ROS Message Parser</Title>
         <Copyright>JOANNEUM RESEARCH Forschungsgesellschaft mbH</Copyright>
         <Authors>breigo</Authors>
-        <PackageLienseExpression>BSD-3-Clause</PackageLienseExpression>
+        <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
         <PackageTags>ROS</PackageTags>
         <Description>ROS Message Parser allows you to parse ROS message/service/action files.</Description>
         <RepositoryType>git</RepositoryType>
