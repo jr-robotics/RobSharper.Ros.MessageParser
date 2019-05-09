@@ -17,9 +17,9 @@ test:
   stage: test
   script:
     - "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=\"coverage/\" /p:Exclude=\"[xunit*]*\""
-    - "dotnet tool install --global dotnet-reportgenerator-globaltool"
-    - "reportgenerator -reports:coverage/coverage.opencover.xml -targetdir:coverage/report -verbosity:Warning -reporttypes:Html"
-    - "reportgenerator -reports:coverage/coverage.opencover.xml -targetdir:coverage/badges -verbosity:Warning -reporttypes:Badges"
+#    - "dotnet tool install --global dotnet-reportgenerator-globaltool"
+#    - "reportgenerator -reports:coverage/coverage.opencover.xml -targetdir:coverage/report -verbosity:Warning -reporttypes:Html"
+#    - "reportgenerator -reports:coverage/coverage.opencover.xml -targetdir:coverage/badges -verbosity:Warning -reporttypes:Badges"
   tags:
     - docker-executor
 
