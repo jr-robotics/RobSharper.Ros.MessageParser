@@ -1,4 +1,4 @@
-# ROS Message Parser for .Net
+# ROS Message Parser for .NET
 > Hanlde ROS message files with ease
 
 ROS Message Parser allows you to parse ROS message/service/action files.
@@ -13,9 +13,26 @@ or build your own visitors or listeners on top of the generated parse tree.
 
 ## Installation
 
-ROS Message Parser for .Net is available as NuGet Package. 
+ROS Message Parser for .Net is available as [NuGet Package](https://www.nuget.org/packages/Joanneum.Robotics.Ros.MessageParser/).
 
-**TODO** Publish as nuget.
+```
+dotnet add package Joanneum.Robotics.Ros.MessageParser
+``` 
+
+### Supported .NET versions
+ 
+* **.NET Standard 2.0**
+    * .NET Core 2.0 or later
+    * .NET Framework 4.6.1 or later
+    * Mono 5.4 or later
+    * Xamarin.iOS 10.14 or later
+    * Xamarin.Mac 3.8 or later
+    * Xamarin.Android 8.0 or later
+    * Universal Windows Platform 10.0.16299 or later
+
+### Dependencies
+
+* [ANTLR 4 .NET Standard Runtime](https://www.nuget.org/packages/Antlr4.Runtime.Standard/)
 
 ## Usage
 
@@ -127,7 +144,7 @@ The [grammar](Joanneum.Robotics.Ros.MessageParser/RosMessageParser.g4) defines t
 
 ## Contributing
 
-ROS Message Parser for .Net is based on [ANTLRv4](https://www.antlr.org/). 
+ROS Message Parser for .NET is based on [ANTLRv4](https://www.antlr.org/). 
 If you are not familiar with ANTLR there is a good tutorial from Gabriele Tomasetti (https://tomassetti.me/antlr-mega-tutorial/)
 
 ## License
