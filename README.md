@@ -13,9 +13,12 @@ or build your own visitors or listeners on top of the generated parse tree.
 
 ## Installation
 
-ROS Message Parser for .Net is available as NuGet Package. 
+ROS Message Parser for .Net is available as [NuGet Package](https://www.nuget.org/packages/Joanneum.Robotics.Ros.MessageParser/).
 
-**TODO** Publish as nuget.
+```
+dotnet add package Joanneum.Robotics.Ros.MessageParser
+``` 
+
 
 ## Usage
 
