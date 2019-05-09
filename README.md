@@ -147,6 +147,13 @@ The [grammar](Joanneum.Robotics.Ros.MessageParser/RosMessageParser.g4) defines t
 ROS Message Parser for .NET is based on [ANTLRv4](https://www.antlr.org/). 
 If you are not familiar with ANTLR there is a good tutorial from Gabriele Tomasetti (https://tomassetti.me/antlr-mega-tutorial/)
 
+### Testing the project
+
+XUnit tests can be found in Joanneum.Robotics.Ros.MessageParser.Tests project. This project references [coverlet](https://github.com/tonerdo/coverlet) for collecting code coverage information and [ReportGenerator](https://github.com/danielpalme/ReportGenerator) to transform the coverage report to readable HTML. 
+The reports are part of the CI test stage artifacts.
+
+To collect coverage information on your machine use the command `dotnet test /p:CollectCoverage=true /p:Exclude="[xunit*]*" /p:CoverletOutputFormat=opencover`.
+
 ## License
 
 This project is licensed under the BSD 3-clause license. [Learn more](https://choosealicense.com/licenses/bsd-3-clause/)
