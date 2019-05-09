@@ -5,15 +5,13 @@
         <AssemblyName>Joanneum.Robotics.Ros.MessageParser</AssemblyName>
         <RootNamespace>Joanneum.Robotics.Ros.MessageParser</RootNamespace>
         <Title>ROS Message Parser for .Net</Title>
-        <Authors>breigo</Authors>
         <Copyright>JOANNEUM RESEARCH Forschungsgesellschaft mbH</Copyright>
-        <PackageProjectUrl>https://github.com/jr-robotics/ros-message-parser-net</PackageProjectUrl>
-        <!--<PackageLienseExpression>BSD-3-Clause</PackageLienseExpression>-->
-        <RepositoryUrl>https://github.com/jr-robotics/ros-message-parser-net</RepositoryUrl>
+        <Authors>breigo</Authors>
+        <PackageLienseExpression>BSD-3-Clause</PackageLienseExpression>
         <PackageTags>ROS</PackageTags>
         <Description>ROS Message Parser allows you to parse ROS message/service/action files.</Description>
         <RepositoryType>git</RepositoryType>
-        <PackageLicenseUrl>https://choosealicense.com/licenses/bsd-3-clause/</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/jr-robotics/ros-message-parser-net</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
