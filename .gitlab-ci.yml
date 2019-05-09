@@ -42,8 +42,9 @@ nuget-pack:
     - docker-executor
 
 # Deploy to JR BaGet server
-# This is done for all version tags (v*) and all pushes to the master branch automatically
-baget:
+# This is done for all pushes of version tags (v*) automatically
+# Pushes to the master branch and web pipeline triggers must be deployed manually
+.baget_base: &baget_base
     stage: deploy
     dependencies:
       - nuget-pack
@@ -52,14 +53,23 @@ baget:
     environment:
       name: JR BaGet
       url: http://robv005:33333/
-    only:
-      - master
-      - /^v.*$/
     script:
       - 'cd nuget'
       - 'dotnet nuget push *.nupkg -s $JR_BAGET_URL -k $JR_BAGET_API_KEY'
     tags:
       - docker-executor
+
+baget:auto:
+  <<: *baget_base
+  only:
+    - /^v.*$/
+
+baget:man:
+  <<: *baget_base
+  only:
+    - master
+  when: manual
+
 
 # Deploy to NuGet.org
 # This task has to be triggered manually
