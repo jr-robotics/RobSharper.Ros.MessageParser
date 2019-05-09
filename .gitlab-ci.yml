@@ -76,7 +76,8 @@ nuget.org:
     - master
     - /^v.*$/
   script:
-    - 'echo Todo: deploy to nuget!'
+    - 'cd nuget'
+    - 'dotnet nuget push *.nupkg -s $NUGET_ORG_URL -k $NUGET_ORG_API_KEY'
   tags:
     - docker-executor
   when: manual
