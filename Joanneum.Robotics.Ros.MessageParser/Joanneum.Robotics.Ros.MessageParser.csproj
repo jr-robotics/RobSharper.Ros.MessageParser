@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <AssemblyName>Joanneum.Robotics.Ros.MessageParser</AssemblyName>
         <RootNamespace>Joanneum.Robotics.Ros.MessageParser</RootNamespace>
-        <Title>ROS Message Parser for .Net</Title>
+        <Title>ROS Message Parser</Title>
         <Copyright>JOANNEUM RESEARCH Forschungsgesellschaft mbH</Copyright>
         <Authors>breigo</Authors>
         <PackageLienseExpression>BSD-3-Clause</PackageLienseExpression>
