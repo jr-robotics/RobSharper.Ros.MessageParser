@@ -41,6 +41,7 @@ nuget-pack:
   tags:
     - docker-executor
 
+
 # Deploy to JR BaGet server
 # This is done for all pushes of version tags (v*) automatically
 # Pushes to the master branch and web pipeline triggers must be deployed manually
@@ -63,6 +64,9 @@ baget:auto:
   <<: *baget_base
   only:
     - /^v.*$/
+  except: 
+    - web
+    - schedules
 
 baget:man:
   <<: *baget_base
