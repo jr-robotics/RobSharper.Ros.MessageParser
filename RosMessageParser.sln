@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joanneum.Robotics.Ros.Messa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joanneum.Robotics.Ros.MessageParser.Examples", "Joanneum.Robotics.Ros.MessageParser.Examples\Joanneum.Robotics.Ros.MessageParser.Examples.csproj", "{0F27E133-0410-4069-B627-D23FB250973E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{2FEB0F1C-5990-47F1-B5A7-7CDFEAA23F3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{0F27E133-0410-4069-B627-D23FB250973E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F27E133-0410-4069-B627-D23FB250973E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F27E133-0410-4069-B627-D23FB250973E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FEB0F1C-5990-47F1-B5A7-7CDFEAA23F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FEB0F1C-5990-47F1-B5A7-7CDFEAA23F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FEB0F1C-5990-47F1-B5A7-7CDFEAA23F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FEB0F1C-5990-47F1-B5A7-7CDFEAA23F3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
