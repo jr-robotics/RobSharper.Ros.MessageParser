@@ -22,6 +22,8 @@ test:
   artifacts:
     paths:
       - 'coverage'
+    reports:
+      junit: 'Joanneum.Robotics.Ros.MessageParser.Tests/report.xml/TestResults/TestResults.xml'
   tags:
     - docker-executor
 
