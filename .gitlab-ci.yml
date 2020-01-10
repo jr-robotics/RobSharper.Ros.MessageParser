@@ -16,12 +16,15 @@ build:
 test:
   stage: test
   script:
-    - "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=\"$PWD/coverage/\" /p:Exclude=\"[xunit*]*%2C[Joanneum.Robotics.Ros.MessageParser.Examples]*%2C[Joanneum.Robotics.Ros.MessageParser.Tests]*\" /p:ExcludeByAttribute=\"GeneratedCodeAttribute%2CObsolete%2CCompilerGeneratedAttribute\""
+    - "dotnet test --logger \"junit\" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=\"$PWD/coverage/\" /p:Exclude=\"[xunit*]*%2C[Joanneum.Robotics.Ros.MessageParser.Examples]*%2C[Joanneum.Robotics.Ros.MessageParser.Tests]*\" /p:ExcludeByAttribute=\"GeneratedCodeAttribute%2CObsolete%2CCompilerGeneratedAttribute\""
     - 'dotnet $(find ~/.nuget/packages/reportgenerator -name ReportGenerator.dll | head -n1) -reports:coverage/coverage.opencover.xml -targetdir:coverage/report -verbosity:Warning -reporttypes:Html'
   coverage: '/Total\s+\|\s+(\d{0,2}\.\d{1,2}%)/'
   artifacts:
     paths:
       - 'coverage'
+      - 'Joanneum.Robotics.Ros.MessageParser.Tests/TestResults/TestResults.xml'
+    reports:
+      junit: 'Joanneum.Robotics.Ros.MessageParser.Tests/TestResults/TestResults.xml'
   tags:
     - docker-executor
 
