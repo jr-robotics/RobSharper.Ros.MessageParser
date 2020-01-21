@@ -68,11 +68,11 @@ namespace Joanneum.Robotics.Ros.MessageParser
             return Create(primitiveRosType.TypeName);
         }
 
-        public static bool IsPrimitiveType(string rosPrimitiveType)
+        public static bool IsBuiltInType(string builtInType)
         {
-            if (rosPrimitiveType == null) throw new ArgumentNullException(nameof(rosPrimitiveType));
+            if (builtInType == null) throw new ArgumentNullException(nameof(builtInType));
 
-            return PrimitiveTypes.Any(t => t.RosType.Equals(rosPrimitiveType));
+            return PrimitiveTypes.Any(t => t.RosType.Equals(builtInType));
         }
         
         public Type Type { get;  }
