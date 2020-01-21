@@ -40,15 +40,19 @@ namespace Joanneum.Robotics.Ros.MessageParser
         {
         }
 
-        public virtual void OnVisitArrayType(ArrayTypeInfo typeInfo)
+        public void OnVisitType(RosTypeInfo typeInfo)
         {
         }
 
-        public virtual void OnVisitPrimitiveType(PrimitiveTypeInfo typeInfo)
+        public void OnVisitRosType(RosTypeInfo typeInfo)
         {
         }
 
-        public virtual void OnVisitRosType(RosTypeInfo typeInfo)
+        public virtual void OnVisitArrayType(RosTypeInfo typeInfo)
+        {
+        }
+
+        public void OnVisitBuiltInType(RosTypeInfo typeInfo)
         {
         }
     }

@@ -4,11 +4,11 @@ namespace Joanneum.Robotics.Ros.MessageParser
 {
     public class ConstantDescriptor
     {
-        public PrimitiveTypeInfo TypeInfo { get; }
+        public RosTypeInfo TypeInfo { get; }
         public string Identifier { get; }
         public object Value { get; }
 
-        protected ConstantDescriptor(PrimitiveTypeInfo typeInfo, string identifier, object value)
+        protected ConstantDescriptor(RosTypeInfo typeInfo, string identifier, object value)
         {
             if (typeInfo == null) throw new ArgumentNullException(nameof(typeInfo));
             if (identifier == null) throw new ArgumentNullException(nameof(identifier));
@@ -19,23 +19,30 @@ namespace Joanneum.Robotics.Ros.MessageParser
             Value = value;
         }
 
-        public static ConstantDescriptor Create(PrimitiveTypeInfo typeInfo, string identifier, object value)
+        public static ConstantDescriptor Create(RosTypeInfo typeInfo, string identifier, object value)
         {
             if (typeInfo == null) throw new ArgumentNullException(nameof(typeInfo));
             if (value == null) throw new ArgumentNullException(nameof(value));
 
-            if (typeInfo.Type != value.GetType())
+            if (typeInfo.IsArray || !typeInfo.IsBuiltInType)
+            {
+                throw new InvalidOperationException($"Type {typeInfo} is not supported for constant declaration");
+            }
+
+            var typeMapping = BuiltInTypeMapping.Create(typeInfo);
+            
+            if (typeMapping.Type != value.GetType())
             {
                 // Fix value type
                 var converter = System.ComponentModel.TypeDescriptor.GetConverter(value.GetType());
 
-                if (converter.CanConvertTo(typeInfo.Type))
+                if (converter.CanConvertTo(typeMapping.Type))
                 {
-                    value = converter.ConvertTo(value, typeInfo.Type);
+                    value = converter.ConvertTo(value, typeMapping.Type);
                 }
                 else
                 {
-                    throw new InvalidOperationException($"Cannot convert from {value.GetType()} to {typeInfo.Type}");
+                    throw new InvalidOperationException($"Cannot convert from {value.GetType()} to {typeMapping.Type}");
                 }
             }
 

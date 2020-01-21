@@ -85,19 +85,19 @@ namespace Joanneum.Robotics.Ros.MessageParser
             }
         }
 
-        public void OnVisitArrayType(ArrayTypeInfo typeInfo)
+        public void OnVisitType(RosTypeInfo typeInfo)
         {
             foreach (var listener in _listeners)
             {
-                listener.OnVisitArrayType(typeInfo);
+                listener.OnVisitType(typeInfo);
             }
         }
 
-        public void OnVisitPrimitiveType(PrimitiveTypeInfo typeInfo)
+        public void OnVisitBuiltInType(RosTypeInfo typeInfo)
         {
             foreach (var listener in _listeners)
             {
-                listener.OnVisitPrimitiveType(typeInfo);
+                listener.OnVisitBuiltInType(typeInfo);
             }
         }
 
@@ -106,6 +106,14 @@ namespace Joanneum.Robotics.Ros.MessageParser
             foreach (var listener in _listeners)
             {
                 listener.OnVisitRosType(typeInfo);
+            }
+        }
+
+        public void OnVisitArrayType(RosTypeInfo typeInfo)
+        {
+            foreach (var listener in _listeners)
+            {
+                listener.OnVisitArrayType(typeInfo);
             }
         }
 

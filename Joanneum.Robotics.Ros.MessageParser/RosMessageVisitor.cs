@@ -8,15 +8,14 @@ namespace Joanneum.Robotics.Ros.MessageParser
     public class RosMessageVisitor : RosMessageParserBaseVisitor<object>
     {
         private readonly IRosMessageVisitorListener _listener;
-        
 
-        private PrimitiveTypeInfo GetPrimitiveTye(ParserRuleContext context)
+        private RosTypeInfo VisitBuiltInType(ParserRuleContext context)
         {
             var rosType = context.GetText();
-            var t = PrimitiveTypeInfo.Parse(rosType);
+            var typeInfo = RosTypeInfo.CreateBuiltIn(rosType);
 
-            _listener.OnVisitPrimitiveType(t);
-            return t;
+            _listener.OnVisitBuiltInType(typeInfo);
+            return typeInfo;
         }
 
         public RosMessageVisitor(IRosMessageVisitorListener listener = null)
@@ -46,27 +45,27 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
         public override object VisitIntegral_type(RosMessageParser.Integral_typeContext context)
         {
-            return GetPrimitiveTye(context);
+            return VisitBuiltInType(context);
         }
 
         public override object VisitFloating_point_type(RosMessageParser.Floating_point_typeContext context)
         {
-            return GetPrimitiveTye(context);
+            return VisitBuiltInType(context);
         }
 
         public override object VisitTemportal_type(RosMessageParser.Temportal_typeContext context)
         {
-            return GetPrimitiveTye(context);
+            return VisitBuiltInType(context);
         }
 
         public override object VisitString_type(RosMessageParser.String_typeContext context)
         {
-            return GetPrimitiveTye(context);
+            return VisitBuiltInType(context);
         }
         
         public override object VisitBoolean_type(RosMessageParser.Boolean_typeContext context)
         {
-            return GetPrimitiveTye(context);
+            return VisitBuiltInType(context);
         }
 
         public override object VisitRos_type(RosMessageParser.Ros_typeContext context)
@@ -88,37 +87,39 @@ namespace Joanneum.Robotics.Ros.MessageParser
                 packageName = context.GetChild(0).GetText();
                 typeName = context.GetChild(2).GetText();
             }
+
+            var typeInfo = RosTypeInfo.CreateRosType(packageName, typeName);
+            _listener.OnVisitRosType(typeInfo);
             
-            var messageType =  new RosTypeInfo(typeName, packageName);
-            _listener.OnVisitRosType(messageType);
-            
-            return messageType;
+            return typeInfo;
         }
 
+        public override object VisitType(RosMessageParser.TypeContext context)
+        {
+            var type = (RosTypeInfo) Visit(context.GetChild(0));
+
+            _listener.OnVisitType(type);
+            
+            return type;
+        }
 
         public override object VisitVariable_array_type(RosMessageParser.Variable_array_typeContext context)
         {
-            var type = (IRosTypeInfo) Visit(context.GetChild(0));
-            var arrayDescriptor = ArrayTypeInfo.Create(type);
+            var type = (RosTypeInfo) Visit(context.GetChild(0));
+            var arrayType = RosTypeInfo.CreateVariableArray(type);
 
-            return arrayDescriptor;
+            _listener.OnVisitArrayType(arrayType);
+            return arrayType;
         }
 
         public override object VisitFixed_array_type(RosMessageParser.Fixed_array_typeContext context)
         {
-            var type = (IRosTypeInfo) Visit(context.GetChild(0));
+            var type = (RosTypeInfo) Visit(context.GetChild(0));
             var size = int.Parse(context.GetChild(2).GetText());
-            var arrayDescriptor = ArrayTypeInfo.Create(type, size);
-
-            return arrayDescriptor;
-        }
-
-        public override object VisitArray_type(RosMessageParser.Array_typeContext context)
-        {
-            var descriptor = (ArrayTypeInfo) base.VisitArray_type(context);
-            _listener.OnVisitArrayType(descriptor);
-
-            return descriptor;
+            var arrayType = RosTypeInfo.CreateFixedSizeArray(type, size);
+            
+            _listener.OnVisitArrayType(arrayType);
+            return arrayType;
         }
 
         public override object VisitComment(RosMessageParser.CommentContext context)
@@ -147,7 +148,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
 
         public override object VisitField_declaration(RosMessageParser.Field_declarationContext context)
         {
-            var type = (IRosTypeInfo) Visit(context.GetChild(0));
+            var type = (RosTypeInfo) Visit(context.GetChild(0));
             var identifier = (string) Visit(context.GetChild(1));
 
             var fieldDescriptor = new FieldDescriptor(type, identifier);
@@ -158,7 +159,7 @@ namespace Joanneum.Robotics.Ros.MessageParser
         
         public override object VisitConstant_declaration(RosMessageParser.Constant_declarationContext context)
         {
-            var type = (PrimitiveTypeInfo) Visit(context.GetChild(0));
+            var type = (RosTypeInfo) Visit(context.GetChild(0));
             var identifier = (string) Visit(context.GetChild(1));
             // child 2 = '='
             var value = Visit(context.GetChild(3));

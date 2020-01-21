@@ -57,7 +57,7 @@ string frame_id";
             Assert.NotNull(actual.Message);
             Assert.Single(actual.NestedMessages);
 
-            var nestedMessage = actual.NestedMessages[new RosTypeInfo("Header", "std_msgs")];
+            var nestedMessage = actual.NestedMessages[RosTypeInfo.CreateRosType("std_msgs", "Header")];
 
             Assert.NotNull(nestedMessage);
             Assert.False(nestedMessage.IsEmpty);
@@ -163,13 +163,13 @@ float64 w";
             Assert.NotNull(actual.Message);
             Assert.Equal(7, actual.NestedMessages.Count);
 
-            Assert.True(actual.NestedMessages.ContainsKey(new RosTypeInfo("Header", "std_msgs")), "Nested message std_msgs/Header not found");
-            Assert.True(actual.NestedMessages.ContainsKey(new RosTypeInfo("GoalStatus", "actionlib_msgs")), "Nested message actionlib_msgs/GoalStatus not found");
-            Assert.True(actual.NestedMessages.ContainsKey(new RosTypeInfo("GoalID", "actionlib_msgs")), "Nested message actionlib_msgs/GoalID not found");
-            Assert.True(actual.NestedMessages.ContainsKey(new RosTypeInfo("MoveArmOnTrajectoryResult", "robot_msgs")), "Nested message robot_msgs/MoveArmOnTrajectoryResult not found");
-            Assert.True(actual.NestedMessages.ContainsKey(new RosTypeInfo("Pose", "geometry_msgs")), "Nested message geometry_msgs/Pose not found");
-            Assert.True(actual.NestedMessages.ContainsKey(new RosTypeInfo("Point", "geometry_msgs")), "Nested message geometry_msgs/Point not found");
-            Assert.True(actual.NestedMessages.ContainsKey(new RosTypeInfo("Quaternion", "geometry_msgs")), "Nested message geometry_msgs/Quaternion not found");
+            Assert.True(actual.NestedMessages.ContainsKey(RosTypeInfo.CreateRosType("std_msgs", "Header")), "Nested message std_msgs/Header not found");
+            Assert.True(actual.NestedMessages.ContainsKey(RosTypeInfo.CreateRosType("actionlib_msgs", "GoalStatus")), "Nested message actionlib_msgs/GoalStatus not found");
+            Assert.True(actual.NestedMessages.ContainsKey(RosTypeInfo.CreateRosType("actionlib_msgs", "GoalID")), "Nested message actionlib_msgs/GoalID not found");
+            Assert.True(actual.NestedMessages.ContainsKey(RosTypeInfo.CreateRosType("robot_msgs", "MoveArmOnTrajectoryResult")), "Nested message robot_msgs/MoveArmOnTrajectoryResult not found");
+            Assert.True(actual.NestedMessages.ContainsKey(RosTypeInfo.CreateRosType("geometry_msgs", "Pose")), "Nested message geometry_msgs/Pose not found");
+            Assert.True(actual.NestedMessages.ContainsKey(RosTypeInfo.CreateRosType("geometry_msgs", "Point")), "Nested message geometry_msgs/Point not found");
+            Assert.True(actual.NestedMessages.ContainsKey(RosTypeInfo.CreateRosType("geometry_msgs", "Quaternion")), "Nested message geometry_msgs/Quaternion not found");
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Joanneum.Robotics.Ros.MessageParser.Tests.Helpers;
 using Xunit;
@@ -20,8 +21,9 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             Assert.Single(actual.Fields);
 
             var field = actual.Fields.First();
+            var typeMapping = BuiltInTypeMapping.Create(field.TypeInfo);
             
-            Assert.Equal(PrimitiveTypeInfo.Int8, field.TypeInfo);
+            Assert.Equal(BuiltInTypeMapping.Int8, typeMapping);
             Assert.Equal("fooo", field.Identifier);
         }
 

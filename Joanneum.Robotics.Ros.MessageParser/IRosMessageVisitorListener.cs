@@ -1,3 +1,5 @@
+using System;
+
 namespace Joanneum.Robotics.Ros.MessageParser
 {
     public interface IRosMessageVisitorListener
@@ -14,9 +16,10 @@ namespace Joanneum.Robotics.Ros.MessageParser
         void OnVisitComment(string comment);
         
         void OnVisitIdentifier(string identifier);
-        
-        void OnVisitArrayType(ArrayTypeInfo typeInfo);
-        void OnVisitPrimitiveType(PrimitiveTypeInfo typeInfo);
+
+        void OnVisitType(RosTypeInfo typeInfo);
+        void OnVisitBuiltInType(RosTypeInfo typeInfo);
         void OnVisitRosType(RosTypeInfo typeInfo);
+        void OnVisitArrayType(RosTypeInfo typeInfo);
     }
 }
