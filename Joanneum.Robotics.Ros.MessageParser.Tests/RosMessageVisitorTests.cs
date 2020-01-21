@@ -22,10 +22,10 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         [InlineData("bool")]
         [InlineData("char")]
         [InlineData("byte")]
-        public void OnVisitPrimitiveType_called_infield_declaration(string dataType)
+        public void OnVisitBuiltInType_called_infield_declaration(string dataType)
         {
             var message = $"{dataType} fieldName";
-            var expectedPrimitiveType = PrimitiveTypeInfo.Parse(dataType);
+            var expectedBuiltInType = RosTypeInfo.CreateBuiltIn(dataType);;
             
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
@@ -35,7 +35,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             
             visitor.Visit(context);
             
-            mock.Verify(x => x.OnVisitPrimitiveType(expectedPrimitiveType));
+            mock.Verify(x => x.OnVisitBuiltInType(expectedBuiltInType));
         }
         
         [Theory]
@@ -53,10 +53,10 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         [InlineData("bool", "True")]
         [InlineData("char", 8)]
         [InlineData("byte", 8)]
-        public void OnVisitPrimitiveType_called_in_constant_declaration(string dataType, object value)
+        public void OnVisitBuiltInType_called_in_constant_declaration(string dataType, object value)
         {
             var message = $"{dataType} CONST = {value}";
-            var expectedPrimitiveType = PrimitiveTypeInfo.Parse(dataType);
+            var expectedPrimitiveType = RosTypeInfo.CreateBuiltIn(dataType);
             
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
@@ -66,14 +66,14 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
             
             visitor.Visit(context);
             
-            mock.Verify(x => x.OnVisitPrimitiveType(expectedPrimitiveType));
+            mock.Verify(x => x.OnVisitBuiltInType(expectedPrimitiveType));
         }
 
         [Fact]
         public void OnVisitRosType_called_in_field_decalaration_for_external_type()
         {
             var message = $"std_msgs/Bool fieldName";
-            var expectedTypeDescriptor = new RosTypeInfo("Bool", "std_msgs");
+            var expectedTypeDescriptor = RosTypeInfo.CreateRosType("std_msgs", "Bool");
             
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
@@ -90,7 +90,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         public void OnVisitRosType_called_in_constant_decalaration_for_external_type()
         {
             var message = $"std_msgs/Bool CONST = True";
-            var expectedTypeDescriptor = new RosTypeInfo("Bool", "std_msgs");
+            var expectedTypeDescriptor = RosTypeInfo.CreateRosType("std_msgs", "Bool");
             
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
@@ -107,7 +107,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         public void OnVisitRosType_called_in_field_decalaration_for_internal_type()
         {
             var message = $"MyType fieldName";
-            var expectedTypeDescriptor = new RosTypeInfo("MyType");
+            var expectedTypeDescriptor = RosTypeInfo.CreateRosType("MyType");
             
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();
@@ -124,7 +124,7 @@ namespace Joanneum.Robotics.Ros.MessageParser.Tests
         public void OnVisitRosType_called_in_field_decalaration_for_header_type()
         {
             var message = $"Header fieldName";
-            var expectedTypeDescriptor = new RosTypeInfo("Header", "std_msgs");
+            var expectedTypeDescriptor = RosTypeInfo.CreateRosType("std_msgs", "Header");
             
             var messageParser = ParserHelper.CreateParserForMessage(message);
             var context = messageParser.ros_message();

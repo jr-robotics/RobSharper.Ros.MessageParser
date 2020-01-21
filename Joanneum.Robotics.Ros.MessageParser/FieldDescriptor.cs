@@ -4,11 +4,11 @@ namespace Joanneum.Robotics.Ros.MessageParser
 {
     public class FieldDescriptor
     {
-        public IRosTypeInfo TypeInfo { get; }
+        public RosTypeInfo TypeInfo { get; }
 
         public string Identifier { get; }
 
-        public FieldDescriptor(IRosTypeInfo typeInfo, string identifier)
+        public FieldDescriptor(RosTypeInfo typeInfo, string identifier)
         {
             if (typeInfo == null) throw new ArgumentNullException(nameof(typeInfo));
             if (identifier == null) throw new ArgumentNullException(nameof(identifier));

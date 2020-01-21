@@ -110,13 +110,21 @@ This allows you to implement the following methods used in the object tree creat
 * `void OnVisitConstantDeclaration(ConstantDescriptor constDescriptor)`
 * `void OnVisitComment(string comment)`
 * `void OnVisitIdentifier(string identifier)`
+* `void OnVisitType(RosTypeInfo typeInfo)`
 * `void OnVisitRosType(RosTypeInfo typeInfo)`
-* `void OnVisitPrimitiveType(PrimitiveTypeInfo typeInfoDescriptor)`
-* `void OnVisitArrayType(ArrayTypeInfo arrayTypeInfo)`
+* `void OnVisitBuiltinType(RosTypeInfo typeInfoDescriptor)`
+* `void OnVisitArrayType(RosTypeInfo arrayTypeInfo)`
 * `void OnVisitRosbagInput(RosbagMessageDefinitionDescriptor rosbag)`
 * `void OnVisitRosbagNestedType(NestedTypeDescriptor descriptor);`
 
 You can then pass this listener to the `Parse(IRosMessageVisitorListener listener)` method of the Parser.
+
+One note regarding the Visit*Type Methods. They are ordered hierarchically the following way:
+
+* OnVisitArrayType
+    * OnVisitType
+        * OnVisitBuiltInType
+        * OnVisitRosType
 
 
 ### Create your own parse tree Visitor or Listener

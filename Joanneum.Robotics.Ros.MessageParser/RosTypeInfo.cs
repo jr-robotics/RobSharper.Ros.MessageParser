@@ -1,35 +1,60 @@
 using System;
-using System.Linq;
+using System.Text;
 
 namespace Joanneum.Robotics.Ros.MessageParser
 {
-    public class RosTypeInfo : IRosTypeInfo
+    public class RosTypeInfo
     {
-        public string TypeName { get; }
-        public string PackageName { get; }
-        
-        public bool HasPackage
+        private RosTypeInfo(string packageName, string typeName, bool isBuiltInType, bool isArray, int arraySize)
         {
-            get { return PackageName != null; }
-        }
-
-        public bool IsArray => false;
-        public bool IsPrimitive => false;
-
-        public RosTypeInfo(string typeName, string packageName = null)
-        {
-            if (typeName == null) throw new ArgumentNullException(nameof(typeName));
-            
-            if (typeName == string.Empty) throw  new ArgumentException("Empty string is not allowed", nameof(typeName));
-            if (packageName != null && packageName == string.Empty) throw  new ArgumentException("Empty string is not allowed", nameof(packageName));
-            
-            TypeName = typeName;
             PackageName = packageName;
+            TypeName = typeName ?? throw new ArgumentNullException(nameof(typeName));
+            IsBuiltInType = isBuiltInType;
+            IsArray = isArray;
+            ArraySize = arraySize;
+            
+            if (TypeName == string.Empty) throw  new ArgumentException("Empty string is not allowed", nameof(typeName));
         }
+
+        public string PackageName { get; }
+        public string TypeName { get; }
         
+        public bool HasPackage => PackageName != null;
+        
+        public bool IsBuiltInType { get; }
+        public bool IsArray { get;  }
+        public int ArraySize { get; }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            if (HasPackage)
+            {
+                sb.Append(PackageName);
+                sb.Append("/");
+            }
+
+            sb.Append(TypeName);
+
+            if (IsArray)
+            {
+                sb.Append('[');
+
+                if (ArraySize > 0)
+                {
+                    sb.Append(ArraySize);
+                }
+                
+                sb.Append(']');
+            }
+            
+            return sb.ToString();
+        }
+
         protected bool Equals(RosTypeInfo other)
         {
-            return string.Equals(TypeName, other.TypeName) && string.Equals(PackageName, other.PackageName);
+            return PackageName == other.PackageName && TypeName == other.TypeName && IsBuiltInType == other.IsBuiltInType && IsArray == other.IsArray && ArraySize == other.ArraySize;
         }
 
         public override bool Equals(object obj)
@@ -44,42 +69,46 @@ namespace Joanneum.Robotics.Ros.MessageParser
         {
             unchecked
             {
-                return ((TypeName != null ? TypeName.GetHashCode() : 0) * 397) ^ (PackageName != null ? PackageName.GetHashCode() : 0);
+                var hashCode = (PackageName != null ? PackageName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (TypeName != null ? TypeName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ IsBuiltInType.GetHashCode();
+                hashCode = (hashCode * 397) ^ IsArray.GetHashCode();
+                hashCode = (hashCode * 397) ^ ArraySize;
+                return hashCode;
             }
         }
 
-        public override string ToString()
+        public static RosTypeInfo CreateBuiltIn(string rosType)
         {
-            if (HasPackage)
-            {
-                return PackageName + "/" + TypeName;
-            }
-            else
-            {
-                return TypeName;
-            }
-        }
-
-        public static RosTypeInfo Parse(string messageType)
-        {
-            if (messageType == null) throw new ArgumentNullException(nameof(messageType));
-
-            if (PrimitiveTypeInfo.IsPrimitiveType(messageType))
-            {
-                throw new InvalidOperationException("Message type is a primitive ros type");
-            }
-
-            // Header is a "special" built in type
-            if (messageType == "Header")
-            {
-                return new RosTypeInfo("std_msgs", "Header");
-            }
-
-            var parts = messageType.Split('/')
-                .Reverse()
-                .ToArray();
+            if (rosType == null) throw new ArgumentNullException(nameof(rosType));
             
-            return new RosTypeInfo(parts[0], parts[1]);
+            return new RosTypeInfo(null, rosType, true, false, 0);
+        }
+
+        public static RosTypeInfo CreateRosType(string typeName)
+        {
+            return CreateRosType(null, typeName);
+        }
+
+        public static RosTypeInfo CreateRosType(string packageName, string typeName)
+        {
+            if (typeName == null) throw new ArgumentNullException(nameof(typeName));
+            return new RosTypeInfo(packageName, typeName, false, false, 0);
+        }
+
+        public static RosTypeInfo CreateVariableArray(RosTypeInfo type)
+        {
+            if (type == null) throw new ArgumentNullException(nameof(type));
+
+            return new RosTypeInfo(type.PackageName, type.TypeName, type.IsBuiltInType, true, 0);
+        }
+
+        public static RosTypeInfo CreateFixedSizeArray(RosTypeInfo type, int size)
+        {
+            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (size <= 0) throw new ArgumentOutOfRangeException(nameof(size));
+
+            return new RosTypeInfo(type.PackageName, type.TypeName, type.IsBuiltInType, true, size);
         }
     }
 }
