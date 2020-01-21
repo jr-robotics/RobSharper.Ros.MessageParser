@@ -79,6 +79,7 @@ baget:auto:
 baget:man:
   <<: *baget_base
   only:
+    - develop
     - master
   when: manual
 
