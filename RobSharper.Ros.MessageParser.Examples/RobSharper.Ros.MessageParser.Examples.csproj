@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Copyright>JOANNEUM RESEARCH Forschungsgesellschaft mbH</Copyright>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RobSharper.Ros.MessageParser\RobSharper.Ros.MessageParser.csproj" />
+    </ItemGroup>
+
+</Project>

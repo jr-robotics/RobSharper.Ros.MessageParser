@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joanneum.Robotics.Ros.MessageParser", "Joanneum.Robotics.Ros.MessageParser\Joanneum.Robotics.Ros.MessageParser.csproj", "{3723874E-A50C-47CF-AC05-E368B3D5B163}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobSharper.Ros.MessageParser", "RobSharper.Ros.MessageParser\RobSharper.Ros.MessageParser.csproj", "{3723874E-A50C-47CF-AC05-E368B3D5B163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joanneum.Robotics.Ros.MessageParser.Tests", "Joanneum.Robotics.Ros.MessageParser.Tests\Joanneum.Robotics.Ros.MessageParser.Tests.csproj", "{B54FC71E-4876-46AD-B600-E6E611D607E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobSharper.Ros.MessageParser.Tests", "RobSharper.Ros.MessageParser.Tests\RobSharper.Ros.MessageParser.Tests.csproj", "{B54FC71E-4876-46AD-B600-E6E611D607E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joanneum.Robotics.Ros.MessageParser.Examples", "Joanneum.Robotics.Ros.MessageParser.Examples\Joanneum.Robotics.Ros.MessageParser.Examples.csproj", "{0F27E133-0410-4069-B627-D23FB250973E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobSharper.Ros.MessageParser.Examples", "RobSharper.Ros.MessageParser.Examples\RobSharper.Ros.MessageParser.Examples.csproj", "{0F27E133-0410-4069-B627-D23FB250973E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
