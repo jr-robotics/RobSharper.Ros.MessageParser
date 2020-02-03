@@ -13,13 +13,13 @@ or build your own visitors or listeners on top of the generated parse tree.
 
 ## Installation
 
-ROS Message Parser for .Net is available as [NuGet Package](https://www.nuget.org/packages/Joanneum.Robotics.Ros.MessageParser/).
+ROS Message Parser for .Net is available as [NuGet Package](https://www.nuget.org/packages/RobSharper.Ros.MessageParser/).
 
-![](https://img.shields.io/nuget/v/Joanneum.Robotics.Ros.MessageParser.svg)
+![](https://img.shields.io/nuget/v/RobSharper.Ros.MessageParser.svg)
 
 
 ```
-dotnet add package Joanneum.Robotics.Ros.MessageParser
+dotnet add package RobSharper.Ros.MessageParser
 ``` 
 
 ### Supported .NET versions
@@ -100,7 +100,7 @@ Have a look on the UML diagram below for a detailed description.
 
 #### Intercepting descriptor creation
 
-You can intercept the descriptor creation by creating a class which implements `Joanneum.Robotics.Ros.MessageParser.IRosMessageVisitorListener`.
+You can intercept the descriptor creation by creating a class which implements `RobSharper.Ros.MessageParser.IRosMessageVisitorListener`.
 This allows you to implement the following methods used in the object tree creation:
 
 * `void OnVisitRosMessage(MessageDescriptor messageDescriptor)`
@@ -132,7 +132,7 @@ One note regarding the Visit*Type Methods. They are ordered hierarchically the f
 > Used for low level parse tree processing.
 
 Build your own [ANTLR](https://www.antlr.org/) visitor or listener to process the abstract syntax tree. 
-Extend `Joanneum.Robotics.Ros.MessageParser.Antlr.RosMessageParserBaseListener` or `Joanneum.Robotics.Ros.MessageParser.Antlr.RosMessageParserBaseVisitor` respectively.
+Extend `RobSharper.Ros.MessageParser.Antlr.RosMessageParserBaseListener` or `RobSharper.Ros.MessageParser.Antlr.RosMessageParserBaseVisitor` respectively.
 
 Having ANTLR IDE Support displaying the parse tree will make this expedition much more comfortable. See https://www.antlr.org/tools.html for a list of supported IDE plugins
 
@@ -150,7 +150,7 @@ The Parser creates the following abstract syntax tree based on the input message
 ![Message Parsers UML diagram](assets/simple-message-tree.png) 
 
 The base visitor and listener classes implement methods for all tree node types which you can override. 
-The [grammar](Joanneum.Robotics.Ros.MessageParser/RosMessageParser.g4) defines these tree node types.
+The [grammar](RobSharper.Ros.MessageParser/RosMessageParser.g4) defines these tree node types.
 
 
 ## Contributing
@@ -160,7 +160,7 @@ If you are not familiar with ANTLR there is a good tutorial from Gabriele Tomase
 
 ### Testing the project
 
-XUnit tests can be found in Joanneum.Robotics.Ros.MessageParser.Tests project. This project references [coverlet](https://github.com/tonerdo/coverlet) for collecting code coverage information and [ReportGenerator](https://github.com/danielpalme/ReportGenerator) to transform the coverage report to readable HTML. 
+XUnit tests can be found in RobSharper.Ros.MessageParser.Tests project. This project references [coverlet](https://github.com/tonerdo/coverlet) for collecting code coverage information and [ReportGenerator](https://github.com/danielpalme/ReportGenerator) to transform the coverage report to readable HTML. 
 The reports are part of the CI test stage artifacts.
 
 To collect coverage information on your machine use the command `dotnet test /p:CollectCoverage=true /p:Exclude="[xunit*]*" /p:CoverletOutputFormat=opencover`.
