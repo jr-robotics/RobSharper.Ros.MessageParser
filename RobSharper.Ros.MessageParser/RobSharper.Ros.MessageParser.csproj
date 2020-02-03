@@ -10,15 +10,16 @@
         <Description>ROS Message Parser allows you to parse ROS message/service/action files.</Description>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/jr-robotics/ros-message-parser-net</RepositoryUrl>
+        <NoWarn>3021</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Antlr4.Runtime.Standard" Version="4.7.2" />
+      <PackageReference Include="Antlr4.Runtime.Standard" Version="4.8.0" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="AntlrGeneratedCode" />
-      <Folder Include="AntlrGeneratedCode\Joanneum\Robotics\Ros\MessageParser\Antlr" />
+      <Folder Include="AntlrGeneratedCode\RobSharper\Ros\MessageParser\Antlr" />
     </ItemGroup>
 
 </Project>
