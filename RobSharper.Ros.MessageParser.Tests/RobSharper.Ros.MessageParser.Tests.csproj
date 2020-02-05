@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+
+        <IsPackable>false</IsPackable>
+
+        <Copyright>JOANNEUM RESEARCH Forschungsgesellschaft mbH</Copyright>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="coverlet.msbuild" Version="2.8.0" />
+        <PackageReference Include="JUnitTestLogger" Version="1.1.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+        <PackageReference Include="Moq" Version="4.13.1" />
+        <PackageReference Include="ReportGenerator" Version="4.4.6" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RobSharper.Ros.MessageParser.Examples\RobSharper.Ros.MessageParser.Examples.csproj" />
+      <ProjectReference Include="..\RobSharper.Ros.MessageParser\RobSharper.Ros.MessageParser.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="TestMessages\**\*">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+</Project>

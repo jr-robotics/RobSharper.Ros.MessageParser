@@ -16,15 +16,15 @@ build:
 test:
   stage: test
   script:
-    - "dotnet test --logger \"junit\" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=\"$PWD/coverage/\" /p:Exclude=\"[xunit*]*%2C[Joanneum.Robotics.Ros.MessageParser.Examples]*%2C[Joanneum.Robotics.Ros.MessageParser.Tests]*\" /p:ExcludeByAttribute=\"GeneratedCodeAttribute%2CObsolete%2CCompilerGeneratedAttribute\""
+    - "dotnet test --logger \"junit\" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=\"$PWD/coverage/\" /p:Exclude=\"[xunit*]*%2C[RobSharper.Ros.MessageParser.Examples]*%2C[RobSharper.Ros.MessageParser.Tests]*\" /p:ExcludeByAttribute=\"GeneratedCodeAttribute%2CObsolete%2CCompilerGeneratedAttribute\""
     - 'dotnet $(find ~/.nuget/packages/reportgenerator -name ReportGenerator.dll | head -n1) -reports:coverage/coverage.opencover.xml -targetdir:coverage/report -verbosity:Warning -reporttypes:Html'
   coverage: '/Total\s+\|\s+(\d{0,2}\.\d{1,2}%)/'
   artifacts:
     paths:
       - 'coverage'
-      - 'Joanneum.Robotics.Ros.MessageParser.Tests/TestResults/TestResults.xml'
+      - 'RobSharper.Ros.MessageParser.Tests/TestResults/TestResults.xml'
     reports:
-      junit: 'Joanneum.Robotics.Ros.MessageParser.Tests/TestResults/TestResults.xml'
+      junit: 'RobSharper.Ros.MessageParser.Tests/TestResults/TestResults.xml'
   tags:
     - docker-executor
 
@@ -40,12 +40,12 @@ nuget-pack:
   script:
     - 'export X_CI_VERSION=$(git describe | cut -c 2-)'
     - 'echo Publishing version $X_CI_VERSION'
-    - 'cd Joanneum.Robotics.Ros.MessageParser'
+    - 'cd RobSharper.Ros.MessageParser'
     - 'dotnet pack -c Release -o ../nuget/ /p:Version=$X_CI_VERSION'
   artifacts:
     paths:
       - 'nuget'
-      - 'Joanneum.Robotics.Ros.MessageParser/bin/Release/'
+      - 'RobSharper.Ros.MessageParser/bin/Release/'
   tags:
     - docker-executor
 
