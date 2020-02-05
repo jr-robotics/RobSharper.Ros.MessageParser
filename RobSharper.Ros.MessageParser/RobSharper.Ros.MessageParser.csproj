@@ -9,7 +9,7 @@
         <PackageTags>ROS</PackageTags>
         <Description>ROS Message Parser allows you to parse ROS message/service/action files.</Description>
         <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/jr-robotics/ros-message-parser-net</RepositoryUrl>
+        <RepositoryUrl>https://github.com/jr-robotics/RobSharper.Ros.MessageParser.git</RepositoryUrl>
         <NoWarn>3021</NoWarn>
     </PropertyGroup>
 
