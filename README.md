@@ -1,5 +1,5 @@
 # ROS Message Parser for .NET
-> Hanlde ROS message files with ease
+> Handle ROS message files with ease
 
 ROS Message Parser allows you to parse ROS message/service/action files.
 
