@@ -240,10 +240,10 @@ namespace RobSharper.Ros.MessageParser
         public override object VisitRos_action_input(RosMessageParser.Ros_action_inputContext context)
         {
             var goal = (MessageDescriptor) Visit(context.GetChild(0));
-            var feedback = (MessageDescriptor) Visit(context.GetChild(2));
-            var result = (MessageDescriptor) Visit(context.GetChild(4));
+            var result = (MessageDescriptor) Visit(context.GetChild(2));
+            var feedback = (MessageDescriptor) Visit(context.GetChild(4));
 
-            var actionDescriptor = new ActionDescriptor(goal, feedback, result);
+            var actionDescriptor = new ActionDescriptor(goal, result, feedback);
             _listener.OnVisitRosAction(actionDescriptor);
 
             return actionDescriptor;
