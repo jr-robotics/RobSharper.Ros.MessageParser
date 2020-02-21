@@ -1,3 +1,4 @@
+using System.Linq;
 using RobSharper.Ros.MessageParser;
 using RobSharper.Ros.MessageParser.Tests.Helpers;
 using Xunit;
@@ -32,6 +33,39 @@ namespace RobSharper.Ros.MessageParser.Tests
             var actual = parser.Parse();
             
             Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void Goal_result_and_feedback_messages_are_parsed()
+        {
+            var followJointTrajectoryAction = TestMessageHelper.GetActionFile("control_msgs", "FollowJointTrajectory");
+            
+            var parser = new ActionParser(followJointTrajectoryAction.Content.Value);
+            var actual = parser.Parse();
+            
+            Assert.NotNull(actual);
+
+            var goalMessage = actual.Goal;
+            goalMessage.AssertThat().FieldNameExists("trajectory");
+            goalMessage.AssertThat().FieldNameExists("path_tolerance");
+            goalMessage.AssertThat().FieldNameExists("goal_tolerance");
+            goalMessage.AssertThat().FieldNameExists("goal_time_tolerance");
+
+            var resultMessage = actual.Result;
+            resultMessage.AssertThat().FieldNameExists("error_code");
+            resultMessage.AssertThat().FieldNameExists("error_string");
+            resultMessage.AssertThat().ConstantNameExists("SUCCESSFUL");
+            resultMessage.AssertThat().ConstantNameExists("INVALID_GOAL");
+            resultMessage.AssertThat().ConstantNameExists("INVALID_JOINTS");
+            resultMessage.AssertThat().ConstantNameExists("OLD_HEADER_TIMESTAMP");
+            resultMessage.AssertThat().ConstantNameExists("PATH_TOLERANCE_VIOLATED");
+            resultMessage.AssertThat().ConstantNameExists("GOAL_TOLERANCE_VIOLATED");
+
+            var feedbackMessage = actual.Feedback;
+            feedbackMessage.AssertThat().FieldNameExists("joint_names");
+            feedbackMessage.AssertThat().FieldNameExists("desired");
+            feedbackMessage.AssertThat().FieldNameExists("actual");
+            feedbackMessage.AssertThat().FieldNameExists("error");
         }
     }
 }
